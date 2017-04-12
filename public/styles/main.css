@@ -1,0 +1,126 @@
+/* CURRENTLY IN: styles/main.css */
+body {
+	background-attachment: fixed;
+	background-image: url(https://stephencastleberry.files.wordpress.com/2016/05/instagram-background.jpg);
+	background-position: center center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	font-size: 16px;
+	font-weight: 400;
+    font-family: 'Ubuntu', sans-serif;
+    padding-top: 50px;
+}
+/*test */
+.block {
+	height: 200px;
+	background-color: black;
+	border: 3px dotted white;
+}
+
+.container {
+	opacity: 0.75;
+	height: 100vh;
+	padding-top: 50px;	
+}
+
+#postapp .post-col {
+	text-align: center;
+}
+
+#postapp .post-spinner {
+	animation: spinner 2.0s linear infinite;
+}
+
+#postapp .postlist-item {
+	font-weight: bold;
+	text-align: left;
+}
+
+#postapp .postlist-icon {
+	float: right;
+	font-size: 20px;
+	margin: 0 0.25rem;
+}
+
+#postapp .post-addbtn {
+	cursor: pointer;
+}
+
+#postapp .glyphicon-pencil:hover, .input-text:hover {
+	color: #337ab7;
+}
+
+#postapp .glyphicon-trash:hover {
+	color: red;
+}
+
+/*.input-text {
+	background-color: transparent;
+	border: 0px solid white;
+	width: 80%;
+}*/
+
+@keyframes spinner {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.input-title, .input-tags {
+	width: 100%;
+}
+
+.blog-title, .js-grab-title {
+	color: #602C00;
+	font-size: 20px;
+	font-weight: 900;
+	width: 80%;
+}
+
+.blog-body {
+	font-weight: 400;
+	min-height: 100%;
+	padding: 15px;
+}
+
+textarea {
+	width: 100%;
+	min-height: 100%;
+	resize: none;
+}
+
+.created {
+	font-weight: 400;
+}
+
+.index-body {
+	background-color: transparent;
+	border: 0px solid white;
+}
+
+.js-blog-item {
+	padding: 15px;
+}
+
+.comments {
+	background-color: transparent;
+	border: 0px solid white;
+	width: 100%;
+}
+
+button, .btn {
+	margin-top: 25px;
+}
+
+.i-logo {
+	height: 75px;
+	
+}
+
+.input-text {
+	margin: 10px 0px;
+	min-width: 450px;
+}
