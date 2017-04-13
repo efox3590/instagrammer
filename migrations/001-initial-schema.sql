@@ -13,8 +13,15 @@ CREATE TABLE Follows(
 	follow_id INTEGER
 );
 
+-- this might need some tweaking
+CREATE TABLE Activity(
+	user_id INTEGER NOT NULL,
+	activity_id INTEGER NOT NULL,
+	activity_payload TEXT NOT NULL
+);
 
 -- DOWN
 
 DROP TABLE Users;
 DROP TABLE Follows;	
+DROP TABLE Activity;
