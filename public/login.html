@@ -54,26 +54,32 @@
 				<img src="http://pngimg.com/uploads/instagram/instagram_PNG17.png" class="i-logo">
 			</h1>
 			<p>Login to your account</p>
-			<div class="row">
-			  <div class="col-lg-6">
-			    <div class="input-group">
-			      <input type="email" class="form-control input-text js-log-email" placeholder="Email Address">
-			    </div><!-- /input-group -->
-			  </div><!-- /.col-lg-6 -->
-			</div><!-- /.row -->
-			<div class="row">
-			  <div class="col-lg-6">
-			    <div class="input-group">
-			      <input type="password" class="form-control input-text js-log-pw" placeholder="Password">
-			    </div><!-- /input-group -->
-			  </div><!-- /.col-lg-6 -->
-			</div><!-- /.row -->
+			<form class="form-horizontal">
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">Email</label>
+			    <div class="col-sm-6">
+			      <input type="email" class="form-control js-login-email" placeholder="Email">
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <label class="col-sm-2 control-label">Password</label>
+			    <div class="col-sm-6">
+			      <input type="password" class="form-control js-login-pw" placeholder="Password">
+			    </div>
+			  </div>
+			  
+			  <h4 class="js-login-message"></h4>
 
-			<button class="btn btn-primary btn-sm js-log-btn" href="feed.html">Login</button> 
+			  <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <button type="submit" class="btn btn-primary">Login</button>
+			    </div>
+			  </div>
+			</form>
 		</div> <!-- jumbotron -->
 			
 	</div><!-- container -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-    <script src='javascript/main.js'></script>
+    <script src='js/main.js'></script>
 </body>
 </html>
