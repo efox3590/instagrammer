@@ -1,5 +1,5 @@
 # instagrammer : an instragram clone for NYCDA group project
-This is a group effort led by @efox3590, @mariorangel10, and @chickenricer, students of NYCDA. We are implementing an IG clone with SQLite, Express, and a simple CSS Frontend Framework.
+This is a group effort led by [@efox3590](https://github.com/efox3590), [@mariorangel10](https://github.com/mariorangel10), and [@chickenricer](https://github.com/chickenricer), students of NYCDA. We are implementing an IG clone with SQLite, Express, and a simple CSS Frontend Framework.
 
 # Contributors:
 + Emily Fox [(@efox3590)](https://github.com/efox3590) - SQLite DB
