@@ -18,11 +18,11 @@ const SocketInst = socket(DB_NAME, app);
 app = SocketInst.app;
 // end sqliteui stuff
 
-app.get('/employees', (req, res, next) => {
-    db.all('SELECT * FROM employee')
+app.get('/users', (req, res, next) => {
+    db.all('SELECT * FROM user')
         .then((data) => {
             res.header('Content-Type', 'application/json');
-            res.send({ employees: data });
+            res.send({ users: data });
         })
         .catch((e) => {
             res.status(401);
@@ -39,26 +39,82 @@ app.use((req, res, next) => {
     next();
 })
 
-app.post('/employee', (req, res, next) => {
-    db.all('SELECT * FROM employee')
+app.post('/user', (req, res, next) => {
+    db.all('SELECT * FROM user')
         .then(() => {
-            return db.run("INSERT INTO employee (name) values ($name)", req.body)
+            return db.run("INSERT INTO user (first_name, last_name, email, password) values ($first_name, $last_name, $email, $password)", req.body)
         })
-        .then((employee) => {
+        .then((user) => {
 
             // *SUPER IMPORTANT* always broadcast to update the UI
             SocketInst.broadcast('LOAD_BUFFER');
             // END 
 
-            return db.get('SELECT * FROM employee WHERE employee.id = ?', [employee.lastID])
+            return db.get('SELECT * FROM user WHERE user.id = ?', [user.lastID])
         })
         .then((data) => {
             res.header('Content-Type', 'application/json');
-            res.send({ employee: data });
+            res.send({ user: data });
         })
         .catch((e) => {
             res.status(401);
         });
+});
+
+app.get('/followers/:followers_id/users', (req, res) => {
+    const {followers_id} = req.params;
+    db.all(`
+SELECT
+    d.id as id,
+    d.follow_id as follow_id,
+
+    e.first_name as user_first_name,
+    e.id as user_id,
+    e.last_name as user_last_name,
+    e.email as user_email,
+    e.password as user_password,
+    e.profile_pic as user_profile_pic
+
+FROM  followers as d 
+INNER JOIN activity as ed on d.id = ed.activity_id
+INNER JOIN user as e on e.id = ed.user_id
+WHERE d.id = ${followers_id}
+    `).then((data) => {
+        res.header('Content-Type', 'application/json');
+        res.send({
+            users: data,
+            numResults: data.length
+        });
+    })
+    
+});
+
+app.get('/user/:user_id/follower', (req, res) => {
+    const {user_id} = req.params;
+    db.all(`
+SELECT
+    d.id as id,
+    d.follow_id as follow_id,
+
+    e.first_name as user_first_name,
+    e.id as user_id,
+    e.last_name as user_last_name,
+    e.email as user_email,
+    e.password as user_password,
+    e.profile_pic as user_profile_pic
+
+FROM  followers as d 
+INNER JOIN activity as ed on d.id = ed.activity_id
+INNER JOIN user as e on e.id = ed.user_id
+WHERE e.id = ${user_id}
+    `).then((data) => {
+        res.header('Content-Type', 'application/json');
+        res.send({
+            users: data,
+            numResults: data.length
+        });
+    })
+    
 });
 
 Promise.resolve()
