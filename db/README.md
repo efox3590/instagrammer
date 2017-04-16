@@ -9,13 +9,12 @@ CREATE TABLE user(
 	profile_pic TEXT
 );
 ```
-
+```
 CREATE TABLE followers(
 	id INTEGER NOT NULL,
 	follow_id INTEGER NOT NULL
 );
 ```
-
 ```
 CREATE TABLE activity(
 	id INTEGER NOT NULL,
