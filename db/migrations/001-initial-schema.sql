@@ -5,13 +5,13 @@ CREATE TABLE user(
 	first_name TEXT NOT NULL,
 	last_name TEXT NOT NULL,
 	email TEXT NOT NULL,
-	password TEXT NOT NULL
-	-- profile_pic TEXT
+	password TEXT NOT NULL,
+	profile_pic TEXT
 );
 
 CREATE TABLE followers(
-	id INTEGER,
-	follow_id INTEGER 
+	id INTEGER NOT NULL,
+	follow_id INTEGER NOT NULL
 );
 
 CREATE TABLE activity(
@@ -37,6 +37,9 @@ INSERT into followers (id, follow_id) VALUES (5, 2);
 
 INSERT into activity (id, activity_id) VALUES (1, 3);
 INSERT into activity (id, activity_id) VALUES (2, 4);
+INSERT into activity (id, activity_id) VALUES (3, 6);
+INSERT into activity (id, activity_id) VALUES (4, 7);
+INSERT into activity (id, activity_id) VALUES (5, 8);
 
 -- DOWN
 
