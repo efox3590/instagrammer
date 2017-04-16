@@ -72,13 +72,13 @@ SELECT
     e.id as user_id,
     e.last_name as user_last_name,
     e.email as user_email,
-    e.password as user_password,
+    e.password as user_password
    
 
 FROM  followers as d 
 INNER JOIN activity as ed on d.id = ed.activity_id
 INNER JOIN user as e on e.id = ed.id
-WHERE d.id = ${followers_id}
+WHERE d.follow_id = ${followers_id}
     `).then((data) => {
         res.header('Content-Type', 'application/json');
         res.send({
@@ -100,13 +100,41 @@ SELECT
     e.id as user_id,
     e.last_name as user_last_name,
     e.email as user_email,
-    e.password as user_password,
+    e.password as user_password
    
 
 FROM  followers as d 
 INNER JOIN activity as ed on d.id = ed.activity_id
 INNER JOIN user as e on e.id = ed.id
 WHERE e.id = ${user_id}
+    `).then((data) => {
+        res.header('Content-Type', 'application/json');
+        res.send({
+            users: data,
+            numResults: data.length
+        });
+    })
+    
+});
+
+app.get('/activity/:activity_id/activities', (req, res) => {
+    const {activity_id} = req.params;
+    db.all(`
+SELECT
+    d.id as id,
+    d.follow_id as follow_id,
+
+    e.first_name as user_first_name,
+    e.id as user_id,
+    e.last_name as user_last_name,
+    e.email as user_email,
+    e.password as user_password
+   
+
+FROM  followers as d 
+INNER JOIN activity as ed on d.id = ed.activity_id
+INNER JOIN user as e on e.id = ed.id
+WHERE ed.activity_id = ${activity_id}
     `).then((data) => {
         res.header('Content-Type', 'application/json');
         res.send({
