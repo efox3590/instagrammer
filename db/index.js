@@ -73,11 +73,11 @@ SELECT
     e.last_name as user_last_name,
     e.email as user_email,
     e.password as user_password,
-    e.profile_pic as user_profile_pic
+   
 
 FROM  followers as d 
 INNER JOIN activity as ed on d.id = ed.activity_id
-INNER JOIN user as e on e.id = ed.user_id
+INNER JOIN user as e on e.id = ed.id
 WHERE d.id = ${followers_id}
     `).then((data) => {
         res.header('Content-Type', 'application/json');
@@ -101,11 +101,11 @@ SELECT
     e.last_name as user_last_name,
     e.email as user_email,
     e.password as user_password,
-    e.profile_pic as user_profile_pic
+   
 
 FROM  followers as d 
 INNER JOIN activity as ed on d.id = ed.activity_id
-INNER JOIN user as e on e.id = ed.user_id
+INNER JOIN user as e on e.id = ed.id
 WHERE e.id = ${user_id}
     `).then((data) => {
         res.header('Content-Type', 'application/json');
