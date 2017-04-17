@@ -57,12 +57,37 @@ app.post('/user', (req, res, next) => {
             res.send({ user: data });
         })
         .catch((e) => {
+            console.log(e);
             res.status(401);
         });
 });
 
+// app.post('/activity', (req, res, next) => {
+//     db.all('SELECT * FROM activity')
+//         .then(() => {
+//             return db.run("INSERT INTO activity (id, activity_id) values ($id, $activity_id)", req.body)
+//         })
+//         .then((user) => {
+
+//             // *SUPER IMPORTANT* always broadcast to update the UI
+//             SocketInst.broadcast('LOAD_BUFFER');
+//             // END 
+
+//             return db.get('SELECT * FROM activity WHERE activity.id = ?', [activity.lastID])
+//         })
+//         .then((data) => {
+//             res.header('Content-Type', 'application/json');
+//             res.send({ activity: data });
+//         })
+//         .catch((e) => {
+//             console.log(e);
+//             res.status(401);
+//         });
+// });
+
 app.get('/followers/:followers_id/users', (req, res) => {
     const {followers_id} = req.params;
+   
     db.all(`
 SELECT
     d.id as id,
@@ -147,7 +172,7 @@ WHERE ed.activity_id = ${activity_id}
 
 Promise.resolve()
     .then(() => db.open(DB_NAME, { Promise }))
-    .then(() => db.migrate({ force: 'last' }))
+    // .then(() => db.migrate({ force: 'last' }))
     .then(() => app.listen(port))
     .then(() => {
         console.log(`Server started on port ${port}`)
