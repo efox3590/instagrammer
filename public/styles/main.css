@@ -112,7 +112,7 @@ textarea {
 }
 
 button, .btn {
-	margin-top: 25px;
+	/*margin-top: 25px;*/
 }
 
 .i-logo {
@@ -121,6 +121,46 @@ button, .btn {
 }
 
 .input-text {
-	margin: 10px 0px;
-	min-width: 450px;
+	/*margin: 10px 0px;*/
+	min-width: 500px;
 }
+
+.item-image {
+	padding: 10px 25px;
+}
+
+figcaption {
+	font-size: 1.5rem;
+}
+
+.likes {
+	font-size: 1.5pxrem;
+	padding-left: 25px;
+	text-align: left;
+}
+
+#postapp .js-comment-input {
+	display: inline-block;
+	width: 85%;
+}
+
+.js-comment-btn {
+	display: inline-block;
+	/*margin-top:10px;*/
+}
+
+.comment-item {
+	text-align: left;
+	padding: 5px 0px 5px 30px;
+	font-size: 1.5rem;
+}
+
+.list-group-item {
+	padding: 10px 0px;
+	/*min-height: 650px;*/
+}
+
+.time {
+	text-align: right;
+}
+
