@@ -17,7 +17,9 @@ CREATE TABLE followers(
 CREATE TABLE activity(
 	id INTEGER NOT NULL,
 	activity_id INTEGER NOT NULL,
-	activity_payload TEXT
+	activity_payload TEXT,
+	image_url TEXT,
+	descr TEXT
 );
 
 -- activity_type_id - something for future proofing your app; if you wanted to display more than just posts (ie: likes, checkins).
