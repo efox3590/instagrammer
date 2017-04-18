@@ -149,6 +149,9 @@
 			const img_url = postItem.data.img_url;
 			const caption = postItem.data.caption;
 			const timeStamp = moment(postItem.data.when).format('dddd, MMMM DD, YYYY h:mm a');
+			// not quite sure what the data looks like when it comes back
+			// need to discus with team
+			
 			// const comm_id = 
 			// const comm_comment = 
 		    li.innerHTML = `
