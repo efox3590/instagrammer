@@ -10,8 +10,36 @@ body {
     font-family: 'Ubuntu', sans-serif;
     padding-top: 50px;
 }
-/*test */
-.block {
+
+#app .container {
+	opacity: 0.75;
+}
+
+.i-logo {
+	width: 75px;
+}
+
+.tron {
+	font-weight: 700;
+}
+
+h1.tron {
+	font-size: 40px;
+}
+
+h2.tron {
+	font-size: 30px;
+}
+
+h3.tron {
+	font-size: 20px;
+}
+
+#app .card {
+	width: 50%;
+}
+
+/*.block {
 	height: 200px;
 	background-color: black;
 	border: 3px dotted white;
@@ -163,4 +191,4 @@ figcaption {
 .time {
 	text-align: right;
 }
-
+*/

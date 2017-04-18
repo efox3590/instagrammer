@@ -4,103 +4,82 @@
 	<meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Instagrammer</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
     <link rel='stylesheet' href='styles/reset.css'>
-    <!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">  
-
     <link rel='stylesheet' href='styles/main.css'>
 </head>
-<body id="postapp">
+<body id="app">
+	<!-- nav bar -->
+	<div class="ui top fixed inverted large menu">
+	  <div class="ui item">
+	  	Instagrammer
+	  </div>
+	  <!-- <a class="item">
+	    Messages
+	  </a> -->
+	  <div class="right menu">
+	    <a class="ui item">
+	      Login
+	    </a>
+	    <a class="ui item">
+	      Register
+	    </a>
+	  </div>
+	</div>
+	<!-- nav bar -->
 
-	<!-- NAV BAR -->
-	<nav class="navbar navbar-fixed-top navbar-inverse">
-	  <div class="container-fluid">
-	    <!-- Brand and toggle get grouped for better mobile display -->
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <a class="navbar-brand" href="/">Instagrammer</a>
-	    </div>
+	<!-- body -->
 
-	    <!-- Collect the nav links, forms, and other content for toggling -->
-	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	      <ul class="nav navbar-nav">
-	        <!-- <li><a href="#">About</a></li> -->
-	        <!-- <li><a href="#">Link</a></li> -->
-	      </ul>
-	    
-	      <ul class="nav navbar-nav navbar-right">
-	        <li><a href="login.html">Login</a></li>
-	        <!-- <li><a href="#">Register</a></li> -->
-	      </ul>
-	    </div><!-- /.navbar-collapse -->
-	  </div><!-- /.container-fluid -->
-	</nav>
-	<!-- nav -->
+	<div class="ui raised very padded text container segment">
+	  	<img src="https://instagram-brand.com/wp-content/themes/ig-branding/assets/images/ig-logo-email.png" class="i-logo">
+	  	<h1 class="tron">Instagrammer</h1>
+		
 
-	
-	<!-- BODY -->
-	<div class="container">
-		<div class="jumbotron">
-			<h1>Instagrammer
-				<!-- <img src="http://pngimg.com/uploads/instagram/instagram_PNG17.png" class="i-logo"> -->
-				<img src="https://instagram-brand.com/wp-content/themes/ig-branding/assets/images/ig-logo-email.png" class="i-logo">
-			</h1>
-			<p>Register for an account!</p>
+<p>Register for an account. Join the fun!</p>
 
-			<form class="form-horizontal">
-			  <div class="form-group">
-			    <label class="col-sm-2 control-label">First Name</label>
-			    <div class="col-sm-6">
-			      <input type="text" class="form-control js-reg-fname" placeholder="First Name">
-			    </div>
-			  </div>
-			   <div class="form-group">
-			    <label class="col-sm-2 control-label">Last Name</label>
-			    <div class="col-sm-6">
-			      <input type="text" class="form-control js-reg-lname" placeholder="Last Name">
-			    </div>
-			</div>
-			     <div class="form-group">
-			    <label class="col-sm-2 control-label">Email</label>
-			    <div class="col-sm-6">
-			      <input type="email" class="form-control js-reg-email" placeholder="Email">
-			    </div>
-			    </div>
-			     <div class="form-group">
-			    <label class="col-sm-2 control-label">Password</label>
-			    <div class="col-sm-6">
-			      <input type="password" class="form-control js-reg-pw1" placeholder="Password">
-			    </div>
-			    </div>
-			  <div class="form-group">
-			    <label class="col-sm-2 control-label">Verify Password</label>
-			    <div class="col-sm-6">
-			      <input type="password" class="form-control js-reg-pw2" placeholder="Verify Password">
-			    </div>
-			  </div>
-			  
-			  <h4 class="js-reg-message"></h4>
+<form class="ui form">
+  <div class="field">
+    <label>Name</label>
+    <div class="two fields">
+      <div class="field">
+        <input name="register[first-name]" placeholder="First Name" type="text" class="js-reg-fname">
+      </div>
+      <div class="field">
+        <input name="register[last-name]" placeholder="Last Name" type="text" class="js-reg-lname">
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label>Email Address</label>
+    <div class="field">
+      <div class="sixteen wide field">
+        <input name="register[email]" placeholder="Email Address" type="email" class="js-reg-email">
+      </div>
+  	</div>
+  </div>
+<div class="field">
+    <label>Password</label>
+       <div class="two fields">
+      <div class="field">
+        <input name="register[pw1]" placeholder="Password" type="password" class="js-reg-pw1">
+      </div>
+      <div class="field">
+        <input name="register[pw2]" placeholder="Verify Password" type="password" class="js-reg-pw2">
+      </div>
+    </div>
+    </div>
+  </div>
+  <button class="ui button primary" type="submit">Submit</button>
+</form>
 
-			  <div class="form-group">
-			    <div class="col-sm-offset-2 col-sm-10">
-			      <button type="submit" class="btn btn-primary js-reg-btn">Register</button>
-			    </div>
-			  </div>
-			</form>
 
-		</div> <!-- jumbotron -->
-			
-	</div><!-- container -->
+
+	</div>
+
+	<!-- body -->
+
+
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src='js/main.js'></script>
 </body>
