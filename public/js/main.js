@@ -198,6 +198,9 @@
 
 		} // render()
 
+		const comm = document.querySelector('.js-comment-input');
+		const comment = comm.value;
+
 
 	} // feed.html
 
