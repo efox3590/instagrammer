@@ -86,14 +86,16 @@
 				console.log('pw1 is :', pw1.value);
 				console.log('pw2 is :', pw2.value)
 				message.innerHTML = 'Passwords do not match.'
-				pw1.focus();
+				pw2.focus();
 			} 
 			else {	//can be deleted. just for testing
 				message.innerHTML = 'good job. passwords match'
-			}		//delete this silliness
-				
 			// route to add user to db
-			POST('/api/user', )
+			// POST('/api/user' )
+			
+
+			}		
+				
 
 		}) // event listener
 
@@ -108,9 +110,10 @@
 
 		btn.addEventListener('click', (e) => {
 
-		run passport authentication logic !!! 
+			console.log('need passport auth')
+		// run passport authentication logic !!! 
 
-		POST('/api/')
+		// POST('/api/')
 
 		})
 			
@@ -124,25 +127,10 @@
 			const container = document.querySelector('.js-feed');
 			container.innerHTML = '';
 			postItems = postItems.reverse();
-// how do we get back this array from sqlite?
 
 			// console.log('postItems :',postItems);
 			for (const postItem of postItems) {
-// need field in sql db to store time so entries can be sorted by time 
-// and time can be displayed on posts via moment.js
-
-
-				// const fullContent = `${postItem.data.post}`;
-				// let hour = `${postItem.data.hour}`
-			 //    const ampm = hour >= 12 ? 'PM' : 'AM';
-			 //    hour = hour % 12;
-			 //    let minute = `${postItem.data.minute}`;
-			 //    minute = parseInt(minute, 10) > 10 ? minute : "0".concat(minute);
-			 //    let second = `${postItem.data.second}`;
-			 //    second = parseInt(second, 10) > 10 ? second : "0".concat(second);
-
-			 //    const timeStamp = `${postItem.data.month + 1}/${postItem.data.day}/${postItem.data.year}
-		  //     ${hour}:${minute}:${second} ${ampm} `;
+// 
 		    const div = document.createElement('div');
 			div.classList.add('ui', 'centered', 'card', `js-blog-item-${postItem.id}`);
 	// need ${vars} for: image url, caption, commenter_id, commenter_comment
@@ -154,7 +142,7 @@
 
 			// const comm_id = 
 			// const comm_comment = 
-		    li.innerHTML = `
+		    div.innerHTML = `
 	  <div class="image">
 	    // <img src="../assets/puppy.jpg">
 	    <img src=${img_url}>
@@ -204,7 +192,7 @@
 
 		} // render()
 
-		const comm = document.querySelector('.js-comment-input');
+		const comm = document.querySelector('.js-comm-input');
 		const comment = comm.value;
 
 
