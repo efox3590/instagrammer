@@ -12,9 +12,9 @@
 <body id="app">
 	<!-- nav bar -->
 	<div class="ui top fixed inverted large menu">
-	  <div class="ui item">
+	  <a class="ui item" href="/">
 	  	Instagrammer
-	  </div>
+	  </a>
 	  <!-- <a class="item">
 	    Messages
 	  </a> -->
@@ -49,6 +49,7 @@
 	<div class="ui two column centered grid">
 	  <div class="column">
  -->
+ <div class="js-feed">
   	<div class="ui centered card">
 
 	  <div class="image">
@@ -66,8 +67,8 @@
 	    <div class="meta">${TimeStamp}</div>
 	    <a>
 	      <i class="heart icon"></i>
-	      0 Likes
 	    </a>
+	      0 Likes
 	    <div class="comments">
 		   <p><strong>Bob: </strong>What a great puppy.</p>
 	    </div>
@@ -78,20 +79,17 @@
 	  	<form class="ui form">
 		  <div class="field">
 		    <label>Leave a Comment</label>
-		      <div class="field">
-		        <input name="feed[comment]" placeholder="Leave a Comment" type="text" class="js-feed-comment">
-		      </div>
+		      <div class="field ui fluid action input">
+				  <input placeholder="Search..." type="text" class="js-comm-input">
+				  <div class="ui button primary js-comm-btn">Submit</div>
+			  </div>
+
 			</div>
 		</form>
 
-	  <!-- </div>  -->
-	  <!-- column -->
-	<!-- </div>  -->
-	<!-- grid --> 
-<!-- </div> -->
-
 
 	</div>
+</div>
 
 	<!-- body -->
 

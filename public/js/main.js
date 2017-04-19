@@ -121,7 +121,7 @@
 
 
 		function render(postItems) {
-			const container = document.querySelector('.js-postlist');
+			const container = document.querySelector('.js-feed');
 			container.innerHTML = '';
 			postItems = postItems.reverse();
 // how do we get back this array from sqlite?
@@ -143,49 +143,52 @@
 
 			 //    const timeStamp = `${postItem.data.month + 1}/${postItem.data.day}/${postItem.data.year}
 		  //     ${hour}:${minute}:${second} ${ampm} `;
-		    const li = document.createElement('li');
-			li.classList.add('list-group-item', 'postlist-item', `js-blog-item-${postItem.id}`);
+		    const div = document.createElement('div');
+			div.classList.add('ui', 'centered', 'card', `js-blog-item-${postItem.id}`);
 	// need ${vars} for: image url, caption, commenter_id, commenter_comment
 			const img_url = postItem.data.img_url;
 			const caption = postItem.data.caption;
 			const timeStamp = moment(postItem.data.when).format('dddd, MMMM DD, YYYY h:mm a');
 			// not quite sure what the data looks like when it comes back
 			// need to discus with team
-			
+
 			// const comm_id = 
 			// const comm_comment = 
 		    li.innerHTML = `
-<figure>
-	<div class="item-image">
-	// <img src="../assets/puppy.jpg" alt="Puppy" class="img-responsive">
-	<img src=`${img_url}` class="img-responsive">
+	  <div class="image">
+	    // <img src="../assets/puppy.jpg">
+	    <img src=${img_url}>
+	    
+	  </div>
+	  <div class="content">
+	    <div class="caption">
+	      // Bear wanted to walk in the water. So cute!
+	      ${caption}
+	    </div>
+	    <div class="meta">${TimeStamp}</div>
+	    <a>
+	      <i class="heart icon"></i>
+	    </a>
+	      0 Likes
+	    <div class="comments">
+		   // <p><strong>Bob: </strong>What a great puppy.</p>
+		   <p><strong>${some_user_id}: </strong>${comment}</p>
+	    </div>
+	  </div>
+	 <!--  <div class="extra content">
+	  </div> -->
+	  <div class="extra content">
+	  	<form class="ui form">
+		  <div class="field">
+		    <label>Leave a Comment</label>
+		      <div class="field">
+		        <input name="feed[comment]" placeholder="Leave a Comment" type="text" class="js-feed-comment">
+		      </div>
+			</div>
+		</form>
 
-	<figcaption>
-	// Bear was walking in the water! So cute!
-	$[caption}
-	</figcaption>
-	</div><!-- item image -->
-	<div class="likes">
-	<span class="glyphicon glyphicon-heart-empty"></span> Like
+
 	</div>
-</figure> 
-
-<section>
-	<article>
-		<ul class="comments-list">
-			<li class="comment-item">
-				// <p><strong>Bob Dylan:</strong> What a cute puppy! </p>
-				<p><strong>${comm_id}:</strong> ${comm_comment} </p>
-			</li>
-		</ul>
-		  <div class="col-lg-6">
-		    <div class="input-group">
-		      <input type="text" class="form-control input-text js-comment-input" placeholder="Add a Comment">
-		      <button class="js-comment-btn btn btn-primary">Add</button>
-		    </div><!-- /input-group -->
-		  </div><!-- /.col-lg-6 -->
-	</article>
-</section>
 		    `; // end li.innerHTML
 		    
 
