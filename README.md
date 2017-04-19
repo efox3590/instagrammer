@@ -23,26 +23,26 @@ $ npm start
 
 # DB Schemas
 ## Tables:
-### User
+### user
 * ID
 * email
 * first_name
 * last_name
 * profile_pic
 
-### Followers
+### follower
 * user_id
 * follower_id
 
-### Activity 
+### activity 
 * user_id
 * activity_id
 * activity_payload
+* image_url
+* descr
   
 # API Routes/ Passport Auth
 * app.get('/api/users/:id/posts')
 
 # FE framework
-* Bootstrap
-
-LOL HI, also hello
+* Semantic UI
