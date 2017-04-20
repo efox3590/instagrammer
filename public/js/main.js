@@ -135,6 +135,8 @@
 			postItems = postItems.reverse();
 
 			// console.log('postItems :',postItems);
+// more likely for (const user of users) {
+// replace( (postItem: user), (postItems: users) )
 			for (const postItem of postItems) {
 // 
 		    const div = document.createElement('div');
@@ -206,20 +208,44 @@
 
 
 	if (location.pathname === '/admin.html') {
-		const caption = document.querySelector('.js-adm-caption');
-		const btn = document.querySelector('.js-adm-btn');
 
-		btn.addEventListener('click', (e) => {
+// add new post
+		const caption = document.querySelector('.js-adm-caption');
+		const addbtn = document.querySelector('.js-adm-btn');
+
+		addbtn.addEventListener('click', (e) => {
 			e.preventDefault();
 
 			// add post to activity feed for user
 			instaApp.createPost(user_id); // or something
 		});
 
+// add comment
+		const comm_input = document.querySelector('.js-adm-comment');
+
+		comm_input.addEventListener('keydown', (e) => {
+			const {value} = comm_input;
+			if (e.keyCode === 13) {
+				validateSearch(value)
+				.then((data) => {
+					PUT('/api/ comment route') // needs add comm route	
+					.then((data) => {
+						render(data);
+					})
+					.catch((e) => {
+						alert(e)
+					})
+				})
+
+
+			} // keycode
+		}); // comm_input eventListener // add comment
+
 // need to be targeted with post id or something.
 // otherwise only grabs first icon in thread.
-		const heart = document.querySelector('.js-heart');
 
+// toggle heart for likes
+		const heart = document.querySelector('.js-heart');
 		heart.addEventListener('click', (e) => {
 			e.preventDefault();
 			// heart.classList.add('red', 'js-red-heart');
@@ -238,8 +264,16 @@
 	// 	const message = document.querySelector('.js-login-message');
 	// 	message.innerHTML = date;
 	// };
-
 	
+// check for empty string
+	const validateSearch = (value) => {
+        return new Promise((resolve, reject) => {
+            if (value.trim() === "") {
+                reject('Input a value');
+            }
+            resolve(value);
+        });
+    }; // validateSearch -- prevents submitting empty post
 
 
 })();

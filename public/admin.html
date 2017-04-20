@@ -6,6 +6,7 @@
     <title>Instagrammer</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
     <link rel='stylesheet' href='styles/reset.css'>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon"/>
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">  
     <link rel='stylesheet' href='styles/main.css'>
 </head>
@@ -48,37 +49,37 @@
 	<div class="feed js-feed">
 <!-- 1 -->
 	  	<div class="ui centered card">
+		  <div class="content">
+		    <div class="right floated meta">14h${TimeStamp}</div>
+		    <img class="ui avatar image" src="../assets/puppy.jpg"> Babs
+		  </div>
 		  <div class="image">
 		    <img src="../assets/puppy.jpg">
 		  </div>
 		  <div class="content">
-		    <div class="caption">
+		  	<div class="caption">
 		      Bear wanted to walk in the water. So cute!
 		    </div>
-		    <div class="meta">${TimeStamp}</div>
-		    <a>
+		    <span class="right floated">
 		      <i class="heart outline red icon js-heart"></i>
-		    </a>
-		      <!-- 0 Likes -->
-		    <div class="comments">
-			   <p><strong>Bob: </strong>What a great puppy.</p>
-		    </div>
+		      <!-- 17 likes -->
+		    </span>
+		    <!-- <i class="comment icon"></i>
+		    3 comments -->
 		  </div>
 		  <div class="extra content">
-		  	<form class="ui form">
-			  <div class="field">
-			      <div class="field ui small fluid action input">
-			        <input name="feed[comment]" placeholder="Leave a Comment" type="text" class="js-admin-comment">
-			        <button class="ui button primary js-comm-btn">Submit</button>
-			      </div>
-			      <span class="mods">
-					<i class="edit icon"></i>
-				    <i class="trash outline icon"></i>
-				  </span>
-				</div>
-			</form>
-		   </div> <!-- extra content --> 
-		</div> <!-- card --> 
+		    <div class="ui large transparent left icon input">
+		      <i class="comment icon"></i>
+		      <input placeholder="Add Comment..." type="text" class="js-adm-comment">
+		    </div>
+		      <div class="extra content">
+		      <span class="right floated mods">
+		      	<i class="edit icon"></i>
+			    <i class="trash outline icon"></i>
+			  </span>  
+			</div>
+		  </div>
+		</div>
 <!-- 2 -->
 		<div class="ui centered card">
 		  <div class="content">
@@ -96,13 +97,13 @@
 		      <i class="heart outline red icon js-heart"></i>
 		      <!-- 17 likes -->
 		    </span>
-		    <i class="comment icon"></i>
-		    3 comments
+		  <!--   <i class="comment icon"></i>
+		    3 comments -->
 		  </div>
 		  <div class="extra content">
 		    <div class="ui large transparent left icon input">
-		      <i class="write icon"></i>
-		      <input placeholder="Add Comment..." type="text" class="js-admin-comment">
+		      <i class="comment icon"></i>
+		      <input placeholder="Add Comment..." type="text" class="js-adm-comment">
 		    </div>
 		      <div class="extra content">
 		      <span class="right floated mods">
