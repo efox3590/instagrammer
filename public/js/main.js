@@ -85,8 +85,14 @@
 			if (pw1.value !== pw2.value) {
 				console.log('pw1 is :', pw1.value);
 				console.log('pw2 is :', pw2.value)
-				message.innerHTML = 'Passwords do not match.'
-				pw2.focus();
+				// message.innerHTML = 'Passwords do not match.'
+				message.innerHTML = `
+<div class="ui error message">
+	<div class="header">Passwords do not match!</div>
+</div> 
+<br>
+				`;
+				pw1.focus();
 			} 
 			else {	//can be deleted. just for testing
 				message.innerHTML = 'good job. passwords match'
@@ -199,6 +205,29 @@
 	} // feed.html
 
 
+	if (location.pathname === '/admin.html') {
+		const caption = document.querySelector('.js-adm-caption');
+		const btn = document.querySelector('.js-adm-btn');
+
+		btn.addEventListener('click', (e) => {
+			e.preventDefault();
+
+			// add post to activity feed for user
+			instaApp.createPost(user_id); // or something
+		});
+
+// need to be targeted with post id or something.
+// otherwise only grabs first icon in thread.
+		const heart = document.querySelector('.js-heart');
+
+		heart.addEventListener('click', (e) => {
+			e.preventDefault();
+			// heart.classList.add('red', 'js-red-heart');
+			// heart.classList.remove('outline', 'js-empty-heart');
+			heart.classList.toggle('outline');
+		});
+
+	} // admin.html
 
 	// using moment
 	// function getDate() {
