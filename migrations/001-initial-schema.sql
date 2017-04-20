@@ -19,7 +19,8 @@ CREATE TABLE activity(
 	activity_id INTEGER NOT NULL,
 	activity_payload TEXT,
 	image_url TEXT,
-	descr TEXT
+	descr TEXT,
+	activity_date DATE NOT NULL
 );
 
 -- activity_type_id - something for future proofing your app; if you wanted to display more than just posts (ie: likes, checkins).
