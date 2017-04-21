@@ -4,7 +4,7 @@ This is a group effort led by [@efox3590](https://github.com/efox3590), [@marior
 # Contributors:
 + Emily Fox [(@efox3590)](https://github.com/efox3590) - SQLite DB/ Passport Authentication
 + Mario Rangel [(@mariorangel10)](https://github.com/mariorangel10) - API Routes
-+ Linda Yu [(@chickenricer)](https://github.com/chickenricer) - Front End
++ Linda Yu [(@chickenricer)](https://github.com/chickenricer) - Front End/ Passport Authentication
 
 # Installation Instructions
 ### Clone Project
