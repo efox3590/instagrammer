@@ -2,8 +2,8 @@
 This is a group effort led by [@efox3590](https://github.com/efox3590), [@mariorangel10](https://github.com/mariorangel10), and [@chickenricer](https://github.com/chickenricer), students of NYCDA. We are implementing an IG clone with SQLite, Express, and a simple CSS Frontend Framework.
 
 # Contributors:
-+ Emily Fox [(@efox3590)](https://github.com/efox3590) - SQLite DB
-+ Mario Rangel [(@mariorangel10)](https://github.com/mariorangel10) - API Routes/ Passport Authentication
++ Emily Fox [(@efox3590)](https://github.com/efox3590) - SQLite DB/ Passport Authentication
++ Mario Rangel [(@mariorangel10)](https://github.com/mariorangel10) - API Routes
 + Linda Yu [(@chickenricer)](https://github.com/chickenricer) - Front End
 
 # Installation Instructions
