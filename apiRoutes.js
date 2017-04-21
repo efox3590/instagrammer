@@ -1,4 +1,5 @@
 const express = require('express');
+// const passport = require('./passport.js')
 
 // let app = express();
 
@@ -25,6 +26,19 @@ router.use(parser.json())
 // })
 
 let db;
+
+
+// LocalStrategry, Serielize, Deseriealize,  intiate, Session
+
+//local points to strategy, 
+//
+
+// router.post('./login', passport.authenticate('local'),(req, res)=>{
+
+
+
+// })
+
 
 // Get all users + their activity
 router.get('/users', (req, res, next) => {
