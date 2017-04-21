@@ -265,15 +265,5 @@
 	// 	message.innerHTML = date;
 	// };
 	
-// check for empty string
-	const validateSearch = (value) => {
-        return new Promise((resolve, reject) => {
-            if (value.trim() === "") {
-                reject('Input a value');
-            }
-            resolve(value);
-        });
-    }; // validateSearch -- prevents submitting empty post
-
 
 })();
