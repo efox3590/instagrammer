@@ -55,9 +55,9 @@ module.exports = function(app, db) {
     app.post('/auth/login', (request, response, next) => {
         passport.authenticate('local', (err, user, info) => {
             console.log('about to authenticate')
-            console.log(err, user, info)
+            console.log('err, user, info ---- ', err, user, info)
             if (err || !user) {
-                console.log(err);
+                console.log('err is :',err);
                next()
             }
             
@@ -67,20 +67,23 @@ module.exports = function(app, db) {
                 response.header('Content-Type', 'application/json');
                 response.send({
                     success: true,
+                    id: user.id, 
                 });
+
             });
         })(request, response, next);
     });
 
     app.use((request, response, next) => {
         console.log('in middleware')
-        console.log(request.user)
-        console.log(request.session)
-        console.log(request.isAuthenticated());
+        console.log('req.user :',request.user)
+        console.log('req.session :',request.session)
+        console.log('req,isAuth :',request.isAuthenticated());
 
         if (request.isAuthenticated()) {
+            console.log('before redirect line')
             next();
-            return;
+            return ;
         }
 
         response.header('Content-Type', 'application/json');
