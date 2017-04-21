@@ -1,111 +1,76 @@
-/*
- * pull in server
- */
-
-const express = require('express');
- 
-/*
- * pull in authorization requirements
- */
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
-/*
- * pull in middlewares
- */
-const expressSession = require('express-session');
-const parser = require('body-parser');
-
-/*
- * implementation
- */
-const app = express();
-
-/*
- *	implement middlewares
- */
-app.use(expressSession({
-    secret: 'C4T5',
-    resave: true,
-    saveUninitialized: true
-}));
-app.use(parser.json())
-
-/*
- * implement passport methods
- */
 passport.serializeUser((user, done) => {
-    done(null, user)
-});
-passport.deserializeUser((user, done) => {
-    done(null, user)
+    console.log('serializing user', user)
+    done(null, user.id)
 });
 
-/*
- *	passport strategies, middleware
- */
+passport.deserializeUser((user, done) => {
+    // db.all('SELECT id, username FROM users WHERE id = ?', id, function (err, row) {
+    // if (!row) return done(null, false);
+    // done(null, user)
+    // });
+    User.findById(user.id, function (err, user) {
+        done(err, user);
+    });
+});
+
+//at least checks the db for combo, returns username & id
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
 }, (email, password, done) => {
-    console.log('in localstrategy');
-    console.log(email, password);
     if (!email || !password) {
-        return done('f-ed up', {}, {});
-        // done(err, user, info)
+        return done('error', {}, {});
     }
 
-    console.log('ABOUT TO BE DONE');
-    return done(null, {user: 'Taq'});
+    // db.all(`SELECT users.email, users.id FROM users WHERE users.email = '${email}' AND users.password = '${password}'`,function(err,rows){
+    //     if (err)
+    //         return done(err);
+    //         if (!rows.length) {
+    //         return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+    //         } 
+
+    //         if (!( rows[0].password == password))
+    //         return done(null, false, req.flash('loginMessage', 'Wrong password.')); // create the loginMessage and save it to session as flashdata
+
+    //         // all is well, return successful user
+    //         return done(null, rows[0]);             
+    //     });
+
+    db.all(`SELECT user.first_name, user.email, user.id FROM user WHERE users=.email = '${email}' AND user.password = '${password}'`)
+        .then((row) => {
+            console.log(row)
+            if (!row || row.length === 0) return done(true, false);
+            return done(null, row);
+        })
 }));
 
-/*
- *	initialize passport
- */
 app.use(passport.initialize());
 app.use(passport.session());
 
-/*
- * login route
- */
 app.post('/auth/login', (request, response, next) => {
-	console.log('IN /auth/login');
-
     passport.authenticate('local', (err, user, info) => {
-    	console.log('IN passport.authenticate')
-        if (err) console.log(err);
-        if (!user) console.log(user);
-
+        console.log('about to authenticate')
+        console.log(err, user, info)
+        if (err || !user) {
+            console.log(err);
+           next()
+        }
+        
         request.logIn(user, (err) => {
-        	console.log('LOGGED IN')
+            console.log('now in req login', err)
             if (err) return next(err);
-            console.log('SESSION')
-            console.log(request.session)
-            // if we are here, user has logged in!
             response.header('Content-Type', 'application/json');
-
             response.send({
                 success: true,
             });
         });
     })(request, response, next);
-
 });
 
-
-
-app.use('/', express.static('./public'));
-
-app.get('/api/info', passport.authenticate('local'), (request, response) => {
-
-	response.header('Content-Type', 'application/json');
-	response.send({
-	    "message": "Hello, Wrold!",
-	    "success": true
-	});
-
-});
-
-app.listen(3003, () => {
-	console.log('LOL')
-});
+app.use((req, res) => {
+    res.header('Content-Type', 'application/json')
+    res.send({success: false})
+})
