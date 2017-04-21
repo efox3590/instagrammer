@@ -5,12 +5,24 @@ const app = express();
 
 const apiRoutes = require('./apiRoutes');
 
-const passport = require('./passport')
 
 const db = require('sqlite');
 const DB_NAME = './database.sqlite';
 
+const parser = require('body-parser');
+app.use(parser.json())
+
+const expressSession = require('express-session');
+app.use(expressSession({
+	secret: 'FOBAR'
+}));
+
 app.use('/', express.static('public'));
+
+const passport = require('./passport')(app, db);
+
+
+// eveything here is stuff that needs to be authenticated to be used
 app.use('/api', apiRoutes(db))
 
 
