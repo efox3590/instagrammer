@@ -2,7 +2,10 @@ const express = require('express');
 const moment = require('moment');
 const sqlite = require('sqlite');
 const app = express();
+
 const apiRoutes = require('./apiRoutes');
+
+const passport = require('./passport')
 
 const db = require('sqlite');
 const DB_NAME = './database.sqlite';
