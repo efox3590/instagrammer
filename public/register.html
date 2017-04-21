@@ -1,83 +1,84 @@
 <!doctype html>
 <html>
 <head>
-	<meta charset='utf-8'>
+	  <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Instagrammer</title>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
     <link rel='stylesheet' href='styles/reset.css'>
-	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">  
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon"/>
+	  <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">  
     <link rel='stylesheet' href='styles/main.css'>
 </head>
 <body id="app">
-	<!-- nav bar -->
-	<div class="ui top fixed inverted large menu">
-	  <a class="ui item" href="/">
-      Instagrammer
-    </a>
-	  <!-- <a class="item">
-	    Messages
-	  </a> -->
-	  <div class="right menu">
-	    <a class="ui item" href="/login.html">
-	      Login
-	    </a>
-	    <a class="ui item" href="/register.html">
-	      Register
-	    </a>
-	  </div>
-	</div>
-	<!-- nav bar -->
-
-	<!-- body -->
-
-	<div class="ui raised very padded text container segment">
-	  	<img src="https://instagram-brand.com/wp-content/themes/ig-branding/assets/images/ig-logo-email.png" class="i-logo">
-	  	<h1 class="tron">Instagrammer</h1>
-		
-
-<p>Register for an account. Join the fun!</p>
-
-<form class="ui form">
-  <div class="field">
-    <label>Name</label>
-    <div class="two fields">
-      <div class="field">
-        <input name="register[first-name]" placeholder="First Name" type="text" class="js-reg-fname">
-      </div>
-      <div class="field">
-        <input name="register[last-name]" placeholder="Last Name" type="text" class="js-reg-lname">
-      </div>
-    </div>
-  </div>
-  <div class="field">
-    <label>Email Address</label>
-    <div class="field">
-      <div class="sixteen wide field">
-        <input name="register[email]" placeholder="Email Address" type="email" class="js-reg-email">
-      </div>
+  	<!-- nav bar -->
+  	<div class="ui top fixed inverted large menu">
+  	  <a class="ui item" href="/">
+        Instagrammer
+      </a>
+  	  <!-- <a class="item">
+  	    Messages
+  	  </a> -->
+  	  <div class="right menu">
+  	    <a class="ui item" href="/login.html">
+  	      Login
+  	    </a>
+  	    <a class="ui item" href="/register.html">
+  	      Register
+  	    </a>
+  	  </div>
   	</div>
-  </div>
-<div class="field">
-    <label>Password</label>
-       <div class="two fields">
-      <div class="field">
-        <input name="register[pw1]" placeholder="Password" type="password" class="js-reg-pw1">
-      </div>
-      <div class="field">
-        <input name="register[pw2]" placeholder="Verify Password" type="password" class="js-reg-pw2">
+  	<!-- nav bar -->
+
+  	<!-- body -->
+
+  	<div class="ui raised very padded text container segment">
+  	  	<img src="https://instagram-brand.com/wp-content/themes/ig-branding/assets/images/ig-logo-email.png" class="i-logo">
+  	  	<h1 class="tron">Instagrammer</h1>
+  		
+
+  <p>Register for an account. Join the fun!</p>
+
+  <form class="ui form">
+    <div class="field">
+      <label>Name</label>
+      <div class="two fields">
+        <div class="field">
+          <input name="register[first-name]" placeholder="First Name" type="text" class="js-reg-fname">
+        </div>
+        <div class="field">
+          <input name="register[last-name]" placeholder="Last Name" type="text" class="js-reg-lname">
+        </div>
       </div>
     </div>
+    <div class="field">
+      <label>Email Address</label>
+      <div class="field">
+        <div class="sixteen wide field">
+          <input name="register[email]" placeholder="Email Address" type="email" class="js-reg-email">
+        </div>
+    	</div>
     </div>
-    <h3 class="js-reg-message"></h3><br>
-  <button class="ui button primary js-reg-btn" type="submit">Submit</button>
-</form>
+  <div class="field">
+      <label>Password</label>
+         <div class="two fields">
+        <div class="field">
+          <input name="register[pw1]" placeholder="Password" type="password" class="js-reg-pw1">
+        </div>
+        <div class="field">
+          <input name="register[pw2]" placeholder="Verify Password" type="password" class="js-reg-pw2">
+        </div>
+      </div>
+      </div>
+      <div class="ui form error js-reg-message"></div>
+    <button class="ui button primary js-reg-btn" type="submit">Submit</button>
+  </form>
 
 
 
-	</div>
+  	</div>
 
-	<!-- body -->
+  	<!-- body -->
 
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>

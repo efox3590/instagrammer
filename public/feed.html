@@ -4,8 +4,9 @@
 	<meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Instagrammer</title>
-    <link rel='stylesheet' href='styles/reset.css'>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <link rel='stylesheet' href='styles/reset.css'>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon"/>
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">  
     <link rel='stylesheet' href='styles/main.css'>
 </head>
@@ -35,8 +36,7 @@
 	<!-- body -->
 	 <div class="feed js-feed">
 	  	
-
-	  	<div class="ui centered card">
+		<div class="ui centered card">
 		  <div class="image">
 		    <img src="../assets/puppy.jpg">
 		  </div>
@@ -50,7 +50,8 @@
 		    </div>
 		    <div class="meta">${TimeStamp}</div>
 		    <a>
-		      <i class="heart icon"></i>
+		      <i class="empty heart icon"></i>
+		      <i class="red heart icon"></i>
 		    </a>
 		      0 Likes
 		    <div class="comments">
@@ -62,16 +63,16 @@
 		  <div class="extra content">
 		  	<form class="ui form">
 			  <div class="field">
-			    <label>Leave a Comment</label>
+			    <!-- <label>Leave a Comment</label> -->
 			      <div class="field ui fluid action input">
-					  <input placeholder="Search..." type="text" class="js-comm-input">
-					  <div class="ui button primary js-comm-btn">Submit</div>
+					  <input placeholder="Leave a Coment" type="text" class="js-comm-input">
+					  <button class="ui button primary js-comm-btn">Submit</button>
 				  </div>
 
 				</div>
 			</form>
-		  </div>
-		</div> 
+		  </div> <!-- extra content -->
+		</div> <!-- card -->
 
 		<div class="ui centered card">
 		  <div class="image">
@@ -87,7 +88,7 @@
 		    </div>
 		    <div class="meta">${TimeStamp}</div>
 		    <a>
-		      <i class="heart icon"></i>
+		      <i class="empty heart icon"></i>
 		    </a>
 		      0 Likes
 		    <div class="comments">
@@ -99,53 +100,44 @@
 		  <div class="extra content">
 		  	<form class="ui form">
 			  <div class="field">
-			    <label>Leave a Comment</label>
+			    <!-- <label>Leave a Comment</label> -->
 			      <div class="field ui fluid action input">
-					  <input placeholder="Search..." type="text" class="js-comm-input">
-					  <div class="ui button primary js-comm-btn">Submit</div>
+					  <input placeholder="Leave a Coment" type="text" class="js-comm-input">
+					  <button class="ui button primary js-comm-btn">Submit</button>
 				  </div>
 
 				</div>
 			</form>
-		  </div>
-		</div> 
+		  </div> <!-- extra content -->
+		</div> <!-- card -->
 
 		<div class="ui centered card">
+		  <div class="content">
+		    <div class="right floated meta">14h${TimeStamp}</div>
+		    <img class="ui avatar image" src="../assets/puppy.jpg"> Elliot
+		  </div>
 		  <div class="image">
 		    <img src="../assets/puppy.jpg">
 		  </div>
 		  <div class="content">
-		    <!-- <a class="header">Kristy</a> -->
-		    <!-- <div class="meta">
-		      <span class="date">Joined in 2013</span>
-		    </div> -->
-		    <div class="caption">
+		  	<div class="caption">
 		      Bear wanted to walk in the water. So cute!
 		    </div>
-		    <div class="meta">${TimeStamp}</div>
-		    <a>
-		      <i class="heart icon"></i>
-		    </a>
-		      0 Likes
-		    <div class="comments">
-			   <p><strong>Bob: </strong>What a great puppy.</p>
+		    <span class="right floated">
+		      <i class="heart outline like icon"></i>
+		      17 likes
+		    </span>
+		    <i class="comment icon"></i>
+		    3 comments
+		  </div>
+		  <div class="extra content">
+		    <div class="ui large transparent left icon input">
+		      <i class="heart outline icon"></i>
+		      <input placeholder="Add Comment..." type="text">
 		    </div>
 		  </div>
-		 <!--  <div class="extra content">
-		  </div> -->
-		  <div class="extra content">
-		  	<form class="ui form">
-			  <div class="field">
-			    <label>Leave a Comment</label>
-			      <div class="field ui fluid action input">
-					  <input placeholder="Search..." type="text" class="js-comm-input">
-					  <div class="ui button primary js-comm-btn">Submit</div>
-				  </div>
+		</div>
 
-				</div>
-			</form>
-		  </div>
-		</div> 
 	</div> <!-- feed --> 
 
 	<!-- body -->

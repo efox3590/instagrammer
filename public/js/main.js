@@ -118,8 +118,14 @@ function POST(url, data) {
 			if (pw1.value !== pw2.value) {
 				console.log('pw1 is :', pw1.value);
 				console.log('pw2 is :', pw2.value)
-				message.innerHTML = 'Passwords do not match.'
-				pw2.focus();
+				// message.innerHTML = 'Passwords do not match.'
+				message.innerHTML = `
+<div class="ui error message">
+	<div class="header">Passwords do not match!</div>
+</div> 
+<br>
+				`;
+				pw1.focus();
 			} 
 			else {	//can be deleted. just for testing
 				message.innerHTML = 'good job. passwords match'
@@ -162,6 +168,8 @@ function POST(url, data) {
 			postItems = postItems.reverse();
 
 			// console.log('postItems :',postItems);
+// more likely for (const user of users) {
+// replace( (postItem: user), (postItems: users) )
 			for (const postItem of postItems) {
 // 
 		    const div = document.createElement('div');
@@ -232,6 +240,53 @@ function POST(url, data) {
 	} // feed.html
 
 
+	if (location.pathname === '/admin.html') {
+
+// add new post
+		const caption = document.querySelector('.js-adm-caption');
+		const addbtn = document.querySelector('.js-adm-btn');
+
+		addbtn.addEventListener('click', (e) => {
+			e.preventDefault();
+
+			// add post to activity feed for user
+			instaApp.createPost(user_id); // or something
+		});
+
+// add comment
+		const comm_input = document.querySelector('.js-adm-comment');
+
+		comm_input.addEventListener('keydown', (e) => {
+			const {value} = comm_input;
+			if (e.keyCode === 13) {
+				validateSearch(value)
+				.then((data) => {
+					PUT('/api/ comment route') // needs add comm route	
+					.then((data) => {
+						render(data);
+					})
+					.catch((e) => {
+						alert(e)
+					})
+				})
+
+
+			} // keycode
+		}); // comm_input eventListener // add comment
+
+// need to be targeted with post id or something.
+// otherwise only grabs first icon in thread.
+
+// toggle heart for likes
+		const heart = document.querySelector('.js-heart');
+		heart.addEventListener('click', (e) => {
+			e.preventDefault();
+			// heart.classList.add('red', 'js-red-heart');
+			// heart.classList.remove('outline', 'js-empty-heart');
+			heart.classList.toggle('outline');
+		});
+
+	} // admin.html
 
 	// using moment
 	// function getDate() {
@@ -242,8 +297,6 @@ function POST(url, data) {
 	// 	const message = document.querySelector('.js-login-message');
 	// 	message.innerHTML = date;
 	// };
-
 	
-
 
 })();

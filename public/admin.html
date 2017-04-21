@@ -4,8 +4,9 @@
 	<meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Instagrammer</title>
-    <link rel='stylesheet' href='styles/reset.css'>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <link rel='stylesheet' href='styles/reset.css'>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon"/>
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">  
     <link rel='stylesheet' href='styles/main.css'>
 </head>
@@ -32,65 +33,89 @@
 	<!-- body -->
 
 	<div class="ui raised very padded text container segment">
-	  	<img src="https://instagram-brand.com/wp-content/themes/ig-branding/assets/images/ig-logo-email.png" class="i-logo">
-	  	<h1 class="tron">Instagrammer</h1>
-		<h2 class="tron">Join the <strong>Hottest</strong> Clone Social Network</h2>
-		<h3 class="tron">All kinds of social media fun</h3>
-		<p>
-			<br>
-			<a href="test-login.html"><button class="ui primary small button">Login</button></a>
-			<a href="test-register.html"><button class="ui primary small button">Register</button></a>
-
-
-		</p> 
+	  	<h1 class="tron">Add a Post!</h1>
+			<p>
+				Select an image to upload:<br>
+				<input type="file" name="datafile" size="40">
+			</p>
+			<form class="ui small form">
+				<div class="ui fluid action input">
+				  <input placeholder="Add a Caption" type="text" size="150" class="js-adm-caption">
+				  <button class="ui primary button js-adm-btn">Submit</button>
+				</div>
+			</form>
 	</div>
 
-
-<!-- 
-	<div class="ui two column centered grid">
-	  <div class="column">
- -->
-  	<div class="ui centered card">
-	  <div class="image">
-	    <img src="../assets/puppy.jpg">
-	  </div>
-	  <div class="content">
-	    <!-- <a class="header">Kristy</a> -->
-	    <!-- <div class="meta">
-	      <span class="date">Joined in 2013</span>
-	    </div> -->
-	    <div class="caption">
-	      Bear wanted to walk in the water. So cute!
-	    </div>
-	    <div class="meta">${TimeStamp}</div>
-	    <a>
-	      <i class="heart icon"></i>
-	      0 Likes
-	    </a>
-	    <div class="comments">
-		   <p><strong>Bob: </strong>What a great puppy.</p>
-	    </div>
-	  </div>
-	 <!--  <div class="extra content">
-	  </div> -->
-	  <div class="extra content">
-	  	<form class="ui form">
-		  <div class="field">
-		    <label>Leave a Comment</label>
-		      <div class="field">
-		        <input name="feed[comment]" placeholder="Leave a Comment" type="text" class="js-admin-comment">
-		      </div>
+	<div class="feed js-feed">
+<!-- 1 -->
+	  	<div class="ui centered card">
+		  <div class="content">
+		    <div class="right floated meta">14h${TimeStamp}</div>
+		    <img class="ui avatar image" src="../assets/puppy.jpg"> Babs
+		  </div>
+		  <div class="image">
+		    <img src="../assets/puppy.jpg">
+		  </div>
+		  <div class="content">
+		  	<div class="caption">
+		      Bear wanted to walk in the water. So cute!
+		    </div>
+		    <span class="right floated">
+		      <i class="heart outline red icon js-heart"></i>
+		      <!-- 17 likes -->
+		    </span>
+		    <!-- <i class="comment icon"></i>
+		    3 comments -->
+		  </div>
+		  <div class="extra content">
+		    <div class="ui large transparent left icon input">
+		      <i class="comment icon"></i>
+		      <input placeholder="Add Comment..." type="text" class="js-adm-comment">
+		    </div>
+		      <div class="extra content">
+		      <span class="right floated mods">
+		      	<i class="edit icon"></i>
+			    <i class="trash outline icon"></i>
+			  </span>  
 			</div>
-		</form>
+		  </div>
+		</div>
+<!-- 2 -->
+		<div class="ui centered card">
+		  <div class="content">
+		    <div class="right floated meta">14h${TimeStamp}</div>
+		    <img class="ui avatar image" src="../assets/puppy.jpg"> Babs
+		  </div>
+		  <div class="image">
+		    <img src="../assets/puppy.jpg">
+		  </div>
+		  <div class="content">
+		  	<div class="caption">
+		      Bear wanted to walk in the water. So cute!
+		    </div>
+		    <span class="right floated">
+		      <i class="heart outline red icon js-heart"></i>
+		      <!-- 17 likes -->
+		    </span>
+		  <!--   <i class="comment icon"></i>
+		    3 comments -->
+		  </div>
+		  <div class="extra content">
+		    <div class="ui large transparent left icon input">
+		      <i class="comment icon"></i>
+		      <input placeholder="Add Comment..." type="text" class="js-adm-comment">
+		    </div>
+		      <div class="extra content">
+		      <span class="right floated mods">
+		      	<i class="edit icon"></i>
+			    <i class="trash outline icon"></i>
+			  </span>  
+			</div>
+		  </div>
+		</div>
 
-	  <!-- </div>  -->
-	  <!-- column -->
-	<!-- </div>  -->
-	<!-- grid --> 
-<!-- </div> -->
 
-
-	</div>
+	</div> <!-- feed --> 
 
 	<!-- body -->
 

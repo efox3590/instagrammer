@@ -19,11 +19,19 @@ CREATE TABLE activity(
 	activity_id INTEGER NOT NULL,
 	activity_payload TEXT,
 	image_url TEXT,
-	descr TEXT,
-	activity_date DATE
+	descr TEXT
+
+	-- activity_date DATE 
+
 );
 
 -- activity_type_id - something for future proofing your app; if you wanted to display more than just posts (ie: likes, checkins).
+-- activity_id :
+-- 1 = post
+-- 2 = follow
+-- 3 = like
+-- 4 = comment
+
 
 
 INSERT into user (first_name, last_name, email, password) VALUES ('emily', 'fox', 'emily@nycda.com', 'testing1234');
@@ -39,10 +47,12 @@ INSERT into followers (id, follow_id) VALUES (4, 2);
 INSERT into followers (id, follow_id) VALUES (5, 2);
 
 INSERT into activity (id, activity_id) VALUES (1, 3);
-INSERT into activity (id, activity_id) VALUES (2, 4);
+INSERT into activity (id, activity_id, image_url, descr) VALUES (2, 1, 'http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-13.jpg', 'smart dog');
+INSERT into activity (id, activity_id, image_url, descr) VALUES (2, 1, 'http://furfeatherworks.com/wp-content/uploads/beagle-puppy2.jpg', 'beagle!');
 INSERT into activity (id, activity_id) VALUES (3, 6);
 INSERT into activity (id, activity_id) VALUES (4, 7);
 INSERT into activity (id, activity_id) VALUES (5, 8);
+
 
 -- DOWN
 

@@ -42,6 +42,23 @@ h3.tron {
 .feed {
 	padding: 25px 0px;
 }
+
+.content div, i, p {
+	padding: 5px 0px;
+}
+
+.mods {
+	font-size: 24px;
+
+}
+
+.trash:hover {
+	color: red;
+}
+
+.edit:hover {
+	color: #2558D8;
+}
 /*.block {
 	height: 200px;
 	background-color: black;
@@ -85,11 +102,11 @@ h3.tron {
 	color: red;
 }
 
-/*.input-text {
+.input-text {
 	background-color: transparent;
 	border: 0px solid white;
 	width: 80%;
-}*/
+}
 
 @keyframes spinner {
 	from {
@@ -193,5 +210,5 @@ figcaption {
 
 .time {
 	text-align: right;
-}
-*/
+}*/
+
