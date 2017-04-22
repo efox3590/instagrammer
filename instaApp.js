@@ -6,6 +6,13 @@ const instaApp = {};
 instaApp.init = function (db) {
     instaApp.db = db;
 }
+
+
+//create User
+instaApp.createUser = (fname, lname, email, pw1) => {
+    return instaApp.db.run(`INSERT INTO user (first_name, last_name, email, password) VALUES (${fname}, ${lname}, ${email}, ${pw1})`)
+};
+
 // Get all users + their activity
 instaApp.getUsers = () => {
     return instaApp.db.all(`SELECT * FROM user`)

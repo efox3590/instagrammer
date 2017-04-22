@@ -20,6 +20,7 @@ CREATE TABLE activity(
 	activity_payload TEXT,
 	image_url TEXT,
 	descr TEXT
+	-- when DATETIME DEFAULT CURRENT_TIMESTAMP
 
 	-- activity_date DATE 
 
@@ -35,7 +36,7 @@ CREATE TABLE activity(
 
 
 INSERT into user (first_name, last_name, email, password) VALUES ('emily', 'fox', 'emily@nycda.com', 'testing1234');
-INSERT into user (first_name, last_name, email, password) VALUES ('linda', 'yu', 'linda@nycda.com', 'chickenricer');
+INSERT into user (first_name, last_name, email, password) VALUES ('linda', 'yu', 'linda@nycda.com', 'chicken');
 INSERT into user (first_name, last_name, email, password) VALUES ('mario', 'rangel', 'mario@nycda.com', 'mario5678');
 INSERT into user (first_name, last_name, email, password) VALUES ('taq', 'karim', 'taq@nycda.com', 'taqrules');
 INSERT into user (first_name, last_name, email, password) VALUES ('baba', 'k', 'baba@nycda.com', 'ilovedrake');
