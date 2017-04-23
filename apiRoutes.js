@@ -61,6 +61,7 @@ router.get('/user/:user_id', (req, res, next) => {
     });
 });
 
+
 // get users that $user_id follows
 router.get('/:follower_id/followedusers', (req, res) => {
 	const id = parseInt(req.params.follower_id, 10);

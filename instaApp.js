@@ -40,7 +40,8 @@ instaApp.getFollowed = (user_id) => {
 
 // Create a post
 instaApp.createPost = (user_id, req) => {
-    return instaApp.db.run(`INSERT INTO activity (user_id, image_url, descr) values (${user_id}, ${image_url}, ${descr})`, req)
+    // return instaApp.db.run(`INSERT INTO activity (user_id, image_url, descr) values (${user_id}, $image_url, $descr)`, req)
+    return instaApp.db.run(`INSERT INTO activity (id, activity_id, image_url, descr) values (${user_id}, $image_url, $descr)`, req)
 };
 
 // Follow a user
