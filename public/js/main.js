@@ -133,115 +133,121 @@ function POST(url, data) {
 </div> 
 <br>
 				`;
-                document.querySelector('.js-reg-pw1').focus();
-            } // if
-            else { //can be deleted. just for testing
-                console.log('passwords match');
-                console.log('pw1 is :', pw1.value);
-                console.log('pw2 is :', pw2.value);
-                console.log('email :', email);
+
+				document.querySelector('.js-reg-pw1').focus();
+			}  // if
+			else {	//can be deleted. just for testing
+				console.log('passwords match');
+				console.log('pw1 is :', pw1.value);
+				console.log('pw2 is :', pw2.value);
+				console.log('email :',email);
+				
+
+// 				message.innerHTML = `
+// <div class="ui success message">
+//   <div class="header">
+//     Your user registration was successful.
+//   </div>
+// </div>
+// 				`;
+			POST('/auth/register', {
+                // fname,
+                // lname,
+                // email,
+                // pw1,
+                first_name: fname,
+                last_name: lname,
+                email: email,
+                password: pw1.value
+            }).then((data) => {
+            	console.log('did this add a user?');
+                console.log('data from post/register :', data)
+                if (data.success) {
+                    window.location.href = '/login.html'
+                }
+            });
+
+			}	// else	
+				
+
+		}) // event listener
+
+	}	// register.html
+
+/*
+ *		LOGIN
+ */
 
 
-                // 				message.innerHTML = `
-                // <div class="ui success message">
-                //   <div class="header">
-                //     Your user registration was successful.
-                //   </div>
-                // </div>
-                // 				`;
-                POST('/auth/register', {
-                    // fname,
-                    // lname,
-                    // email,
-                    // pw1,
-                    first_name: fname,
-                    last_name: lname,
-                    email: email,
-                    password: pw1.value
-                }).then((data) => {
-                    console.log('did this add a user?');
-                    console.log('data from post/register :', data)
-                    if (data.success) {
-                        window.location.href = '/login.html'
-                    }
-                });
-
-            } // else	
+	// if (document.querySelector('.js-log-email') !== null){
+	if (location.pathname === '/login.html') {
 
 
-        }) // event listener
+		const email = document.querySelector('.js-log-email');
+		const pw = document.querySelector('.js-log-pw');
+		const btn = document.querySelector('.js-log-btn')
 
-    } // register.html
+		btn.addEventListener('click', (e) => {
+			e.preventDefault();
 
-    /*
-     *		LOGIN
-     */
+		POST('/auth/login', {
 
+			email: email.value,
+			password: pw.value, 
 
-    // if (document.querySelector('.js-log-email') !== null){
-    if (location.pathname === '/login.html') {
+		})
+		.then((data) => {
+			console.log('POST auth/login data', data);
+			localStorage.setItem('user_id', data.id)
+			if (data.success) {
+				window.location.href = '/feed.html'
+			}
+			
+		})		
 
+		}) // event listener
+			
+	}	// login.html
 
-        const email = document.querySelector('.js-log-email');
-        const pw = document.querySelector('.js-log-pw');
-        const btn = document.querySelector('.js-log-btn')
+/*
+ *		FEED
+ */
 
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
+	if (location.pathname === '/feed.html') {
+		// const fname = document.querySelector('.fname');
+		// const {value} = fname;
+		// value.innerHTML = ``;
 
-            POST('/auth/login', {
+// order by time to sort array
 
-                    email: email.value,
-                    password: pw.value,
+		function render(data) {
+			const user = data["user"];
+			const container = document.querySelector('.js-feed');
+			container.innerHTML = '';
+			// user = user.reverse(); 
+			console.log('postItems :',user);
+// more likely for (const user of users) {
+// replace( (postItem: user), (postItems: users) )
+			for (const postItem of user) {
+				console.log('single :',postItem);
+				console.log('each user id :',postItem["id"]);
+				const id = postItem["id"];
+// 
+		    const div = document.createElement('div');
+			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
+	// need vars for: image url, caption, commenter_id, commenter_comment
+			const img_url = postItem.image_url;
+			const caption = postItem.descr;
+			const name = postItem.first_name;
+			// const time = postItem.TimeStamp;
+			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
 
-                })
-                .then((data) => {
-                    console.log('POST auth/login data', data);
-                    if (data.success) {
-                        window.location.href = '/feed.html'
-                    }
+			const fname = document.querySelector('.fname');
+			fname.innerHTML = `${name}!`;
+			// const comm_id = 
+			// const comm_comment = 
+		    div.innerHTML = `
 
-                })
-
-        }) // event listener
-
-    } // login.html
-
-    /*
-     *		FEED
-     */
-
-    if (location.pathname === '/feed.html') {
-        // const fname = document.querySelector('.fname');
-        // const {value} = fname;
-        // value.innerHTML = ``;
-
-
-        function render(data) {
-            const user = data["user"];
-            const container = document.querySelector('.js-feed');
-            container.innerHTML = '';
-            // user = user.reverse(); 
-            console.log('postItems :', user);
-            // more likely for (const user of users) {
-            // replace( (postItem: user), (postItems: users) )
-            for (const postItem of user) {
-                console.log('single :', postItem);
-                // 
-                const div = document.createElement('div');
-                div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
-                // need vars for: image url, caption, commenter_id, commenter_comment
-                const img_url = postItem.image_url;
-                const caption = postItem.descr;
-                const name = postItem.first_name;
-                // const time = postItem.TimeStamp;
-                const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
-
-                const fname = document.querySelector('.fname');
-                fname.innerHTML = `${name}!`;
-                // const comm_id = 
-                // const comm_comment = 
-                div.innerHTML = `
 
 <div class="content">
     <div class="right floated meta">${time}</div>
@@ -278,10 +284,13 @@ function POST(url, data) {
 
         } // render()
 
-        GET('/api/user/2')
-            .then((data) => {
-                render(data);
-            });
+
+		const userId = localStorage.getItem('user_id')
+		GET('/api/user/' + userId)
+		.then((data) => {
+			render(data);
+		});
+
 
         // const comm = document.querySelector('.js-comm-input');
         // const comment = comm.value;
@@ -519,13 +528,16 @@ function POST(url, data) {
 
 
 
-    function logout() {
-        GET('/auth/logout')
-            .then((data) => {
-                console.log('logout data :', data);
-                window.location.href = '/'
-            })
-    };
+
+
+	function logout() {
+		GET('/auth/logout')
+			.then((data) => {
+				console.log('logout data :',data);
+				localStorage.setItem('user_id', null);
+				window.location.href = '/'
+			})
+		};
 
 
 })();
