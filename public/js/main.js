@@ -285,13 +285,13 @@ function POST(url, data) {
 		// const comm = document.querySelector('.js-comm-input');
 		// const comment = comm.value;
 
-		const heart = document.querySelector('.js-heart');
-		heart.addEventListener('click', (e) => {
-			e.preventDefault();
-			// heart.classList.add('red', 'js-red-heart');
-			// heart.classList.remove('outline', 'js-empty-heart');
-			heart.classList.toggle('outline');
-		});
+		// const heart = document.querySelector('.js-heart');
+		// heart.addEventListener('click', (e) => {
+		// 	e.preventDefault();
+		// 	// heart.classList.add('red', 'js-red-heart');
+		// 	// heart.classList.remove('outline', 'js-empty-heart');
+		// 	heart.classList.toggle('outline');
+		// });
 
 		const signout = document.querySelector('.js-logout');
 		signout.addEventListener('click', (e) => {
@@ -408,46 +408,49 @@ function POST(url, data) {
 // add comment
 		const comm_input = document.querySelector('.js-adm-comment');
 
-		comm_input.addEventListener('keydown', (e) => {
-			const {value} = comm_input;
-			if (e.keyCode === 13) {
-				validateSearch(value)
-				.then((data) => {
-					PUT('/api/ comment route') // needs add comm route	
-					.then((data) => {
-						render(data);
-					})
-					.catch((e) => {
-						alert(e)
-					})
-				})
+		// comm_input.addEventListener('keydown', (e) => {
+		// 	const {value} = comm_input;
+		// 	if (e.keyCode === 13) {
+		// 		validateSearch(value)
+		// 		.then((data) => {
+		// 			PUT('/api/ comment route') // needs add comm route	
+		// 			.then((data) => {
+		// 				render(data);
+		// 			})
+		// 			.catch((e) => {
+		// 				alert(e)
+		// 			})
+		// 		})
 
 
-			} // keycode
-		}); // comm_input eventListener // add comment
+		// 	} 
+			// keycode
+		// }); 
+		// comm_input eventListener // add comment
 
 // need to be targeted with post id or something.
 // otherwise only grabs first icon in thread.
 
 // toggle heart for likes
-		const heart = document.querySelector('.js-heart');
-		heart.addEventListener('click', (e) => {
-			e.preventDefault();
-			// heart.classList.add('red', 'js-red-heart');
-			// heart.classList.remove('outline', 'js-empty-heart');
-			heart.classList.toggle('outline');
-		});
+		// const heart = document.querySelector('.js-heart');
+		// heart.addEventListener('click', (e) => {
+		// 	e.preventDefault();
+		// 	// heart.classList.add('red', 'js-red-heart');
+		// 	// heart.classList.remove('outline', 'js-empty-heart');
+		// 	heart.classList.toggle('outline');
+		// });
 
 		const signout = document.querySelector('.js-logout');
 		signout.addEventListener('click', (e) => {
 			e.preventDefault();
 			logout();
+
 		});
 	} // admin.html
 
 
 
-	const logout = () => {
+	function logout() {
 		GET('/auth/logout')
 			.then((data) => {
 				console.log('logout data :',data);
