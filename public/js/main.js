@@ -1,131 +1,131 @@
 function GET(url) {
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-		request.open('GET', url);
-		request.onload = () => {
-			const data = JSON.parse(request.responseText);
-			resolve(data)
-		}; 
-		request.onerror = (err) => {
-			reject(err)
-		};
-		request.send();
-	});
+    return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.open('GET', url);
+        request.onload = () => {
+            const data = JSON.parse(request.responseText);
+            resolve(data)
+        };
+        request.onerror = (err) => {
+            reject(err)
+        };
+        request.send();
+    });
 } // GET
 
 function POST(url, data) {
-	return new Promise((resolve, reject) => {
-		const request = new XMLHttpRequest();
-		request.open('POST', url);
-		request.setRequestHeader('Content-Type', 'application/json');
+    return new Promise((resolve, reject) => {
+        const request = new XMLHttpRequest();
+        request.open('POST', url);
+        request.setRequestHeader('Content-Type', 'application/json');
 
-		request.onload = () => {
-			const data = JSON.parse(request.responseText);
-			resolve(data)
-		}; 
-		request.onerror = (err) => {
-			reject(err)
-		};
+        request.onload = () => {
+            const data = JSON.parse(request.responseText);
+            resolve(data)
+        };
+        request.onerror = (err) => {
+            reject(err)
+        };
 
-		request.send(JSON.stringify(data));
-	});
+        request.send(JSON.stringify(data));
+    });
 } // POST
 
 (function() { // protect the lemmings
 
-	function GET(url) {
-		return new Promise((resolve, reject) => {
-			const request = new XMLHttpRequest();
-			request.open('GET', url);
-			request.onload = () => {
-				const data = JSON.parse(request.responseText);
-				resolve(data)
-			}; 
-			request.onerror = (err) => {
-				reject(err)
-			};
-			request.send();
-		});
-	} // GET
+    function GET(url) {
+        return new Promise((resolve, reject) => {
+            const request = new XMLHttpRequest();
+            request.open('GET', url);
+            request.onload = () => {
+                const data = JSON.parse(request.responseText);
+                resolve(data)
+            };
+            request.onerror = (err) => {
+                reject(err)
+            };
+            request.send();
+        });
+    } // GET
 
-	function POST(url, data) {
-		return new Promise((resolve, reject) => {
-			const request = new XMLHttpRequest();
-			request.open('POST', url);
-			request.setRequestHeader('Content-Type', 'application/json');
+    function POST(url, data) {
+        return new Promise((resolve, reject) => {
+            const request = new XMLHttpRequest();
+            request.open('POST', url);
+            request.setRequestHeader('Content-Type', 'application/json');
 
-			request.onload = () => {
-				const data = JSON.parse(request.responseText);
-				resolve(data)
-			}; 
-			request.onerror = (err) => {
-				reject(err)
-			};
+            request.onload = () => {
+                const data = JSON.parse(request.responseText);
+                resolve(data)
+            };
+            request.onerror = (err) => {
+                reject(err)
+            };
 
-			request.send(JSON.stringify(data));
-		});
-	} // POST
+            request.send(JSON.stringify(data));
+        });
+    } // POST
 
-	function PUT(url, data) {
-		return new Promise((resolve, reject) => {
-			const request = new XMLHttpRequest();
-			request.open('PUT', url);
-			request.setRequestHeader('Content-Type', 'application/json');
+    function PUT(url, data) {
+        return new Promise((resolve, reject) => {
+            const request = new XMLHttpRequest();
+            request.open('PUT', url);
+            request.setRequestHeader('Content-Type', 'application/json');
 
-			request.onload = () => {
-				const data = JSON.parse(request.responseText);
-				resolve(data)
-			}; 
-			request.onerror = (err) => {
-				reject(err)
-			};
+            request.onload = () => {
+                const data = JSON.parse(request.responseText);
+                resolve(data)
+            };
+            request.onerror = (err) => {
+                reject(err)
+            };
 
-			request.send(JSON.stringify(data));
-		});
-	} // POST
+            request.send(JSON.stringify(data));
+        });
+    } // POST
 
-	function DELETE(url, data = {}) {
-		return new Promise((resolve, reject) => {
-			const request = new XMLHttpRequest();
-			request.open('DELETE', url);
-			request.setRequestHeader('Content-Type', 'application/json');
+    function DELETE(url, data = {}) {
+        return new Promise((resolve, reject) => {
+            const request = new XMLHttpRequest();
+            request.open('DELETE', url);
+            request.setRequestHeader('Content-Type', 'application/json');
 
-			request.onload = () => {
-				const data = JSON.parse(request.responseText);
-				resolve(data)
-			}; 
-			request.onerror = (err) => {
-				reject(err)
-			};
+            request.onload = () => {
+                const data = JSON.parse(request.responseText);
+                resolve(data)
+            };
+            request.onerror = (err) => {
+                reject(err)
+            };
 
-			request.send(JSON.stringify(data));
-		});
-	} // DELETE
+            request.send(JSON.stringify(data));
+        });
+    } // DELETE
 
-/*
- *		REGISTER
- */
+    /*
+     *		REGISTER
+     */
 
 
-	// if (document.querySelector('.js-reg-fname') !== null){
-	if (location.pathname === '/register.html') {
+    // if (document.querySelector('.js-reg-fname') !== null){
+    if (location.pathname === '/register.html') {
 
-		const btn = document.querySelector('.js-reg-btn');
+        const btn = document.querySelector('.js-reg-btn');
 
-		btn.addEventListener('click', (e) => {
-			e.preventDefault();
-		const fname = document.querySelector('.js-reg-fname').value;
-		const lname = document.querySelector('.js-reg-lname').value;
-		const email = document.querySelector('.js-reg-email').value;
-		const pw1 = document.querySelector('.js-reg-pw1');
-		const pw2 = document.querySelector('.js-reg-pw2');
-		const message = document.querySelector('.js-reg-message');
-			if (pw1.value !== pw2.value) {
-				console.log('pw1 is :', pw1.value);
-				console.log('pw2 is :', pw2.value);
-				console.log('email :',email);
-				// message.innerHTML = 'Passwords do not match.'
-				message.innerHTML = `
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const fname = document.querySelector('.js-reg-fname').value;
+            const lname = document.querySelector('.js-reg-lname').value;
+            const email = document.querySelector('.js-reg-email').value;
+            const pw1 = document.querySelector('.js-reg-pw1');
+            const pw2 = document.querySelector('.js-reg-pw2');
+            const message = document.querySelector('.js-reg-message');
+            if (pw1.value !== pw2.value) {
+                console.log('pw1 is :', pw1.value);
+                console.log('pw2 is :', pw2.value);
+                console.log('email :', email);
+                // message.innerHTML = 'Passwords do not match.'
+                message.innerHTML = `
 <div class="ui error message">
 	<div class="header">
 		Passwords do not match!
@@ -133,118 +133,115 @@ function POST(url, data) {
 </div> 
 <br>
 				`;
-				document.querySelector('.js-reg-pw1').focus();
-			}  // if
-			else {	//can be deleted. just for testing
-				console.log('passwords match');
-				console.log('pw1 is :', pw1.value);
-				console.log('pw2 is :', pw2.value);
-				console.log('email :',email);
-				
-
-// 				message.innerHTML = `
-// <div class="ui success message">
-//   <div class="header">
-//     Your user registration was successful.
-//   </div>
-// </div>
-// 				`;
-			POST('/auth/register', {
-                // fname,
-                // lname,
-                // email,
-                // pw1,
-                first_name: fname,
-                last_name: lname,
-                email: email,
-                password: pw1.value
-            }).then((data) => {
-            	console.log('did this add a user?');
-                console.log('data from post/register :', data)
-                if (data.success) {
-                    window.location.href = '/login.html'
-                }
-            });
-
-			}	// else	
-				
-
-		}) // event listener
-
-	}	// register.html
-
-/*
- *		LOGIN
- */
+                document.querySelector('.js-reg-pw1').focus();
+            } // if
+            else { //can be deleted. just for testing
+                console.log('passwords match');
+                console.log('pw1 is :', pw1.value);
+                console.log('pw2 is :', pw2.value);
+                console.log('email :', email);
 
 
-	// if (document.querySelector('.js-log-email') !== null){
-	if (location.pathname === '/login.html') {
+                // 				message.innerHTML = `
+                // <div class="ui success message">
+                //   <div class="header">
+                //     Your user registration was successful.
+                //   </div>
+                // </div>
+                // 				`;
+                POST('/auth/register', {
+                    // fname,
+                    // lname,
+                    // email,
+                    // pw1,
+                    first_name: fname,
+                    last_name: lname,
+                    email: email,
+                    password: pw1.value
+                }).then((data) => {
+                    console.log('did this add a user?');
+                    console.log('data from post/register :', data)
+                    if (data.success) {
+                        window.location.href = '/login.html'
+                    }
+                });
+
+            } // else	
 
 
-		const email = document.querySelector('.js-log-email');
-		const pw = document.querySelector('.js-log-pw');
-		const btn = document.querySelector('.js-log-btn')
+        }) // event listener
 
-		btn.addEventListener('click', (e) => {
-			e.preventDefault();
+    } // register.html
 
-		POST('/auth/login', {
+    /*
+     *		LOGIN
+     */
 
-			email: email.value,
-			password: pw.value, 
 
-		})
-		.then((data) => {
-			console.log('POST auth/login data', data);
-			if (data.success) {
-				window.location.href = '/feed.html'
-			}
-			
-		})		
+    // if (document.querySelector('.js-log-email') !== null){
+    if (location.pathname === '/login.html') {
 
-		}) // event listener
-			
-	}	// login.html
 
-/*
- *		FEED
- */
+        const email = document.querySelector('.js-log-email');
+        const pw = document.querySelector('.js-log-pw');
+        const btn = document.querySelector('.js-log-btn')
 
-	if (location.pathname === '/feed.html') {
-		// const fname = document.querySelector('.fname');
-		// const {value} = fname;
-		// value.innerHTML = ``;
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
 
-// order by time to sort array
+            POST('/auth/login', {
 
-		function render(data) {
-			const user = data["user"];
-			const container = document.querySelector('.js-feed');
-			container.innerHTML = '';
-			// user = user.reverse(); 
-			console.log('postItems :',user);
-// more likely for (const user of users) {
-// replace( (postItem: user), (postItems: users) )
-			for (const postItem of user) {
-				console.log('single :',postItem);
-				console.log('each user id :',postItem["id"]);
-				const id = postItem["id"];
-// 
-		    const div = document.createElement('div');
-			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
-	// need vars for: image url, caption, commenter_id, commenter_comment
-			const img_url = postItem.image_url;
-			const caption = postItem.descr;
-			const name = postItem.first_name;
-			// const time = postItem.TimeStamp;
-			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+                    email: email.value,
+                    password: pw.value,
 
-			const fname = document.querySelector('.fname');
-			fname.innerHTML = `${name}!`;
-			// const comm_id = 
-			// const comm_comment = 
-		    div.innerHTML = `
+                })
+                .then((data) => {
+                    console.log('POST auth/login data', data);
+                    if (data.success) {
+                        window.location.href = '/feed.html'
+                    }
+
+                })
+
+        }) // event listener
+
+    } // login.html
+
+    /*
+     *		FEED
+     */
+
+    if (location.pathname === '/feed.html') {
+        // const fname = document.querySelector('.fname');
+        // const {value} = fname;
+        // value.innerHTML = ``;
+
+
+        function render(data) {
+            const user = data["user"];
+            const container = document.querySelector('.js-feed');
+            container.innerHTML = '';
+            // user = user.reverse(); 
+            console.log('postItems :', user);
+            // more likely for (const user of users) {
+            // replace( (postItem: user), (postItems: users) )
+            for (const postItem of user) {
+                console.log('single :', postItem);
+                // 
+                const div = document.createElement('div');
+                div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
+                // need vars for: image url, caption, commenter_id, commenter_comment
+                const img_url = postItem.image_url;
+                const caption = postItem.descr;
+                const name = postItem.first_name;
+                // const time = postItem.TimeStamp;
+                const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+
+                const fname = document.querySelector('.fname');
+                fname.innerHTML = `${name}!`;
+                // const comm_id = 
+                // const comm_comment = 
+                div.innerHTML = `
 
 <div class="content">
     <div class="right floated meta">${time}</div>
@@ -267,65 +264,66 @@ function POST(url, data) {
 	
 		    `; // end div.innerHTML
 
-		    container.appendChild(div);
+                container.appendChild(div);
 
-		    //need to isolate proper element
-		 //    if (postItem.data.isLiked) {
-			// 	li.innerHTML += `<span class="glyphicon glyphicon-heart js-like"></span>`
-			// }
-			// else {
-			// 	li.innerHTML += `<span class="glyphicon glyphicon-heart-empty js-like"></span>`
-				// }
+                //need to isolate proper element
+                //    if (postItem.data.isLiked) {
+                // 	li.innerHTML += `<span class="glyphicon glyphicon-heart js-like"></span>`
+                // }
+                // else {
+                // 	li.innerHTML += `<span class="glyphicon glyphicon-heart-empty js-like"></span>`
+                // }
 
-			} // for /of loop
+            } // for /of loop
 
-		} // render()
+        } // render()
 
-		GET('/api/user/2')
-		.then((data) => {
-			render(data);
-		});
+        GET('/api/user/2')
+            .then((data) => {
+                render(data);
+            });
 
-		// const comm = document.querySelector('.js-comm-input');
-		// const comment = comm.value;
+        // const comm = document.querySelector('.js-comm-input');
+        // const comment = comm.value;
 
-		// const heart = document.querySelector('.js-heart');
-		// heart.addEventListener('click', (e) => {
-		// 	e.preventDefault();
-		// 	// heart.classList.add('red', 'js-red-heart');
-		// 	// heart.classList.remove('outline', 'js-empty-heart');
-		// 	heart.classList.toggle('outline');
-		// });
+        // const heart = document.querySelector('.js-heart');
+        // heart.addEventListener('click', (e) => {
+        // 	e.preventDefault();
+        // 	// heart.classList.add('red', 'js-red-heart');
+        // 	// heart.classList.remove('outline', 'js-empty-heart');
+        // 	heart.classList.toggle('outline');
+        // });
 
-		const signout = document.querySelector('.js-logout');
-		signout.addEventListener('click', (e) => {
-			e.preventDefault();
-			logout();
+        const signout = document.querySelector('.js-logout');
+        signout.addEventListener('click', (e) => {
+            e.preventDefault();
+            logout();
 
-			// GET('/auth/logout')
-			// .then((data) => {
-			// 	console.log('logout data :',data);
-			// 	window.location.href = '/'
-			// })
-		});
+            // GET('/auth/logout')
+            // .then((data) => {
+            // 	console.log('logout data :',data);
+            // 	window.location.href = '/'
+            // })
+        });
 
-	} // feed.html
+    } // feed.html
 
-//hard code for testing should be /:user_id of session or s.t
+    //hard code for testing should be /:user_id of session or s.t
 
-/*
- *		ADMIN
- */
+    /*
+     *		ADMIN
+     */
 
-	if (location.pathname === '/admin.html') {
-const validate = () => {
+    if (location.pathname === '/admin.html') {
+        const validate = () => {
             throw new Error('This is a required arg');
         }; // validate
 
         const uploadFiles = (
             fileSelectSel = validate(),
             fileElemSel = validate(),
-            onFileChanged = validate()
+            onFileChanged = validate(),
+            onClicked = validate()
         ) => {
             // select anchor tag and file input
             const fileSelect = document.querySelector(fileSelectSel);
@@ -338,7 +336,7 @@ const validate = () => {
             // click handler for fileElem
             fileSelect.addEventListener('click', (e) => {
                 e.preventDefault();
-                fileElem && fileElem.click();
+                onClicked();
             });
 
             // change handler for fileSelect
@@ -347,14 +345,14 @@ const validate = () => {
 
 
         // Initialize Firebase
-    const config = {
-        apiKey: "AIzaSyA7rjzLhKWPj7c4VSVIcVP9u6NK2m2lhak",
-        authDomain: "instragram-clone-8452c.firebaseapp.com",
-        databaseURL: "https://instragram-clone-8452c.firebaseio.com",
-        projectId: "instragram-clone-8452c",
-        storageBucket: "instragram-clone-8452c.appspot.com",
-        messagingSenderId: "721001345500"
-    };
+        const config = {
+            apiKey: "AIzaSyA7rjzLhKWPj7c4VSVIcVP9u6NK2m2lhak",
+            authDomain: "instragram-clone-8452c.firebaseapp.com",
+            databaseURL: "https://instragram-clone-8452c.firebaseio.com",
+            projectId: "instragram-clone-8452c",
+            storageBucket: "instragram-clone-8452c.appspot.com",
+            messagingSenderId: "721001345500"
+        };
         // Name of file storage ref "folder"
         const FILE_STORAGE_REF = 'images';
 
@@ -363,11 +361,16 @@ const validate = () => {
         // Get a reference to the storage service, which is used to create references in your storage bucket
         const storageRef = firebase.storage().ref().child(FILE_STORAGE_REF);
 
+        let filesToUpload = [];
+
         uploadFiles('.js-fileSelect', '.js-fileElem', (files) => {
-            if (!storageRef) {
+            filesToUpload = filesToUpload.concat(Array.from(files));
+            console.log(filesToUpload)
+        }, () => {
+          if (!storageRef) {
                 throw new Error('Storage Ref not set!');
             }
-            const fileUploads = Array.from(files).map((currFile) => {
+            const fileUploads = filesToUpload.map((currFile) => {
                 // we store the name of the file as a storage ref
                 const fileRef = storageRef.child(currFile.name);
                 // we return a promise where we first "put" or upload the file
@@ -378,44 +381,44 @@ const validate = () => {
 
             Promise.all(fileUploads).then((items) => {
                 console.log(items);
-            });
+                filesToUpload = [];
+            });  
         }); // upload files
-// add new post
-		const caption = document.querySelector('.js-adm-caption');
-		const addbtn = document.querySelector('.js-adm-btn');
+        // add new post
+        const caption = document.querySelector('.js-adm-caption');
+        const addbtn = document.querySelector('.js-adm-btn');
 
-		addbtn.addEventListener('click', (e) => {
-			e.preventDefault();
+        addbtn.addEventListener('click', (e) => {
+            e.preventDefault();
 
-			// add post to activity feed for user
+            // add post to activity feed for user
+            instaApp.createPost(1); // or something
+        });
 
-			instaApp.createPost(user_id); // or something
-		});
+        // render 	
+        function render(data) {
+            const user = data["user"];
+            const container = document.querySelector('.js-feed');
+            container.innerHTML = '';
+            // user = user.reverse(); 
+            console.log('postItems :', user);
+            // more likely for (const user of users) {
+            // replace( (postItem: user), (postItems: users) )
+            for (const postItem of user) {
+                console.log('single :', postItem);
+                // 
+                const div = document.createElement('div');
+                div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
+                // need vars for: image url, caption, commenter_id, commenter_comment
+                const img_url = postItem.image_url;
+                const caption = postItem.descr;
+                const name = postItem.first_name;
+                // const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+                const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
 
-// render 	
-		function render(data) {
-			const user = data["user"];
-			const container = document.querySelector('.js-feed');
-			container.innerHTML = '';
-			// user = user.reverse(); 
-			console.log('postItems :',user);
-// more likely for (const user of users) {
-// replace( (postItem: user), (postItems: users) )
-			for (const postItem of user) {
-				console.log('single :',postItem);
-// 
-		    const div = document.createElement('div');
-			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
-	// need vars for: image url, caption, commenter_id, commenter_comment
-			const img_url = postItem.image_url;
-			const caption = postItem.descr;
-			const name = postItem.first_name;
-			// const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
-			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
-
-			// const comm_id = 
-			// const comm_comment = 
-		    div.innerHTML = `
+                // const comm_id = 
+                // const comm_comment = 
+                div.innerHTML = `
 
 <div class="content">
     <div class="right floated meta">14h ${time}</div>
@@ -451,78 +454,78 @@ const validate = () => {
 	
 		    `; // end div.innerHTML
 
-		    container.appendChild(div);
+                container.appendChild(div);
 
-		    //need to isolate proper element
-		 //    if (postItem.data.isLiked) {
-			// 	li.innerHTML += `<span class="glyphicon glyphicon-heart js-like"></span>`
-			// }
-			// else {
-			// 	li.innerHTML += `<span class="glyphicon glyphicon-heart-empty js-like"></span>`
-				// }
+                //need to isolate proper element
+                //    if (postItem.data.isLiked) {
+                // 	li.innerHTML += `<span class="glyphicon glyphicon-heart js-like"></span>`
+                // }
+                // else {
+                // 	li.innerHTML += `<span class="glyphicon glyphicon-heart-empty js-like"></span>`
+                // }
 
-			} // for /of loop
+            } // for /of loop
 
-		} // render()
+        } // render()
 
-		GET('/api/user/2')
-		.then((data) => {
-			render(data);
-		});
-
-
-// add comment
-		const comm_input = document.querySelector('.js-adm-comment');
-
-		// comm_input.addEventListener('keydown', (e) => {
-		// 	const {value} = comm_input;
-		// 	if (e.keyCode === 13) {
-		// 		validateSearch(value)
-		// 		.then((data) => {
-		// 			PUT('/api/ comment route') // needs add comm route	
-		// 			.then((data) => {
-		// 				render(data);
-		// 			})
-		// 			.catch((e) => {
-		// 				alert(e)
-		// 			})
-		// 		})
+        GET('/api/user/2')
+            .then((data) => {
+                render(data);
+            });
 
 
-		// 	} 
-			// keycode
-		// }); 
-		// comm_input eventListener // add comment
+        // add comment
+        const comm_input = document.querySelector('.js-adm-comment');
 
-// need to be targeted with post id or something.
-// otherwise only grabs first icon in thread.
-
-// toggle heart for likes
-		// const heart = document.querySelector('.js-heart');
-		// heart.addEventListener('click', (e) => {
-		// 	e.preventDefault();
-		// 	// heart.classList.add('red', 'js-red-heart');
-		// 	// heart.classList.remove('outline', 'js-empty-heart');
-		// 	heart.classList.toggle('outline');
-		// });
-
-		const signout = document.querySelector('.js-logout');
-		signout.addEventListener('click', (e) => {
-			e.preventDefault();
-			logout();
-
-		});
-	} // admin.html
+        // comm_input.addEventListener('keydown', (e) => {
+        // 	const {value} = comm_input;
+        // 	if (e.keyCode === 13) {
+        // 		validateSearch(value)
+        // 		.then((data) => {
+        // 			PUT('/api/ comment route') // needs add comm route	
+        // 			.then((data) => {
+        // 				render(data);
+        // 			})
+        // 			.catch((e) => {
+        // 				alert(e)
+        // 			})
+        // 		})
 
 
+        // 	} 
+        // keycode
+        // }); 
+        // comm_input eventListener // add comment
 
-	function logout() {
-		GET('/auth/logout')
-			.then((data) => {
-				console.log('logout data :',data);
-				window.location.href = '/'
-			})
-		};
+        // need to be targeted with post id or something.
+        // otherwise only grabs first icon in thread.
 
-	
+        // toggle heart for likes
+        // const heart = document.querySelector('.js-heart');
+        // heart.addEventListener('click', (e) => {
+        // 	e.preventDefault();
+        // 	// heart.classList.add('red', 'js-red-heart');
+        // 	// heart.classList.remove('outline', 'js-empty-heart');
+        // 	heart.classList.toggle('outline');
+        // });
+
+        const signout = document.querySelector('.js-logout');
+        signout.addEventListener('click', (e) => {
+            e.preventDefault();
+            logout();
+
+        });
+    } // admin.html
+
+
+
+    function logout() {
+        GET('/auth/logout')
+            .then((data) => {
+                console.log('logout data :', data);
+                window.location.href = '/'
+            })
+    };
+
+
 })();
