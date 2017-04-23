@@ -137,8 +137,8 @@ function POST(url, data) {
 			}  // if
 			else {	//can be deleted. just for testing
 				console.log('passwords match');
-				console.log('pw1 is :', pw1);
-				console.log('pw2 is :', pw2);
+				console.log('pw1 is :', pw1.value);
+				console.log('pw2 is :', pw2.value);
 				console.log('email :',email);
 				
 
@@ -150,10 +150,14 @@ function POST(url, data) {
 // </div>
 // 				`;
 			POST('/auth/register', {
-                fname,
-                lname,
-                email,
-                pw1,
+                // fname,
+                // lname,
+                // email,
+                // pw1,
+                first_name: fname,
+                last_name: lname,
+                email: email,
+                password: pw1.value
             }).then((data) => {
             	console.log('did this add a user?');
                 console.log('data from post/register :', data)

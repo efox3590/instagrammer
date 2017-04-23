@@ -16,14 +16,14 @@ module.exports = function(app, db) {
         usernameField: 'email',
         passwordField: 'password',
     }, (email, password, done) => {
-        console.log(email, password)
+        // console.log(email, password)
         if (!email || !password) {
             return done('error', {}, {});
         }
 
         db.get(`SELECT user.first_name, user.email, user.id FROM user WHERE user.email = '${email}' AND user.password = '${password}'`)
             .then((row) => {
-                console.log(row)
+                console.log('row is :',row)
                 if (!row || row.length === 0) return done(true, false);
                 return done(null, row);
             })
@@ -39,7 +39,7 @@ module.exports = function(app, db) {
 
     app.post('/auth/login', (request, response, next) => {
         passport.authenticate('local', (err, user, info) => {
-            console.log('about to authenticate')
+            // console.log('about to authenticate')
             console.log('err, user, info ---- ', err, user, info)
             if (err || !user) {
                 console.log('err is :',err);
@@ -47,7 +47,7 @@ module.exports = function(app, db) {
             }
             
             request.logIn(user, (err) => {
-                console.log('now in req login', err)
+                // console.log('now in req login', err)
                 if (err) return next(err);
                 response.header('Content-Type', 'application/json');
                 response.send({
@@ -61,9 +61,9 @@ module.exports = function(app, db) {
     });
 
     app.use((request, response, next) => {
-        console.log('in middleware')
+        // console.log('in middleware')
         console.log('req.user :',request.user)
-        console.log('req.session :',request.session)
+        // console.log('req.session :',request.session)
         console.log('req,isAuth :',request.isAuthenticated());
 
         if (request.isAuthenticated()) {
