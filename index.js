@@ -6,7 +6,6 @@ const app = express();
 const Auth = require('./authRoutes');
 const apiRoutes = require('./apiRoutes');
 
-
 const db = require('sqlite');
 const DB_NAME = './database.sqlite';
 
