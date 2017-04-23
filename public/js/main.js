@@ -180,6 +180,7 @@ function POST(url, data) {
 	// if (document.querySelector('.js-log-email') !== null){
 	if (location.pathname === '/login.html') {
 
+
 		const email = document.querySelector('.js-log-email');
 		const pw = document.querySelector('.js-log-pw');
 		const btn = document.querySelector('.js-log-btn')
@@ -194,7 +195,7 @@ function POST(url, data) {
 
 		})
 		.then((data) => {
-			console.log('data', data);
+			console.log('POST auth/login data', data);
 			if (data.success) {
 				window.location.href = '/feed.html'
 			}
@@ -210,83 +211,58 @@ function POST(url, data) {
  */
 
 	if (location.pathname === '/feed.html') {
-		// const name = document.querySelector('.fname');
-		// const {fname} = 
-		// name.innerHTML = ``;
-		const logout = document.querySelector('.js-logout');
-		logout.addEventListener('click', (e) => {
-			e.preventDefault();
-
-			GET('/auth/logout')
-			.then((data) => {
-				console.log('logout data :',data);
-				window.location.href = '/'
-			})
-		});
+		// const fname = document.querySelector('.fname');
+		// const {value} = fname;
+		// value.innerHTML = ``;
 
 
-		function render(user) {
+		function render(data) {
+			const user = data["user"];
 			const container = document.querySelector('.js-feed');
 			container.innerHTML = '';
-			user = user.reverse();
-
-			// console.log('postItems :',user);
+			// user = user.reverse(); 
+			console.log('postItems :',user);
 // more likely for (const user of users) {
 // replace( (postItem: user), (postItems: users) )
 			for (const postItem of user) {
-				// console.log('single :',postItem);
+				console.log('single :',postItem);
 // 
 		    const div = document.createElement('div');
 			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
-	// need ${vars} for: image url, caption, commenter_id, commenter_comment
+	// need vars for: image url, caption, commenter_id, commenter_comment
 			const img_url = postItem.image_url;
-			// console.log(img_url);
 			const caption = postItem.descr;
-			// console.log(caption)
-			// const timeStamp = moment(postItem.data.when).format('dddd, MMMM DD, YYYY h:mm a');
-			// not quite sure what the data looks like when it comes back
-			// need to discus with team
+			const name = postItem.first_name;
+			// const time = postItem.TimeStamp;
+			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
 
+			const fname = document.querySelector('.fname');
+			fname.innerHTML = `${name}!`;
 			// const comm_id = 
 			// const comm_comment = 
 		    div.innerHTML = `
-	  <div class="image">
-	    // <img src="../assets/puppy.jpg">
-	    <img src=${img_url}>
-	    
-	  </div>
-	  <div class="content">
-	    <div class="caption">
-	      // Bear wanted to walk in the water. So cute!
-	      ${caption}
-	    </div>
-	    <div class="meta">$TimeStamp</div>
-	    <a>
-	      <i class="heart icon"></i>
-	    </a>
-	      0 Likes
-	    <div class="comments">
-		   // <p><strong>Bob: </strong>What a great puppy.</p>
-		   <p><strong>$some_user_id: </strong>$comment</p>
-	    </div>
-	  </div>
-	 <!--  <div class="extra content">
-	  </div> -->
-	  <div class="extra content">
-	  	<form class="ui form">
-		  <div class="field">
-		    <label>Leave a Comment</label>
-		      <div class="field">
-		        <input name="feed[comment]" placeholder="Leave a Comment" type="text" class="js-feed-comment">
-		      </div>
-			</div>
-		</form>
 
+<div class="content">
+    <div class="right floated meta">${time}</div>
+    <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
+  </div>
+  <div class="image">
+    <img src=${img_url}>
+  </div>
+  <div class="content">
+  	<div class="caption">
+      ${caption}
+    </div>
+    <span class="right floated">
+      <i class="heart outline red icon js-heart"></i>
+      <!-- 17 likes -->
+    </span>
+  <!--   <i class="comment icon"></i>
+    3 comments -->
+  </div>
+	
+		    `; // end div.innerHTML
 
-	</div>
-		    `; // end li.innerHTML
-		    // console.log(div);
-		    
 		    container.appendChild(div);
 
 		    //need to isolate proper element
@@ -301,18 +277,37 @@ function POST(url, data) {
 
 		} // render()
 
+		GET('/api/user/2')
+		.then((data) => {
+			render(data);
+		});
+
 		// const comm = document.querySelector('.js-comm-input');
 		// const comment = comm.value;
 
+		// const heart = document.querySelector('.js-heart');
+		// heart.addEventListener('click', (e) => {
+		// 	e.preventDefault();
+		// 	// heart.classList.add('red', 'js-red-heart');
+		// 	// heart.classList.remove('outline', 'js-empty-heart');
+		// 	heart.classList.toggle('outline');
+		// });
+
+		const signout = document.querySelector('.js-logout');
+		signout.addEventListener('click', (e) => {
+			e.preventDefault();
+			logout();
+
+			// GET('/auth/logout')
+			// .then((data) => {
+			// 	console.log('logout data :',data);
+			// 	window.location.href = '/'
+			// })
+		});
 
 	} // feed.html
 
 //hard code for testing should be /:user_id of session or s.t
-	GET('/api/user/2')
-		.then((user) => {
-			render(user);
-		});
-
 
 /*
  *		ADMIN
@@ -331,40 +326,137 @@ function POST(url, data) {
 			instaApp.createPost(user_id); // or something
 		});
 
+// render 	
+		function render(data) {
+			const user = data["user"];
+			const container = document.querySelector('.js-feed');
+			container.innerHTML = '';
+			// user = user.reverse(); 
+			console.log('postItems :',user);
+// more likely for (const user of users) {
+// replace( (postItem: user), (postItems: users) )
+			for (const postItem of user) {
+				console.log('single :',postItem);
+// 
+		    const div = document.createElement('div');
+			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
+	// need vars for: image url, caption, commenter_id, commenter_comment
+			const img_url = postItem.image_url;
+			const caption = postItem.descr;
+			const name = postItem.first_name;
+			// const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+
+			// const comm_id = 
+			// const comm_comment = 
+		    div.innerHTML = `
+
+<div class="content">
+    <div class="right floated meta">14h ${time}</div>
+    <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
+  </div>
+  <div class="image">
+    <img src=${img_url}>
+  </div>
+  <div class="content">
+  	<div class="caption">
+      ${caption}
+    </div>
+    <span class="right floated">
+      <i class="heart outline red icon js-heart"></i>
+      <!-- 17 likes -->
+    </span>
+  <!--   <i class="comment icon"></i>
+    3 comments -->
+  </div>
+   <div class="extra content">
+    <div class="ui large transparent left icon input">
+      <i class="comment icon"></i>
+      <input placeholder="Add Comment..." type="text" class="js-adm-comment">
+    </div>
+      <div class="extra content">
+      <span class="right floated mods">
+      	<i class="edit icon"></i>
+	    <i class="trash outline icon"></i>
+	  </span>  
+	</div>
+  </div>
+</div> 
+	
+		    `; // end div.innerHTML
+
+		    container.appendChild(div);
+
+		    //need to isolate proper element
+		 //    if (postItem.data.isLiked) {
+			// 	li.innerHTML += `<span class="glyphicon glyphicon-heart js-like"></span>`
+			// }
+			// else {
+			// 	li.innerHTML += `<span class="glyphicon glyphicon-heart-empty js-like"></span>`
+				// }
+
+			} // for /of loop
+
+		} // render()
+
+		GET('/api/user/2')
+		.then((data) => {
+			render(data);
+		});
+
+
 // add comment
 		const comm_input = document.querySelector('.js-adm-comment');
 
-		comm_input.addEventListener('keydown', (e) => {
-			const {value} = comm_input;
-			if (e.keyCode === 13) {
-				validateSearch(value)
-				.then((data) => {
-					PUT('/api/ comment route') // needs add comm route	
-					.then((data) => {
-						render(data);
-					})
-					.catch((e) => {
-						alert(e)
-					})
-				})
+		// comm_input.addEventListener('keydown', (e) => {
+		// 	const {value} = comm_input;
+		// 	if (e.keyCode === 13) {
+		// 		validateSearch(value)
+		// 		.then((data) => {
+		// 			PUT('/api/ comment route') // needs add comm route	
+		// 			.then((data) => {
+		// 				render(data);
+		// 			})
+		// 			.catch((e) => {
+		// 				alert(e)
+		// 			})
+		// 		})
 
 
-			} // keycode
-		}); // comm_input eventListener // add comment
+		// 	} 
+			// keycode
+		// }); 
+		// comm_input eventListener // add comment
 
 // need to be targeted with post id or something.
 // otherwise only grabs first icon in thread.
 
 // toggle heart for likes
-		const heart = document.querySelector('.js-heart');
-		heart.addEventListener('click', (e) => {
-			e.preventDefault();
-			// heart.classList.add('red', 'js-red-heart');
-			// heart.classList.remove('outline', 'js-empty-heart');
-			heart.classList.toggle('outline');
-		});
+		// const heart = document.querySelector('.js-heart');
+		// heart.addEventListener('click', (e) => {
+		// 	e.preventDefault();
+		// 	// heart.classList.add('red', 'js-red-heart');
+		// 	// heart.classList.remove('outline', 'js-empty-heart');
+		// 	heart.classList.toggle('outline');
+		// });
 
+		const signout = document.querySelector('.js-logout');
+		signout.addEventListener('click', (e) => {
+			e.preventDefault();
+			logout();
+
+		});
 	} // admin.html
+
+
+
+	function logout() {
+		GET('/auth/logout')
+			.then((data) => {
+				console.log('logout data :',data);
+				window.location.href = '/'
+			})
+		};
 
 	
 })();
