@@ -27,26 +27,12 @@ router.use(parser.json())
 
 let db;
 
-
-// LocalStrategry, Serielize, Deseriealize,  intiate, Session
-
-//local points to strategy, 
-//
-
-// router.post('./login', passport.authenticate('local'),(req, res)=>{
-
-
-
-// })
-
-
 // Get all users + their activity
 router.get('/users', (req, res, next) => {
 
 	instaApp.getUsers()
-	// next(data);
         .then((data) => {
-            console.log(data)
+            console.log('this is the data :',data)
             res.header('Content-Type', 'application/json');
             res.send({ users: data });
         })

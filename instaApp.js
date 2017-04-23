@@ -10,8 +10,7 @@ instaApp.init = function (db) {
 
 //create User
 instaApp.createUser = (first_name, last_name, email, password) => {
-    console.log('in instaApp :::: ', first_name, last_name, email, password)
-        return instaApp.db.run(`INSERT INTO user (first_name, last_name, email, password) VALUES (?,?,?,?)`, [first_name, last_name, email, password])
+    return instaApp.db.run(`INSERT INTO user (first_name, last_name, email, password) VALUES (?,?,?,?)`, [first_name, last_name, email, password])
 };
 
 // Get all users + their activity
