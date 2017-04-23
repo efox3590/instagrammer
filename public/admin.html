@@ -33,18 +33,18 @@
 	  	<h1 class="tron">Add a Post!</h1>
 			<p>
 				Select an image to upload:<br>
-				<input type="file" name="datafile" size="40" class="js-file-upload">
-				<!-- <input type="file" name="datafile" size="40" class="js-file-upload" accept="image/*" style="display: none" multiple> -->
+				<input type="file" name="datafile" size="40" class="js-fileElem" multiple accept="images/*">
 			</p>
 			<form class="ui small form">
 				<div class="ui fluid action input">
 				  <input placeholder="Add a Caption" type="text" size="150" class="js-adm-caption">
-				  <button class="ui primary button js-adm-btn">Submit</button>
+				  <button class="ui primary button js-adm-btn js-fileSelect">Submit</button>
 				</div>
 			</form>
 	</div>
 
-	<div class="feed js-feed">
+<div class="feed js-feed">
+
 <!-- 1 -->
 	  <!-- 	<div class="ui centered card">
 		  <div class="content">
@@ -115,10 +115,12 @@
 
 	</div> <!-- feed --> 
 
-	<!-- body -->
 
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
-    <script src='js/main.js'></script>
+    
+      <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+<script src='js/main.js'></script>
+
 </body>
 </html>
