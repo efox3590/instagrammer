@@ -9,13 +9,6 @@ module.exports = function(app, db) {
 
     passport.deserializeUser((user, done) => {
         done(null, user)
-        // db.all('SELECT id, username FROM users WHERE id = ?', id, function (err, row) {
-        // if (!row) return done(null, false);
-        // done(null, user)
-        // });
-        // User.findById(user.id, function (err, user) {
-        //     done(err, user);
-        // });
     });
 
     //at least checks the db for combo, returns username & id
@@ -23,28 +16,14 @@ module.exports = function(app, db) {
         usernameField: 'email',
         passwordField: 'password',
     }, (email, password, done) => {
-        console.log(email, password)
+        // console.log(email, password)
         if (!email || !password) {
             return done('error', {}, {});
         }
 
-        // db.all(`SELECT users.email, users.id FROM users WHERE users.email = '${email}' AND users.password = '${password}'`,function(err,rows){
-        //     if (err)
-        //         return done(err);
-        //         if (!rows.length) {
-        //         return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
-        //         } 
-
-        //         if (!( rows[0].password == password))
-        //         return done(null, false, req.flash('loginMessage', 'Wrong password.')); // create the loginMessage and save it to session as flashdata
-
-        //         // all is well, return successful user
-        //         return done(null, rows[0]);             
-        //     });
-
         db.get(`SELECT user.first_name, user.email, user.id FROM user WHERE user.email = '${email}' AND user.password = '${password}'`)
             .then((row) => {
-                console.log(row)
+                console.log('row is :',row)
                 if (!row || row.length === 0) return done(true, false);
                 return done(null, row);
             })
@@ -52,9 +31,15 @@ module.exports = function(app, db) {
     app.use(passport.initialize());
     app.use(passport.session());  
 
+    app.get('/auth/logout', (request, response, next) => {
+        request.logout();
+        next();
+        // response.redirect('/');
+    });
+
     app.post('/auth/login', (request, response, next) => {
         passport.authenticate('local', (err, user, info) => {
-            console.log('about to authenticate')
+            // console.log('about to authenticate')
             console.log('err, user, info ---- ', err, user, info)
             if (err || !user) {
                 console.log('err is :',err);
@@ -62,26 +47,27 @@ module.exports = function(app, db) {
             }
             
             request.logIn(user, (err) => {
-                console.log('now in req login', err)
+                // console.log('now in req login', err)
                 if (err) return next(err);
                 response.header('Content-Type', 'application/json');
                 response.send({
                     success: true,
-                    id: user.id, 
-                });
+                    id: user.id
+                })
+                next()
 
             });
         })(request, response, next);
     });
 
     app.use((request, response, next) => {
-        console.log('in middleware')
+        // console.log('in middleware')
         console.log('req.user :',request.user)
-        console.log('req.session :',request.session)
+        // console.log('req.session :',request.session)
         console.log('req,isAuth :',request.isAuthenticated());
 
         if (request.isAuthenticated()) {
-            console.log('before redirect line')
+            console.log('shit is authenticated')
             next();
             return ;
         }

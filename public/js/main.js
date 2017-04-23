@@ -120,9 +120,10 @@ function POST(url, data) {
 		const pw1 = document.querySelector('.js-reg-pw1');
 		const pw2 = document.querySelector('.js-reg-pw2');
 		const message = document.querySelector('.js-reg-message');
-			if (pw1 !== pw2.value) {
+			if (pw1.value !== pw2.value) {
 				console.log('pw1 is :', pw1.value);
 				console.log('pw2 is :', pw2.value);
+				console.log('email :',email);
 				// message.innerHTML = 'Passwords do not match.'
 				message.innerHTML = `
 <div class="ui error message">
@@ -132,29 +133,38 @@ function POST(url, data) {
 </div> 
 <br>
 				`;
-				pw1.focus();
+				document.querySelector('.js-reg-pw1').focus();
 			}  // if
 			else {	//can be deleted. just for testing
+				console.log('passwords match');
 				console.log('pw1 is :', pw1.value);
 				console.log('pw2 is :', pw2.value);
-				message.innerHTML = `
-<div class="ui success message">
-  <div class="header">
-    Your user registration was successful.
-  </div>
-</div>
-				`;
-// route to add user to db
-			POST('/api/users', {
-				first_name: fname,
-     			last_name: lname,
-     			email: email,
-     			password: pw2,
-     			profile_pic: null
-			})			
-			.then((data) => {
-				console.log('added a user', data)
-			})
+				console.log('email :',email);
+				
+
+// 				message.innerHTML = `
+// <div class="ui success message">
+//   <div class="header">
+//     Your user registration was successful.
+//   </div>
+// </div>
+// 				`;
+			POST('/auth/register', {
+                // fname,
+                // lname,
+                // email,
+                // pw1,
+                first_name: fname,
+                last_name: lname,
+                email: email,
+                password: pw1.value
+            }).then((data) => {
+            	console.log('did this add a user?');
+                console.log('data from post/register :', data)
+                if (data.success) {
+                    window.location.href = '/login.html'
+                }
+            });
 
 			}	// else	
 				
@@ -200,30 +210,39 @@ function POST(url, data) {
  */
 
 	if (location.pathname === '/feed.html') {
-		const name = document.querySelector('.fname');
-		const {fname} = 
-		name.innerHTML = ``;
+		// const name = document.querySelector('.fname');
+		// const {fname} = 
+		// name.innerHTML = ``;
+		const logout = document.querySelector('.js-logout');
+		logout.addEventListener('click', (e) => {
+			e.preventDefault();
 
+			GET('/auth/logout')
+			.then((data) => {
+				console.log('logout data :',data);
+				window.location.href = '/'
+			})
+		});
 
 
 		function render(user) {
 			const container = document.querySelector('.js-feed');
 			container.innerHTML = '';
-			// postItems = postItems.reverse();
+			user = user.reverse();
 
-			console.log('postItems :',user);
+			// console.log('postItems :',user);
 // more likely for (const user of users) {
 // replace( (postItem: user), (postItems: users) )
 			for (const postItem of user) {
-				console.log('single :',postItem);
+				// console.log('single :',postItem);
 // 
 		    const div = document.createElement('div');
 			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
 	// need ${vars} for: image url, caption, commenter_id, commenter_comment
 			const img_url = postItem.image_url;
-			console.log(img_url);
+			// console.log(img_url);
 			const caption = postItem.descr;
-			console.log(caption)
+			// console.log(caption)
 			// const timeStamp = moment(postItem.data.when).format('dddd, MMMM DD, YYYY h:mm a');
 			// not quite sure what the data looks like when it comes back
 			// need to discus with team
@@ -266,8 +285,9 @@ function POST(url, data) {
 
 	</div>
 		    `; // end li.innerHTML
-		    console.log(div);
+		    // console.log(div);
 		    
+		    container.appendChild(div);
 
 		    //need to isolate proper element
 		 //    if (postItem.data.isLiked) {
@@ -286,6 +306,13 @@ function POST(url, data) {
 
 
 	} // feed.html
+
+//hard code for testing should be /:user_id of session or s.t
+	GET('/api/user/2')
+		.then((user) => {
+			render(user);
+		});
+
 
 /*
  *		ADMIN
@@ -339,9 +366,5 @@ function POST(url, data) {
 
 	} // admin.html
 
-	// GET('/api/user/:id')
-	// 	.then((user) => {
-	// 		render(user);
-	// 	});
-
+	
 })();
