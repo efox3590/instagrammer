@@ -17,7 +17,7 @@ CREATE TABLE followers(
 CREATE TABLE activity(
 	id INTEGER NOT NULL,
 	activity_id INTEGER NOT NULL,
-	activity_payload TEXT,
+	-- activity_payload TEXT,
 	image_url TEXT,
 	descr TEXT,
 	Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -36,11 +36,11 @@ CREATE TABLE activity(
 
 
 
-INSERT into user (first_name, last_name, email, password) VALUES ('emily', 'fox', 'emily@nycda.com', 'testing1234');
-INSERT into user (first_name, last_name, email, password) VALUES ('linda', 'yu', 'linda@nycda.com', 'chicken');
-INSERT into user (first_name, last_name, email, password) VALUES ('mario', 'rangel', 'mario@nycda.com', 'mario5678');
-INSERT into user (first_name, last_name, email, password) VALUES ('taq', 'karim', 'taq@nycda.com', 'taqrules');
-INSERT into user (first_name, last_name, email, password) VALUES ('baba', 'k', 'baba@nycda.com', 'ilovedrake');
+INSERT into user (first_name, last_name, email, password) VALUES ('Emily', 'fox', 'emily@nycda.com', 'testing1234');
+INSERT into user (first_name, last_name, email, password) VALUES ('Linda', 'yu', 'linda@nycda.com', 'chicken');
+INSERT into user (first_name, last_name, email, password) VALUES ('Mario', 'rangel', 'mario@nycda.com', 'mario5678');
+INSERT into user (first_name, last_name, email, password) VALUES ('Taq', 'karim', 'taq@nycda.com', 'taqrules');
+INSERT into user (first_name, last_name, email, password) VALUES ('Baba', 'k', 'baba@nycda.com', 'ilovedrake');
 
 INSERT into followers (id, follow_id) VALUES (1, 1);
 INSERT into followers (id, follow_id) VALUES (2, 1);

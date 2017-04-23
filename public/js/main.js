@@ -215,6 +215,7 @@ function POST(url, data) {
 		// const {value} = fname;
 		// value.innerHTML = ``;
 
+// order by time to sort array
 
 		function render(data) {
 			const user = data["user"];
@@ -226,6 +227,8 @@ function POST(url, data) {
 // replace( (postItem: user), (postItems: users) )
 			for (const postItem of user) {
 				console.log('single :',postItem);
+				console.log('each user id :',postItem["id"]);
+				const id = postItem["id"];
 // 
 		    const div = document.createElement('div');
 			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
@@ -323,7 +326,8 @@ function POST(url, data) {
 			e.preventDefault();
 
 			// add post to activity feed for user
-			instaApp.createPost(user_id); // or something
+			// pass caption and img to DB so it can render new post
+			// instaApp.createPost(user_id); // or something
 		});
 
 // render 	
