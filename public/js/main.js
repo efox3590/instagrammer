@@ -102,116 +102,169 @@ function POST(url, data) {
 		});
 	} // DELETE
 
+/*
+ *		REGISTER
+ */
+
+
 	// if (document.querySelector('.js-reg-fname') !== null){
 	if (location.pathname === '/register.html') {
 
-		const fname = document.querySelector('.js-reg-fname');
-		const lname = document.querySelector('.js-reg-lname');
-		const email = document.querySelector('.js-reg-email');
-		const pw1 = document.querySelector('.js-reg-pw1');
-		const pw2 = document.querySelector('.js-reg-pw2');
 		const btn = document.querySelector('.js-reg-btn');
-		const message = document.querySelector('.js-reg-message');
 
 		btn.addEventListener('click', (e) => {
 			e.preventDefault();
+		const fname = document.querySelector('.js-reg-fname').value;
+		const lname = document.querySelector('.js-reg-lname').value;
+		const email = document.querySelector('.js-reg-email').value;
+		const pw1 = document.querySelector('.js-reg-pw1');
+		const pw2 = document.querySelector('.js-reg-pw2');
+		const message = document.querySelector('.js-reg-message');
 			if (pw1.value !== pw2.value) {
 				console.log('pw1 is :', pw1.value);
-				console.log('pw2 is :', pw2.value)
-				message.innerHTML = 'Passwords do not match.'
-				pw2.focus();
-			} 
+				console.log('pw2 is :', pw2.value);
+				console.log('email :',email);
+				// message.innerHTML = 'Passwords do not match.'
+				message.innerHTML = `
+<div class="ui error message">
+	<div class="header">
+		Passwords do not match!
+	</div>
+</div> 
+<br>
+				`;
+				document.querySelector('.js-reg-pw1').focus();
+			}  // if
 			else {	//can be deleted. just for testing
-				message.innerHTML = 'good job. passwords match'
-			// route to add user to db
-			// POST('/api/user' )
-			
+				console.log('passwords match');
+				console.log('pw1 is :', pw1.value);
+				console.log('pw2 is :', pw2.value);
+				console.log('email :',email);
+				
 
-			}		
+// 				message.innerHTML = `
+// <div class="ui success message">
+//   <div class="header">
+//     Your user registration was successful.
+//   </div>
+// </div>
+// 				`;
+			POST('/auth/register', {
+                // fname,
+                // lname,
+                // email,
+                // pw1,
+                first_name: fname,
+                last_name: lname,
+                email: email,
+                password: pw1.value
+            }).then((data) => {
+            	console.log('did this add a user?');
+                console.log('data from post/register :', data)
+                if (data.success) {
+                    window.location.href = '/login.html'
+                }
+            });
+
+			}	// else	
 				
 
 		}) // event listener
 
 	}	// register.html
 
+/*
+ *		LOGIN
+ */
+
+
 	// if (document.querySelector('.js-log-email') !== null){
 	if (location.pathname === '/login.html') {
+
 
 		const email = document.querySelector('.js-log-email');
 		const pw = document.querySelector('.js-log-pw');
 		const btn = document.querySelector('.js-log-btn')
 
 		btn.addEventListener('click', (e) => {
-			//  SEND LOGIN INFORMATIUIN TO PASSPORT ROUTE,
-			console.log('need passport auth')
-		// run passport authentication logic !!! 
+			e.preventDefault();
 
-		// POST('/api/')
+		POST('/auth/login', {
+
+			email: email.value,
+			password: pw.value, 
 
 		})
+		.then((data) => {
+			console.log('POST auth/login data', data);
+			if (data.success) {
+				window.location.href = '/feed.html'
+			}
+			
+		})		
+
+		}) // event listener
 			
 	}	// login.html
 
+/*
+ *		FEED
+ */
+
 	if (location.pathname === '/feed.html') {
+		// const fname = document.querySelector('.fname');
+		// const {value} = fname;
+		// value.innerHTML = ``;
 
 
-
-		function render(postItems) {
+		function render(data) {
+			const user = data["user"];
 			const container = document.querySelector('.js-feed');
 			container.innerHTML = '';
-			postItems = postItems.reverse();
-
-			// console.log('postItems :',postItems);
-			for (const postItem of postItems) {
+			// user = user.reverse(); 
+			console.log('postItems :',user);
+// more likely for (const user of users) {
+// replace( (postItem: user), (postItems: users) )
+			for (const postItem of user) {
+				console.log('single :',postItem);
 // 
 		    const div = document.createElement('div');
-			div.classList.add('ui', 'centered', 'card', `js-blog-item-${postItem.id}`);
-	// need ${vars} for: image url, caption, commenter_id, commenter_comment
-			const img_url = postItem.data.img_url;
-			const caption = postItem.data.caption;
-			const timeStamp = moment(postItem.data.when).format('dddd, MMMM DD, YYYY h:mm a');
-			// not quite sure what the data looks like when it comes back
-			// need to discus with team
+			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
+	// need vars for: image url, caption, commenter_id, commenter_comment
+			const img_url = postItem.image_url;
+			const caption = postItem.descr;
+			const name = postItem.first_name;
+			// const time = postItem.TimeStamp;
+			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
 
+			const fname = document.querySelector('.fname');
+			fname.innerHTML = `${name}!`;
 			// const comm_id = 
 			// const comm_comment = 
 		    div.innerHTML = `
-	  <div class="image">
-	    // <img src="../assets/puppy.jpg">
-	    <img src=${img_url}>
-	    
-	  </div>
-	  <div class="content">
-	    <div class="caption">
-	      // Bear wanted to walk in the water. So cute!
-	      ${caption}
-	    </div>
-	    <div class="meta">${TimeStamp}</div>
-	    <a>
-	      <i class="heart icon"></i>
-	    </a>
-	      0 Likes
-	    <div class="comments">
-		   // <p><strong>Bob: </strong>What a great puppy.</p>
-		   <p><strong>${some_user_id}: </strong>${comment}</p>
-	    </div>
-	  </div>
-	 <!--  <div class="extra content">
-	  </div> -->
-	  <div class="extra content">
-	  	<form class="ui form">
-		  <div class="field">
-		    <label>Leave a Comment</label>
-		      <div class="field">
-		        <input name="feed[comment]" placeholder="Leave a Comment" type="text" class="js-feed-comment">
-		      </div>
-			</div>
-		</form>
 
+<div class="content">
+    <div class="right floated meta">${time}</div>
+    <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
+  </div>
+  <div class="image">
+    <img src=${img_url}>
+  </div>
+  <div class="content">
+  	<div class="caption">
+      ${caption}
+    </div>
+    <span class="right floated">
+      <i class="heart outline red icon js-heart"></i>
+      <!-- 17 likes -->
+    </span>
+  <!--   <i class="comment icon"></i>
+    3 comments -->
+  </div>
+	
+		    `; // end div.innerHTML
 
-	</div>
-		    `; // end li.innerHTML
-		    
+		    container.appendChild(div);
 
 		    //need to isolate proper element
 		 //    if (postItem.data.isLiked) {
@@ -225,25 +278,247 @@ function POST(url, data) {
 
 		} // render()
 
-		const comm = document.querySelector('.js-comm-input');
-		const comment = comm.value;
+		GET('/api/user/2')
+		.then((data) => {
+			render(data);
+		});
 
+		// const comm = document.querySelector('.js-comm-input');
+		// const comment = comm.value;
+
+		// const heart = document.querySelector('.js-heart');
+		// heart.addEventListener('click', (e) => {
+		// 	e.preventDefault();
+		// 	// heart.classList.add('red', 'js-red-heart');
+		// 	// heart.classList.remove('outline', 'js-empty-heart');
+		// 	heart.classList.toggle('outline');
+		// });
+
+		const signout = document.querySelector('.js-logout');
+		signout.addEventListener('click', (e) => {
+			e.preventDefault();
+			logout();
+
+			// GET('/auth/logout')
+			// .then((data) => {
+			// 	console.log('logout data :',data);
+			// 	window.location.href = '/'
+			// })
+		});
 
 	} // feed.html
 
+//hard code for testing should be /:user_id of session or s.t
+
+/*
+ *		ADMIN
+ */
+
+	if (location.pathname === '/admin.html') {
+const validate = () => {
+            throw new Error('This is a required arg');
+        }; // validate
+
+        const uploadFiles = (
+            fileSelectSel = validate(),
+            fileElemSel = validate(),
+            onFileChanged = validate()
+        ) => {
+            // select anchor tag and file input
+            const fileSelect = document.querySelector(fileSelectSel);
+            const fileElem = document.querySelector(fileElemSel);
+
+            if (fileSelect === null || fileElem === null) {
+                throw new Error('Required DOM elements not found by querySelector');
+            }
+
+            // click handler for fileElem
+            fileSelect.addEventListener('click', (e) => {
+                e.preventDefault();
+                fileElem && fileElem.click();
+            });
+
+            // change handler for fileSelect
+            fileElem.addEventListener('change', (e) => onFileChanged(e.target.files))
+        } // uploadFiles
 
 
-	// using moment
-	// function getDate() {
-	// 	let date = new Date();
-	// 	console.log(date);
-	// 	date = moment(date).format('dddd, MMMM DD, YYYY h:mm a');
-	// 	console.log(date);
-	// 	const message = document.querySelector('.js-login-message');
-	// 	message.innerHTML = date;
-	// };
+        // Initialize Firebase
+    const config = {
+        apiKey: "AIzaSyA7rjzLhKWPj7c4VSVIcVP9u6NK2m2lhak",
+        authDomain: "instragram-clone-8452c.firebaseapp.com",
+        databaseURL: "https://instragram-clone-8452c.firebaseio.com",
+        projectId: "instragram-clone-8452c",
+        storageBucket: "instragram-clone-8452c.appspot.com",
+        messagingSenderId: "721001345500"
+    };
+        // Name of file storage ref "folder"
+        const FILE_STORAGE_REF = 'images';
+
+        // initialize firebase
+        firebase.initializeApp(config);
+        // Get a reference to the storage service, which is used to create references in your storage bucket
+        const storageRef = firebase.storage().ref().child(FILE_STORAGE_REF);
+
+        uploadFiles('.js-fileSelect', '.js-fileElem', (files) => {
+            if (!storageRef) {
+                throw new Error('Storage Ref not set!');
+            }
+            const fileUploads = Array.from(files).map((currFile) => {
+                // we store the name of the file as a storage ref
+                const fileRef = storageRef.child(currFile.name);
+                // we return a promise where we first "put" or upload the file
+                // and then once the upload is complete, we return promise with
+                // download URL string of the file we uploaded
+                return fileRef.put(currFile).then((snapshot) => snapshot.downloadURL);
+            });
+
+            Promise.all(fileUploads).then((items) => {
+                console.log(items);
+            });
+        }); // upload files
+// add new post
+		const caption = document.querySelector('.js-adm-caption');
+		const addbtn = document.querySelector('.js-adm-btn');
+
+		addbtn.addEventListener('click', (e) => {
+			e.preventDefault();
+
+			// add post to activity feed for user
+			instaApp.createPost(1); // or something
+		});
+
+// render 	
+		function render(data) {
+			const user = data["user"];
+			const container = document.querySelector('.js-feed');
+			container.innerHTML = '';
+			// user = user.reverse(); 
+			console.log('postItems :',user);
+// more likely for (const user of users) {
+// replace( (postItem: user), (postItems: users) )
+			for (const postItem of user) {
+				console.log('single :',postItem);
+// 
+		    const div = document.createElement('div');
+			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
+	// need vars for: image url, caption, commenter_id, commenter_comment
+			const img_url = postItem.image_url;
+			const caption = postItem.descr;
+			const name = postItem.first_name;
+			// const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+
+			// const comm_id = 
+			// const comm_comment = 
+		    div.innerHTML = `
+
+<div class="content">
+    <div class="right floated meta">14h ${time}</div>
+    <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
+  </div>
+  <div class="image">
+    <img src=${img_url}>
+  </div>
+  <div class="content">
+  	<div class="caption">
+      ${caption}
+    </div>
+    <span class="right floated">
+      <i class="heart outline red icon js-heart"></i>
+      <!-- 17 likes -->
+    </span>
+  <!--   <i class="comment icon"></i>
+    3 comments -->
+  </div>
+   <div class="extra content">
+    <div class="ui large transparent left icon input">
+      <i class="comment icon"></i>
+      <input placeholder="Add Comment..." type="text" class="js-adm-comment">
+    </div>
+      <div class="extra content">
+      <span class="right floated mods">
+      	<i class="edit icon"></i>
+	    <i class="trash outline icon"></i>
+	  </span>  
+	</div>
+  </div>
+</div> 
+	
+		    `; // end div.innerHTML
+
+		    container.appendChild(div);
+
+		    //need to isolate proper element
+		 //    if (postItem.data.isLiked) {
+			// 	li.innerHTML += `<span class="glyphicon glyphicon-heart js-like"></span>`
+			// }
+			// else {
+			// 	li.innerHTML += `<span class="glyphicon glyphicon-heart-empty js-like"></span>`
+				// }
+
+			} // for /of loop
+
+		} // render()
+
+		GET('/api/user/2')
+		.then((data) => {
+			render(data);
+		});
+
+
+// add comment
+		const comm_input = document.querySelector('.js-adm-comment');
+
+		// comm_input.addEventListener('keydown', (e) => {
+		// 	const {value} = comm_input;
+		// 	if (e.keyCode === 13) {
+		// 		validateSearch(value)
+		// 		.then((data) => {
+		// 			PUT('/api/ comment route') // needs add comm route	
+		// 			.then((data) => {
+		// 				render(data);
+		// 			})
+		// 			.catch((e) => {
+		// 				alert(e)
+		// 			})
+		// 		})
+
+
+		// 	} 
+			// keycode
+		// }); 
+		// comm_input eventListener // add comment
+
+// need to be targeted with post id or something.
+// otherwise only grabs first icon in thread.
+
+// toggle heart for likes
+		// const heart = document.querySelector('.js-heart');
+		// heart.addEventListener('click', (e) => {
+		// 	e.preventDefault();
+		// 	// heart.classList.add('red', 'js-red-heart');
+		// 	// heart.classList.remove('outline', 'js-empty-heart');
+		// 	heart.classList.toggle('outline');
+		// });
+
+		const signout = document.querySelector('.js-logout');
+		signout.addEventListener('click', (e) => {
+			e.preventDefault();
+			logout();
+
+		});
+	} // admin.html
+
+
+
+	function logout() {
+		GET('/auth/logout')
+			.then((data) => {
+				console.log('logout data :',data);
+				window.location.href = '/'
+			})
+		};
 
 	
-
-
 })();

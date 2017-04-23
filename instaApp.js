@@ -6,6 +6,13 @@ const instaApp = {};
 instaApp.init = function (db) {
     instaApp.db = db;
 }
+
+
+//create User
+instaApp.createUser = (first_name, last_name, email, password) => {
+    return instaApp.db.run(`INSERT INTO user (first_name, last_name, email, password) VALUES (${first_name}, ${last_name}, ${email}, ${password})`, req)
+};
+
 // Get all users + their activity
 instaApp.getUsers = () => {
     return instaApp.db.all(`SELECT * FROM user`)
@@ -33,7 +40,7 @@ instaApp.getFollowed = (user_id) => {
 
 // Create a post
 instaApp.createPost = (user_id, req) => {
-    return instaApp.db.run(`INSERT INTO activity (user_id, image_url, descr) values (${user_id}, $image_url, $descr)`, req)
+    return instaApp.db.run(`INSERT INTO activity (user_id, image_url, descr) values (${user_id}, ${image_url}, ${descr})`, req)
 };
 
 // Follow a user

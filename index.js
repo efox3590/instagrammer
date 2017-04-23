@@ -3,8 +3,8 @@ const moment = require('moment');
 const sqlite = require('sqlite');
 const app = express();
 
+const Auth = require('./authRoutes');
 const apiRoutes = require('./apiRoutes');
-
 
 const db = require('sqlite');
 const DB_NAME = './database.sqlite';
@@ -18,6 +18,8 @@ app.use(expressSession({
 }));
 
 app.use('/', express.static('public'));
+
+app.use(Auth);
 
 const passport = require('./passport')(app, db);
 
