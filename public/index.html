@@ -4,9 +4,11 @@
 	<meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Instagrammer</title>
-    <link rel='stylesheet' href='styles/reset.css'>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.10/semantic.min.css">
+    <link rel='stylesheet' href='styles/reset.css'>
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon"/>
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">  
+	<script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
     <link rel='stylesheet' href='styles/main.css'>
 </head>
 <body id="app">
@@ -56,5 +58,17 @@
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src='js/main.js'></script>
+    <script>
+  // Initialize Firebase
+  const config = {
+    apiKey: "AIzaSyA7rjzLhKWPj7c4VSVIcVP9u6NK2m2lhak",
+    authDomain: "instragram-clone-8452c.firebaseapp.com",
+    databaseURL: "https://instragram-clone-8452c.firebaseio.com",
+    projectId: "instragram-clone-8452c",
+    storageBucket: "instragram-clone-8452c.appspot.com",
+    messagingSenderId: "721001345500"
+  };
+  firebase.initializeApp(config);
+</script>
 </body>
 </html>
