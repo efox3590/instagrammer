@@ -211,9 +211,9 @@ function POST(url, data) {
  */
 
 	if (location.pathname === '/feed.html') {
-		// const name = document.querySelector('.fname');
-		// const {fname} = 
-		// name.innerHTML = ``;
+		// const fname = document.querySelector('.fname');
+		// const {value} = fname;
+		// value.innerHTML = ``;
 
 
 		function render(data) {
@@ -233,14 +233,17 @@ function POST(url, data) {
 			const img_url = postItem.image_url;
 			const caption = postItem.descr;
 			const name = postItem.first_name;
-			// const timeStamp = moment(postItem.data.when).format('dddd, MMMM DD, YYYY h:mm a');
+			// const time = postItem.TimeStamp;
+			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
 
+			const fname = document.querySelector('.fname');
+			fname.innerHTML = `${name}!`;
 			// const comm_id = 
 			// const comm_comment = 
 		    div.innerHTML = `
 
 <div class="content">
-    <div class="right floated meta">14h TimeStamp</div>
+    <div class="right floated meta">${time}</div>
     <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
   </div>
   <div class="image">
@@ -341,14 +344,15 @@ function POST(url, data) {
 			const img_url = postItem.image_url;
 			const caption = postItem.descr;
 			const name = postItem.first_name;
-			// const timeStamp = moment(postItem.data.when).format('dddd, MMMM DD, YYYY h:mm a');
+			// const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
 
 			// const comm_id = 
 			// const comm_comment = 
 		    div.innerHTML = `
 
 <div class="content">
-    <div class="right floated meta">14h TimeStamp</div>
+    <div class="right floated meta">14h ${time}</div>
     <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
   </div>
   <div class="image">

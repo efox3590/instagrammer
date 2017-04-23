@@ -19,7 +19,8 @@ CREATE TABLE activity(
 	activity_id INTEGER NOT NULL,
 	activity_payload TEXT,
 	image_url TEXT,
-	descr TEXT
+	descr TEXT,
+	Timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
 	-- when DATETIME DEFAULT CURRENT_TIMESTAMP
 
 	-- activity_date DATE 
