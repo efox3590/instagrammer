@@ -197,6 +197,7 @@ function POST(url, data) {
 		})
 		.then((data) => {
 			console.log('POST auth/login data', data);
+			localStorage.setItem('user_id', data.id)
 			if (data.success) {
 				window.location.href = '/feed.html'
 			}
@@ -281,7 +282,8 @@ function POST(url, data) {
 
 		} // render()
 
-		GET('/api/user/2')
+		const userId = localStorage.getItem('user_id')
+		GET('/api/user/' + userId)
 		.then((data) => {
 			render(data);
 		});
@@ -520,6 +522,7 @@ const validate = () => {
 		GET('/auth/logout')
 			.then((data) => {
 				console.log('logout data :',data);
+				localStorage.setItem('user_id', null);
 				window.location.href = '/'
 			})
 		};
