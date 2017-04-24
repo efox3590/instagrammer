@@ -37,23 +37,24 @@ CREATE TABLE activity(
 
 
 INSERT into user (first_name, last_name, email, password) VALUES ('Emily', 'fox', 'emily@nycda.com', 'testing1234');
-INSERT into user (first_name, last_name, email, password) VALUES ('Linda', 'yu', 'linda@nycda.com', 'chicken');
+INSERT into user (first_name, last_name, email, password, profile_pic) VALUES ('Linda', 'yu', 'linda@nycda.com', 'chicken', '../assets/domo.png');
 INSERT into user (first_name, last_name, email, password) VALUES ('Mario', 'rangel', 'mario@nycda.com', 'mario5678');
-INSERT into user (first_name, last_name, email, password) VALUES ('Taq', 'karim', 'taq@nycda.com', 'taqrules');
+INSERT into user (first_name, last_name, email, password, profile_pic) VALUES ('Taq', 'karim', 'taq@nycda.com', 'taqrules', 'https://static.pexels.com/photos/60224/pexels-photo-60224.jpeg');
 INSERT into user (first_name, last_name, email, password) VALUES ('Baba', 'k', 'baba@nycda.com', 'ilovedrake');
 
-INSERT into followers (id, follow_id) VALUES (1, 1);
+INSERT into followers (id, follow_id) VALUES (1, 4);
 INSERT into followers (id, follow_id) VALUES (2, 1);
 INSERT into followers (id, follow_id) VALUES (3, 1);
-INSERT into followers (id, follow_id) VALUES (4, 2); 
+INSERT into followers (id, follow_id) VALUES (4, 1); 
 INSERT into followers (id, follow_id) VALUES (5, 2);
 
 INSERT into activity (id, activity_id) VALUES (1, 3);
 INSERT into activity (id, activity_id, image_url, descr) VALUES (2, 1, 'http://cdn2-www.dogtime.com/assets/uploads/gallery/30-impossibly-cute-puppies/impossibly-cute-puppy-13.jpg', 'smart dog');
 INSERT into activity (id, activity_id, image_url, descr) VALUES (2, 1, 'http://furfeatherworks.com/wp-content/uploads/beagle-puppy2.jpg', 'beagle!');
 INSERT into activity (id, activity_id) VALUES (3, 6);
-INSERT into activity (id, activity_id) VALUES (4, 7);
+INSERT into activity (id, activity_id, image_url, descr) VALUES (4, 1, 'https://static.pexels.com/photos/54632/cat-animal-eyes-grey-54632.jpeg', 'creepy');
 INSERT into activity (id, activity_id) VALUES (5, 8);
+
 
 
 -- DOWN

@@ -30,7 +30,7 @@ app.use('/api', apiRoutes(db))
 
 Promise.resolve()
     .then(() => db.open(DB_NAME, { Promise }))
-    .then(() => db.migrate({ force: 'last' }))
+    // .then(() => db.migrate({ force: 'last' }))
     .then(() => app.listen(3000))
     .then(() => {
         console.log('\n ** Instagrammer ** Listening on port 3000 ** :)\n')

@@ -102,6 +102,8 @@ function POST(url, data) {
         });
     } // DELETE
 
+
+
     /*
      *		REGISTER
      */
@@ -174,6 +176,10 @@ function POST(url, data) {
 
 	}	// register.html
 
+
+
+
+
 /*
  *		LOGIN
  */
@@ -209,6 +215,9 @@ function POST(url, data) {
 			
 	}	// login.html
 
+
+
+
 /*
  *		FEED
  */
@@ -229,9 +238,9 @@ function POST(url, data) {
 // more likely for (const user of users) {
 // replace( (postItem: user), (postItems: users) )
 			for (const postItem of user) {
-				console.log('single :',postItem);
-				console.log('each user id :',postItem["id"]);
-				const id = postItem["id"];
+				// console.log('single :',postItem);
+				// console.log('each user id :',postItem["id"]);
+				// const id = postItem["id"]; // captures curr user id
 // 
 		    const div = document.createElement('div');
 			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
@@ -239,11 +248,13 @@ function POST(url, data) {
 			const img_url = postItem.image_url;
 			const caption = postItem.descr;
 			const name = postItem.first_name;
+			const profile_pic = postItem.profile_pic;
 			// const time = postItem.TimeStamp;
-			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+			// const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+			const time = moment(postItem.TimeStamp).fromNow();
 
 			const fname = document.querySelector('.fname');
-			fname.innerHTML = `${name}!`;
+			fname.innerHTML = `${name}`;
 			// const comm_id = 
 			// const comm_comment = 
 		    div.innerHTML = `
@@ -251,7 +262,7 @@ function POST(url, data) {
 
 <div class="content">
     <div class="right floated meta">${time}</div>
-    <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
+    <img class="ui avatar image" src="${profile_pic}"> ${name}
   </div>
   <div class="image">
     <img src=${img_url}>
@@ -317,13 +328,19 @@ function POST(url, data) {
 
     } // feed.html
 
-    //hard code for testing should be /:user_id of session or s.t
 
-    /*
-     *		ADMIN
-     */
+
+
+
+
+/*
+ *		ADMIN
+ */
 
     if (location.pathname === '/admin.html') {
+    	
+
+// file upload / firebase code    	
         const validate = () => {
             throw new Error('This is a required arg');
         }; // validate
@@ -374,9 +391,8 @@ function POST(url, data) {
 
         uploadFiles('.js-fileSelect', '.js-fileElem', (files) => {
             filesToUpload = filesToUpload.concat(Array.from(files));
-            console.log(filesToUpload)
-        }, () => {
-          if (!storageRef) {
+            console.log('files to upload :',filesToUpload)
+            if (!storageRef) {
                 throw new Error('Storage Ref not set!');
             }
             const fileUploads = filesToUpload.map((currFile) => {
@@ -389,23 +405,46 @@ function POST(url, data) {
             });
 
             Promise.all(fileUploads).then((items) => {
-                console.log(items);
+                console.log('snapshot.downloadURL :',items);
+                localStorage.setItem('img_url', items[0])
                 filesToUpload = [];
+
             });  
+
+
+        }, () => {
+          
+
         }); // upload files
-        // add new post
-        const caption = document.querySelector('.js-adm-caption');
+
+// add new post
+        const caption = document.querySelector('.js-adm-caption').value;
         const addbtn = document.querySelector('.js-adm-btn');
 
         addbtn.addEventListener('click', (e) => {
             e.preventDefault();
+            let fbImg = localStorage.getItem('img_url');
+            console.log('before createPost call');
+            console.log('user id? ', userId);
 
+            console.log('fbImg :', fbImg);
             // add post to activity feed for user
-            instaApp.createPost(1); // or something
+            // instaApp.createPost(1); // or something
+            // instaApp.createPost(userId, caption); // or something
+            POST('/api/userId/post', {
+            	id: userId,
+            	activity_id: 1,
+            	image_url: fbImg,
+            	descr: caption
+            })
+            .then((data) => {
+            	console.log('new post data :', data)
+            })
         });
 
         // render 	
         function render(data) {
+        	let count = 0;
             const user = data["user"];
             const container = document.querySelector('.js-feed');
             container.innerHTML = '';
@@ -422,16 +461,18 @@ function POST(url, data) {
                 const img_url = postItem.image_url;
                 const caption = postItem.descr;
                 const name = postItem.first_name;
+                const profile_pic = postItem.profile_pic;
                 // const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
-                const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
-
+                const time = moment(postItem.TimeStamp).fromNow();
+                const fname = document.querySelector('.fname');
+				fname.innerHTML = `${name}`;
                 // const comm_id = 
                 // const comm_comment = 
                 div.innerHTML = `
 
 <div class="content">
-    <div class="right floated meta">14h ${time}</div>
-    <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
+    <div class="right floated meta">${time}</div>
+    <img class="ui avatar image" src="${profile_pic}"> ${name}
   </div>
   <div class="image">
     <img src=${img_url}>
@@ -454,8 +495,8 @@ function POST(url, data) {
     </div>
       <div class="extra content">
       <span class="right floated mods">
-      	<i class="edit icon"></i>
-	    <i class="trash outline icon"></i>
+      	<i class="edit icon js-edit"></i>
+	    <i class="trash outline icon js-delete"></i>
 	  </span>  
 	</div>
   </div>
@@ -463,7 +504,19 @@ function POST(url, data) {
 	
 		    `; // end div.innerHTML
 
+		    // need to attach post id somewhere. maybe that counter?
+
                 container.appendChild(div);
+
+                const edit = div.querySelector(`.js-edit`);
+                edit.addEventListener('click', (e) => {
+                	console.log('clicked edit');
+                });
+
+                const remove = div.querySelector(`.js-delete`);
+                remove.addEventListener('click', (e) => {
+                	console.log('clicked delete');
+                })
 
                 //need to isolate proper element
                 //    if (postItem.data.isLiked) {
@@ -477,14 +530,17 @@ function POST(url, data) {
 
         } // render()
 
-        GET('/api/user/2')
-            .then((data) => {
-                render(data);
-            });
+        const userId = localStorage.getItem('user_id')
+		GET('/api/user/' + userId)
+		.then((data) => {
+			render(data);
+		});	
+
+		
 
 
         // add comment
-        const comm_input = document.querySelector('.js-adm-comment');
+        // const comm_input = document.querySelector('.js-adm-comment');
 
         // comm_input.addEventListener('keydown', (e) => {
         // 	const {value} = comm_input;
@@ -526,8 +582,28 @@ function POST(url, data) {
         });
     } // admin.html
 
+/*
+ *		EXPLORE
+ */
+ 		if (location.pathname === '/explore.html') {
+ 			const userId = localStorage.getItem('user_id')
+ 			console.log(userId);
 
 
+ 		// 	GET('/api/users/')
+			// .then((data) => {
+			// 	render(data);
+			// });
+
+			const signout = document.querySelector('.js-logout');
+	        signout.addEventListener('click', (e) => {
+	            e.preventDefault();
+	            logout();
+
+	        });
+ 		}
+
+    
 
 
 	function logout() {
