@@ -1,9 +1,9 @@
-# instagrammer : an instragram clone for NYCDA group project
-This is a group effort led by [@efox3590](https://github.com/efox3590) and [@chickenricer](https://github.com/chickenricer), students of NYCDA. We are implementing an IG clone with SQLite, Express, and a simple CSS Frontend Framework.
+# instagrammer : an instragram clone project
+This is a group effort led by [@efox3590](https://github.com/efox3590) and [@chickenricer](https://github.com/chickenricer). We are implementing an IG clone with SQLite, Express, and a simple CSS Frontend Framework.
 
 # Contributors:
-+ Emily Fox [(@efox3590)](https://github.com/efox3590) - SQLite DB/ Passport Authentication
-+ Linda Yu [(@chickenricer)](https://github.com/chickenricer) - Front End/ Passport Authentication
++ Emily Fox [(@efox3590)](https://github.com/efox3590) - SQLite DB, Passport Authentication Firebase
++ Linda Yu [(@chickenricer)](https://github.com/chickenricer) - Front End, Passport Authentication, API Routes
 
 # Installation Instructions
 ### Clone Project
@@ -22,26 +22,27 @@ $ npm start
 
 # DB Schemas
 ## Tables:
-### user
+### users
 * ID
 * email
 * first_name
 * last_name
 * profile_pic
 
-### follower
+### followers
 * user_id
 * follower_id
 
-### activity 
+### posts 
+* post_id
 * user_id
 * activity_id
-* activity_payload
 * image_url
 * descr
+* timestamp
   
-# API Routes/ Passport Auth
-* app.get('/api/users/:id/posts')
+# API Routes/ Passport Authentication
+GET('/api/users/')
 
 # FE framework
 * Semantic UI

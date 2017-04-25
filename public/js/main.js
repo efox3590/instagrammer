@@ -1,36 +1,3 @@
-function GET(url) {
-    return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.open('GET', url);
-        request.onload = () => {
-            const data = JSON.parse(request.responseText);
-            resolve(data)
-        };
-        request.onerror = (err) => {
-            reject(err)
-        };
-        request.send();
-    });
-} // GET
-
-function POST(url, data) {
-    return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.open('POST', url);
-        request.setRequestHeader('Content-Type', 'application/json');
-
-        request.onload = () => {
-            const data = JSON.parse(request.responseText);
-            resolve(data)
-        };
-        request.onerror = (err) => {
-            reject(err)
-        };
-
-        request.send(JSON.stringify(data));
-    });
-} // POST
-
 (function() { // protect the lemmings
 
     function GET(url) {
@@ -102,12 +69,10 @@ function POST(url, data) {
         });
     } // DELETE
 
-    /*
-     *		REGISTER
-     */
+/*
+ *		REGISTER
+ */
 
-
-    // if (document.querySelector('.js-reg-fname') !== null){
     if (location.pathname === '/register.html') {
 
         const btn = document.querySelector('.js-reg-btn');
@@ -124,7 +89,6 @@ function POST(url, data) {
                 console.log('pw1 is :', pw1.value);
                 console.log('pw2 is :', pw2.value);
                 console.log('email :', email);
-                // message.innerHTML = 'Passwords do not match.'
                 message.innerHTML = `
 <div class="ui error message">
 	<div class="header">
@@ -135,53 +99,33 @@ function POST(url, data) {
 				`;
 
 				document.querySelector('.js-reg-pw1').focus();
-			}  // if
+			}  // end if
 			else {	//can be deleted. just for testing
 				console.log('passwords match');
 				console.log('pw1 is :', pw1.value);
 				console.log('pw2 is :', pw2.value);
 				console.log('email :',email);
 				
-
-// 				message.innerHTML = `
-// <div class="ui success message">
-//   <div class="header">
-//     Your user registration was successful.
-//   </div>
-// </div>
-// 				`;
-			POST('/auth/register', {
-                // fname,
-                // lname,
-                // email,
-                // pw1,
-                first_name: fname,
-                last_name: lname,
-                email: email,
-                password: pw1.value
-            }).then((data) => {
-            	console.log('did this add a user?');
-                console.log('data from post/register :', data)
-                if (data.success) {
-                    window.location.href = '/login.html'
-                }
-            });
+    			POST('/auth/register', {
+                    first_name: fname,
+                    last_name: lname,
+                    email: email,
+                    password: pw1.value
+                }).then((data) => {
+                    if (data.success) {
+                        window.location.href = '/login.html'
+                    }
+                });
 
 			}	// else	
-				
-
-		}) // event listener
-
+		}) // register btn event listener
 	}	// register.html
 
 /*
  *		LOGIN
  */
 
-
-	// if (document.querySelector('.js-log-email') !== null){
 	if (location.pathname === '/login.html') {
-
 
 		const email = document.querySelector('.js-log-email');
 		const pw = document.querySelector('.js-log-pw');
@@ -190,23 +134,20 @@ function POST(url, data) {
 		btn.addEventListener('click', (e) => {
 			e.preventDefault();
 
-		POST('/auth/login', {
+    		POST('/auth/login', {
+    			email: email.value,
+    			password: pw.value, 
 
-			email: email.value,
-			password: pw.value, 
-
-		})
-		.then((data) => {
-			console.log('POST auth/login data', data);
-			localStorage.setItem('user_id', data.id)
-			if (data.success) {
-				window.location.href = '/feed.html'
-			}
+    		})
+    		.then((data) => {
+    			localStorage.setItem('user_id', data.id);
+                localStorage.setItem('fname', data.fname);
+    			if (data.success) {
+    				window.location.href = '/feed.html'
+    			}
 			
-		})		
-
-		}) // event listener
-			
+    		})	// then	
+		}) // login btn event listener
 	}	// login.html
 
 /*
@@ -214,116 +155,85 @@ function POST(url, data) {
  */
 
 	if (location.pathname === '/feed.html') {
-		// const fname = document.querySelector('.fname');
-		// const {value} = fname;
-		// value.innerHTML = ``;
+		
+        const userId = localStorage.getItem('user_id');
+        const first_name = localStorage.getItem('fname');
+        console.log('LS userID & fname :',userId, first_name)
+        
+        GET('/api/' + userId + '/followedusers')
+            .then((posts) => {
+                console.log('these are the posts from get followedusers', posts)
+                render(posts);
+            });
 
-// order by time to sort array
+        function render(posts) {
+            console.log('in render on feed.html')
 
-		function render(data) {
-			const user = data["user"];
-			const container = document.querySelector('.js-feed');
-			container.innerHTML = '';
-			// user = user.reverse(); 
-			console.log('postItems :',user);
-// more likely for (const user of users) {
-// replace( (postItem: user), (postItems: users) )
-			for (const postItem of user) {
-				console.log('single :',postItem);
-				console.log('each user id :',postItem["id"]);
-				const id = postItem["id"];
-// 
-		    const div = document.createElement('div');
-			div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
-	// need vars for: image url, caption, commenter_id, commenter_comment
-			const img_url = postItem.image_url;
-			const caption = postItem.descr;
-			const name = postItem.first_name;
-			// const time = postItem.TimeStamp;
-			const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
+            const container = document.querySelector('.js-feed');
+            container.innerHTML = "";
 
-			const fname = document.querySelector('.fname');
-			fname.innerHTML = `${name}!`;
-			// const comm_id = 
-			// const comm_comment = 
-		    div.innerHTML = `
-
-
-<div class="content">
+            for (const feed of posts.followed_users) {
+                    console.log('all follow feed :', posts.followed_users);
+                    console.log('single feed item :', feed);
+                const card = document.createElement('div');
+                card.classList.add('ui', 'centered', 'card');
+                const time = moment(feed.timestamp).fromNow();
+                const fname = document.querySelector('.fname');
+                    console.log('current user is :', userId);
+                    console.log('fname current user is :', first_name)
+                fname.innerHTML = `${first_name}`;
+                
+                card.innerHTML = `
+  <div class="content">
     <div class="right floated meta">${time}</div>
-    <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
+    <img class="ui avatar image" src="${feed.profile_pic}"> ${feed.user_fname}
   </div>
   <div class="image">
-    <img src=${img_url}>
+    <img src="${feed.image}">
   </div>
   <div class="content">
-  	<div class="caption">
-      ${caption}
+    <div class="description">
+    ${feed.description}
     </div>
+    </br>
     <span class="right floated">
-      <i class="heart outline red icon js-heart"></i>
-      <!-- 17 likes -->
+      <i class="heart red outline icon js-heart"></i>
     </span>
-  <!--   <i class="comment icon"></i>
-    3 comments -->
+    <i class="comment icon"></i>
   </div>
-	
-		    `; // end div.innerHTML
+  <div class="extra content">
+    <div class="ui large transparent left icon input">
+      <i class="comment icon"></i>
+      <input type="text" placeholder="Add Comment...">
+    </div>
+  </div>`;
+                container.appendChild(card);
 
-                container.appendChild(div);
-
-                //need to isolate proper element
-                //    if (postItem.data.isLiked) {
-                // 	li.innerHTML += `<span class="glyphicon glyphicon-heart js-like"></span>`
-                // }
-                // else {
-                // 	li.innerHTML += `<span class="glyphicon glyphicon-heart-empty js-like"></span>`
-                // }
-
-            } // for /of loop
-
-        } // render()
-
-
-		const userId = localStorage.getItem('user_id')
-		GET('/api/user/' + userId)
-		.then((data) => {
-			render(data);
-		});
-
-
-        // const comm = document.querySelector('.js-comm-input');
-        // const comment = comm.value;
-
-        // const heart = document.querySelector('.js-heart');
-        // heart.addEventListener('click', (e) => {
-        // 	e.preventDefault();
-        // 	// heart.classList.add('red', 'js-red-heart');
-        // 	// heart.classList.remove('outline', 'js-empty-heart');
-        // 	heart.classList.toggle('outline');
-        // });
+        const heart = document.querySelector('.js-heart');
+        heart.addEventListener('click', (e) => {
+            e.preventDefault();
+            // heart.classList.add('red', 'js-red-heart');
+            // heart.classList.remove('outline', 'js-empty-heart');
+            heart.classList.toggle('outline');
+        });
+                
+            }  // for / of
+        } // render
 
         const signout = document.querySelector('.js-logout');
         signout.addEventListener('click', (e) => {
             e.preventDefault();
             logout();
-
-            // GET('/auth/logout')
-            // .then((data) => {
-            // 	console.log('logout data :',data);
-            // 	window.location.href = '/'
-            // })
         });
-
     } // feed.html
 
-    //hard code for testing should be /:user_id of session or s.t
+/*
+ *		PROFILE
+ */
 
-    /*
-     *		ADMIN
-     */
-
-    if (location.pathname === '/admin.html') {
+    if (location.pathname === '/profile.html') {
+    	
+// file upload / firebase code    	
         const validate = () => {
             throw new Error('This is a required arg');
         }; // validate
@@ -374,9 +284,8 @@ function POST(url, data) {
 
         uploadFiles('.js-fileSelect', '.js-fileElem', (files) => {
             filesToUpload = filesToUpload.concat(Array.from(files));
-            console.log(filesToUpload)
-        }, () => {
-          if (!storageRef) {
+            console.log('files to upload :',filesToUpload)
+            if (!storageRef) {
                 throw new Error('Storage Ref not set!');
             }
             const fileUploads = filesToUpload.map((currFile) => {
@@ -389,49 +298,72 @@ function POST(url, data) {
             });
 
             Promise.all(fileUploads).then((items) => {
-                console.log(items);
+                console.log('snapshot.downloadURL :',items);
+                localStorage.setItem('img_url', items[0])
                 filesToUpload = [];
+
             });  
+
+
+        }, () => {
+          
+
         }); // upload files
-        // add new post
-        const caption = document.querySelector('.js-adm-caption');
+
+// add new post
+        const caption = document.querySelector('.js-adm-caption').value;
         const addbtn = document.querySelector('.js-adm-btn');
 
         addbtn.addEventListener('click', (e) => {
             e.preventDefault();
+            let fbImg = localStorage.getItem('img_url');
+            console.log('before createPost call');
+            console.log('user id? ', userId);
+            console.log('fbImg :', fbImg);
 
-            // add post to activity feed for user
-            instaApp.createPost(1); // or something
+            POST('/api/:user_id/post', {
+            	user_id: userId,
+            	// activity_id: 1,
+            	image_url: fbImg,
+            	descr: caption
+            })
+            .then((data) => {
+            	console.log('new post data :', data)
+            })
         });
 
-        // render 	
+        const userId = localStorage.getItem('user_id')
+        const first_name = localStorage.getItem('fname');
+        GET('/api/user/' + userId)
+        .then((data) => {
+            console.log('get user/uid data that comes back', data)
+            render(data);
+        }); 
+
         function render(data) {
             const user = data["user"];
             const container = document.querySelector('.js-feed');
             container.innerHTML = '';
-            // user = user.reverse(); 
             console.log('postItems :', user);
             // more likely for (const user of users) {
             // replace( (postItem: user), (postItems: users) )
             for (const postItem of user) {
                 console.log('single :', postItem);
-                // 
                 const div = document.createElement('div');
                 div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
-                // need vars for: image url, caption, commenter_id, commenter_comment
-                const img_url = postItem.image_url;
-                const caption = postItem.descr;
-                const name = postItem.first_name;
+                const img_url = postItem.image;
+                const caption = postItem.description;
+                const name = postItem.firstName;
+                const profile_pic = postItem.profile_pic;
                 // const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
-                const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
-
-                // const comm_id = 
-                // const comm_comment = 
+                const time = moment(postItem.TimeStamp).fromNow();
+                const fname = document.querySelector('.fname');
+				fname.innerHTML = `${first_name}`;
                 div.innerHTML = `
 
 <div class="content">
-    <div class="right floated meta">14h ${time}</div>
-    <img class="ui avatar image" src="../assets/puppy.jpg"> ${name}
+    <div class="right floated meta">${time}</div>
+    <img class="ui avatar image" src="${profile_pic}"> ${name}
   </div>
   <div class="image">
     <img src=${img_url}>
@@ -454,8 +386,8 @@ function POST(url, data) {
     </div>
       <div class="extra content">
       <span class="right floated mods">
-      	<i class="edit icon"></i>
-	    <i class="trash outline icon"></i>
+      	<i class="edit icon js-edit"></i>
+	    <i class="trash outline icon js-delete"></i>
 	  </span>  
 	</div>
   </div>
@@ -464,6 +396,16 @@ function POST(url, data) {
 		    `; // end div.innerHTML
 
                 container.appendChild(div);
+
+                const edit = div.querySelector(`.js-edit`);
+                edit.addEventListener('click', (e) => {
+                	console.log('clicked edit');
+                });
+
+                const remove = div.querySelector(`.js-delete`);
+                remove.addEventListener('click', (e) => {
+                	console.log('clicked delete');
+                })
 
                 //need to isolate proper element
                 //    if (postItem.data.isLiked) {
@@ -477,57 +419,108 @@ function POST(url, data) {
 
         } // render()
 
-        GET('/api/user/2')
-            .then((data) => {
-                render(data);
-            });
-
-
-        // add comment
-        const comm_input = document.querySelector('.js-adm-comment');
-
-        // comm_input.addEventListener('keydown', (e) => {
-        // 	const {value} = comm_input;
-        // 	if (e.keyCode === 13) {
-        // 		validateSearch(value)
-        // 		.then((data) => {
-        // 			PUT('/api/ comment route') // needs add comm route	
-        // 			.then((data) => {
-        // 				render(data);
-        // 			})
-        // 			.catch((e) => {
-        // 				alert(e)
-        // 			})
-        // 		})
-
-
-        // 	} 
-        // keycode
-        // }); 
-        // comm_input eventListener // add comment
-
-        // need to be targeted with post id or something.
-        // otherwise only grabs first icon in thread.
-
-        // toggle heart for likes
-        // const heart = document.querySelector('.js-heart');
-        // heart.addEventListener('click', (e) => {
-        // 	e.preventDefault();
-        // 	// heart.classList.add('red', 'js-red-heart');
-        // 	// heart.classList.remove('outline', 'js-empty-heart');
-        // 	heart.classList.toggle('outline');
-        // });
 
         const signout = document.querySelector('.js-logout');
         signout.addEventListener('click', (e) => {
             e.preventDefault();
             logout();
 
-        });
-    } // admin.html
+        }); // log out event listener
+    } // profile.html
 
+/*
+ *		EXPLORE
+ */
 
+ // view other users (to hopefully follow)
+ 		if (location.pathname === '/explore.html') {
+            const userId = localStorage.getItem('user_id')
+            const first_name = localStorage.getItem('fname');
+            GET('/api/users')
+                .then((posts) => {
+                    render(posts);
+                });
 
+            function render(posts) {
+                const accounts = posts.users
+                const preview = accounts.reduce((hash, users) => Object.assign(
+                    hash, {
+                        [users.id]: (hash[users.id] || []).concat([users])
+                    }
+                ), {})
+
+                console.log('preview :',preview)
+                console.log('my account? ',preview[userId])
+                console.log('accounts :',accounts)
+
+                const container = document.querySelector('.js-feed');
+                container.innerHTML = "";
+
+                for (const feed in preview) {
+                    if (preview.hasOwnProperty(feed) && preview[feed] !== preview[userId]) {
+                        const userRows = preview[feed];
+                        console.log('user rows :',userRows);
+                        console.log('UR[0] fn :',userRows[0].firstName);
+                        console.log('UR[0] image_url :',userRows[0].image);
+
+                        const fname = document.querySelector('.fname');
+                        fname.innerHTML = `${first_name}`;
+
+                        const card = document.createElement('div');
+                        card.classList.add('ui', 'card');
+                        card.innerHTML = `
+<div class="content">
+    <div class="top">
+         <div class="left floated author">
+            <img class="ui avatar image" src="${userRows[0].profilePic}"> <strong>${userRows[0].firstName} </strong>
+         </div>
+         <span class="right floated">
+             <button class="ui button primary">Unfollow</button>
+         </span>
+    </div>
+    <br><br>
+    <div class="ui divider"></div>
+        <div class="usersPhoto">
+            <div class="ui four doubling cards">
+              <div class="card">
+                <div class="image">
+                  <img src="${userRows[0].image}">
+                </div>
+              </div>
+              <div class="card">
+                <div class="image">
+                  <img src="${userRows[1].image}">
+                </div>
+              </div>
+              <div class="card">
+                <div class="image">
+                  <img src="${userRows[2].image}">
+                </div>
+              </div>
+              <div class="card">
+                <div class="image">
+                  <img src="${userRows[3].image}">
+                </div>
+              </div>
+            </div>
+        </div>               
+    </div>
+</div>
+                `;
+                        container.appendChild(card);
+                    }   // if
+                }  // for / in
+            } //render
+
+			const signout = document.querySelector('.js-logout');
+	        signout.addEventListener('click', (e) => {
+	            e.preventDefault();
+	            logout();
+
+	        });
+ 		}
+
+    
 
 
 	function logout() {

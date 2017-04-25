@@ -59,156 +59,49 @@ h3.tron {
 .edit:hover {
 	color: #2558D8;
 }
-/*.block {
-	height: 200px;
-	background-color: black;
-	border: 3px dotted white;
+
+.preview_img {
+	width: 100px;
 }
 
-.container {
-	opacity: 0.75;
-	height: 100vh;
-	padding-top: 50px;	
+
+/* these below are weird */
+
+.ui.card {
+	width: 50%;
+	margin: auto;
+	margin-top: 25px;
 }
 
-#postapp .post-col {
-	text-align: center;
+.ui.three.stackable.cards {
+	width: 33%;
+	margin: auto;
+	display: inline-block;
 }
 
-#postapp .post-spinner {
-	animation: spinner 2.0s linear infinite;
+.clearfix {
+	clear: both;
+	content: "";
+	display: block;
+
 }
 
-#postapp .postlist-item {
-	font-weight: bold;
-	text-align: left;
+/*@media only screen and (max-width: 1350px) {
+   .ui.card {
+	width: 50%;
+	margin: auto;
+	margin-bottom: 10px;
+    }
 }
-
-#postapp .postlist-icon {
-	float: right;
-	font-size: 20px;
-	margin: 0 0.25rem;
-}
-
-#postapp .post-addbtn {
-	cursor: pointer;
-}
-
-#postapp .glyphicon-pencil:hover, .input-text:hover {
-	color: #337ab7;
-}
-
-#postapp .glyphicon-trash:hover {
-	color: red;
-}
-
-.input-text {
-	background-color: transparent;
-	border: 0px solid white;
-	width: 80%;
-}
-
-@keyframes spinner {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
+*/
+/*@media only screen and (max-width: 650px) {
+   .ui.card {
+	width: 70%;
+	margin: auto;
+	margin-bottom: 10px;
 	}
 }
 
-.input-title, .input-tags {
-	width: 100%;
-}
+*/
 
-.blog-title, .js-grab-title {
-	color: #602C00;
-	font-size: 20px;
-	font-weight: 900;
-	width: 80%;
-}
-
-.blog-body {
-	font-weight: 400;
-	min-height: 100%;
-	padding: 15px;
-}
-
-textarea {
-	width: 100%;
-	min-height: 100%;
-	resize: none;
-}
-
-.created {
-	font-weight: 400;
-}
-
-.index-body {
-	background-color: transparent;
-	border: 0px solid white;
-}
-
-.js-blog-item {
-	padding: 15px;
-}
-
-.comments {
-	background-color: transparent;
-	border: 0px solid white;
-	width: 100%;
-}
-
-button, .btn {
-	/*margin-top: 25px;*/
-}
-
-.i-logo {
-	height: 75px;
-	
-}
-
-.input-text {
-	/*margin: 10px 0px;*/
-	min-width: 500px;
-}
-
-.item-image {
-	padding: 10px 25px;
-}
-
-figcaption {
-	font-size: 1.5rem;
-}
-
-.likes {
-	font-size: 1.5pxrem;
-	padding-left: 25px;
-	text-align: left;
-}
-
-#postapp .js-comment-input {
-	display: inline-block;
-	width: 85%;
-}
-
-.js-comment-btn {
-	display: inline-block;
-	/*margin-top:10px;*/
-}
-
-.comment-item {
-	text-align: left;
-	padding: 5px 0px 5px 30px;
-	font-size: 1.5rem;
-}
-
-.list-group-item {
-	padding: 10px 0px;
-	/*min-height: 650px;*/
-}
-
-.time {
-	text-align: right;
-}*/
 

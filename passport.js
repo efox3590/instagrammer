@@ -21,7 +21,7 @@ module.exports = function(app, db) {
             return done('error', {}, {});
         }
 
-        db.get(`SELECT user.first_name, user.email, user.id FROM user WHERE user.email = '${email}' AND user.password = '${password}'`)
+        db.get(`SELECT users.first_name, users.email, users.id FROM users WHERE users.email = '${email}' AND users.password = '${password}'`)
             .then((row) => {
                 console.log('row is :',row)
                 if (!row || row.length === 0) return done(true, false);
@@ -52,7 +52,8 @@ module.exports = function(app, db) {
                 response.header('Content-Type', 'application/json');
                 response.send({
                     success: true,
-                    id: user.id
+                    id: user.id, 
+                    fname: user.first_name
                 })
                 next()
 

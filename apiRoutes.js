@@ -27,6 +27,21 @@ router.use(parser.json())
 
 let db;
 
+// get all users registered
+router.get('/all', (req, res, next) => {
+
+    instaApp.getAllUsers()
+        .then((data) => {
+            console.log('this is the data :',data)
+            res.header('Content-Type', 'application/json');
+            res.send({ users: data });
+        })
+        .catch((e) => {
+            console.log(e)
+            res.status(401);
+        });
+});
+
 // Get all users + their activity
 router.get('/users', (req, res, next) => {
 
@@ -45,10 +60,9 @@ router.get('/users', (req, res, next) => {
 // Get a specified user via user.id + their activity
 router.get('/user/:user_id', (req, res, next) => {
 	const id = parseInt(req.params.user_id, 10);
-	console.log(id)
+
 	instaApp.getUser(id)
 	    .then((data) => {
-	        // SocketInst.broadcast('LOAD_BUFFER');
 	        res.header('Content-Type', 'application/json');
 	        res.send({
 	            user: data,
@@ -61,24 +75,42 @@ router.get('/user/:user_id', (req, res, next) => {
     });
 });
 
+// Get a specified post ## url feeds post_id
+router.get('/post/:post_id', (req, res, next) => {
+    const id = parseInt(req.params.post_id, 10);
+    
+    instaApp.getPost(id)
+        .then((data) => {
+            res.header('Content-Type', 'application/json');
+            res.send({
+                user: data,
+                numResults: data.length
+            });
+        })
+        .catch((e) => {
+            console.log(e)
+            res.status(401);
+        });
+});
 
 // get users that $user_id follows
-router.get('/:follower_id/followedusers', (req, res) => {
-	const id = parseInt(req.params.follower_id, 10);
-	instaApp.getFollowed(id)
-    .then((data) => {
-        // SocketInst.broadcast('LOAD_BUFFER');
-        res.header('Content-Type', 'application/json');
-        res.send({
-            followed_users: data,
-            numResults: data.length
+router.get('/:user_id/followedusers', (req, res) => {
+    const id = parseInt(req.params.user_id, 10);
+
+    instaApp.getFollowed(id)
+        .then((data) => {
+            res.header('Content-Type', 'application/json');
+            res.send({
+                followed_users: data,
+                numResults: data.length
+            });
+        })
+        .catch((e) => {
+            console.log(e)
+            res.status(401);
         });
-    })
-    .catch((e) => {
-        console.log(e)
-        res.status(401);
-    });
 });
+
 
 // create a post
 router.post('/:user_id/post', (req, res, next) => {
@@ -88,6 +120,7 @@ router.post('/:user_id/post', (req, res, next) => {
     }
     req.body = args;
     const user_id = parseInt(req.params.user_id, 10);
+
 	instaApp.createPost(user_id, req.body)
         .then((data) => {
             res.header('Content-Type', 'application/json');
@@ -102,7 +135,8 @@ router.post('/:user_id/post', (req, res, next) => {
 // Follow a user
 router.post('/:user_id/follow/:followed_id', (req, res, next) => {
     const user_id = parseInt(req.params.user_id, 10);
-    const followed_id = parseInt(req.params.follower_id, 10);
+    const followed_id = parseInt(req.params.followed_id, 10);
+
 	instaApp.followUser(user_id, followed_id)
         .then((data) => {
             res.header('Content-Type', 'application/json');
@@ -118,14 +152,16 @@ router.post('/:user_id/follow/:followed_id', (req, res, next) => {
 });
 
 // Edit a post
-router.put('/:user_id/follow/:followed_id', (req, res, next) => {
+router.put('/:user_id/update/:post_id', (req, res, next) => {
     const user_id = parseInt(req.params.user_id, 10);
-    const followed_id = parseInt(req.params.follower_id, 10);
-	instaApp.followUser(user_id, followed_id)
+    const post_id = parseInt(req.params.post_id, 10);
+    const updatedText = req.body.descr;
+
+	instaApp.updatePost(user_id, post_id, updatedText)
         .then((data) => {
             res.header('Content-Type', 'application/json');
             res.send({
-            	followed_users: data,
+            	update: data,
             	numResults: data.length
         	});
         })
@@ -136,10 +172,11 @@ router.put('/:user_id/follow/:followed_id', (req, res, next) => {
 });
 
 // Delete a post
-router.delete('/:user_id/:post_id', (req, res, next) => {
+router.delete('/:user_id/delete/:post_id', (req, res, next) => {
     const user_id = parseInt(req.params.user_id, 10);
-    const post_id = parseInt(req.params.follower_id, 10);
-	instaApp.followUser(user_id, post_id)
+    const post_id = parseInt(req.params.post_id, 10);
+
+	instaApp.deletePost(user_id, post_id)
         .then((data) => {
             res.header('Content-Type', 'application/json');
             res.send({
@@ -156,8 +193,9 @@ router.delete('/:user_id/:post_id', (req, res, next) => {
 // Unfollow a user
 router.delete('/:user_id/unfollow/:followed_id', (req, res, next) => {
     const user_id = parseInt(req.params.user_id, 10);
-    const followed_id = parseInt(req.params.follower_id, 10);
-	instaApp.followUser(user_id, followed_id)
+    const followed_id = parseInt(req.params.followed_id, 10);
+
+	instaApp.unfollowUser(user_id, followed_id)
         .then((data) => {
             res.header('Content-Type', 'application/json');
             res.send({
