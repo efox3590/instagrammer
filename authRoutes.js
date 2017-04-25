@@ -18,12 +18,10 @@ authApp.use(expressSession({
 }));
 
 authApp.post('/auth/register', (request, response) => {
-	console.log('in /auth/register')
 	const {body} = request;
 	const {first_name, last_name, email, password} = body;
 	console.log('\nreq.body = \n', body)
 	const isCreated = instaApp.createUser(first_name, last_name, email, password);
-	console.log('\nwhats this look like ? \n', isCreated)
 
 	response.header('Content-Type', 'application/json');
 	if (isCreated) {

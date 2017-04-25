@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset='utf-8'>
@@ -10,15 +10,13 @@
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700" rel="stylesheet">  
     <link rel='stylesheet' href='styles/main.css'>
 </head>
-<body id="app">
+<body id="login">
+
 	<!-- nav bar -->
 	<div class="ui top fixed inverted large menu">
 	  <a class="ui item" href="/">
 	  	Instagrammer
 	  </a>
-	  <!-- <a class="item">
-	    Messages
-	  </a> -->
 	  <div class="right menu">
 	    <a class="ui item" href="/login.html">
 	      Login
@@ -30,8 +28,7 @@
 	</div>
 	<!-- nav bar -->
 
-	<!-- body -->
-
+	<!-- content -->
 	<div class="ui raised very padded text container segment">
 	  	<img src="https://instagram-brand.com/wp-content/themes/ig-branding/assets/images/ig-logo-email.png" class="i-logo">
 	  	<h1 class="tron">Instagrammer</h1>
@@ -40,21 +37,18 @@
 		<form class="ui form">
 		  <div class="field">
 		    <label>Email</label>
-		    <input class="js-log-email" name="email" placeholder="Email" type="email" autofocus>
-
+		    <input class="js-log-email" name="email" placeholder="Email" type="email" autofocus value="linda@nycda.com">
 		  </div>
 		  <div class="field">
 		    <label>Password</label>
-		    <input class="js-log-pw" name="password" placeholder="Password" type="password">
+		    <input class="js-log-pw" name="password" placeholder="Password" type="password" value="chicken">
 		  </div>
 		  <div class="ui form error js-reg-message"></div>
 		  <button class="ui primary small button js-log-btn" type="submit">Submit</button>
 		</form>
 
 	</div>
-
-	<!-- body -->
-
+	<!-- content -->
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
     <script src='js/main.js'></script>

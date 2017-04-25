@@ -11,20 +11,21 @@
     <link rel='stylesheet' href='styles/main.css'>
 </head>
 <body id="app">
+
 	<!-- nav bar -->
 	<div class="ui top fixed inverted large menu">
 	  <a class="ui item" href="/">
 	  	Instagrammer
 	  </a>
-	  <a class="item" href="explore.html">
+	  <a class="item" href="/explore.html">
 	    Explore
 	  </a>
 	  <div class="right menu">
-	  	<a class="ui item" href="/profile.html">
-	    <span class="fname"></span> 
+	  	<a class="ui item" href="/feed.html">
+	      Feed
 	    </a>
-	  	<a class="ui item" href="/admin.html">
-	      Admin
+	  	<a class="ui item" href="/profile.html">
+	   		<span class="fname"></span> 
 	    </a>
 	   	<a class="ui item">
 	    	<span class="js-logout">Logout</span>
@@ -33,18 +34,27 @@
 	</div>
 	<!-- nav bar -->
 
-	<!-- feed -->
+	<!-- content -->
+	<div class="ui raised very padded text container segment">
+      <h1 class="tron">Add a Post!</h1>
+      <p>
+        Select an image to upload:<br>
+        <input type="file" name="datafile" size="40" class="js-fileElem" accept="images/*">
+      </p>
+      <form class="ui small form">
+        <div class="ui fluid action input">
+          <input placeholder="Add a Caption" type="text" size="150" class="js-adm-caption">
+          <button class="ui primary button js-adm-btn js-fileSelect">Submit</button>
+        </div>
+      </form>
+	</div>
+
 	<div class="feed js-feed">
-
-		
-	  	
-
-	</div> <!-- feed --> 
-
-	
-
+	</div> 
+	<!-- content --> 
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
     <script src='js/main.js'></script>
 </body>
 </html>

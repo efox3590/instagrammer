@@ -1,30 +1,30 @@
 const express = require('express');
-const moment = require('moment');
 const sqlite = require('sqlite');
-const app = express();
-
-const Auth = require('./authRoutes');
-const apiRoutes = require('./apiRoutes');
-
 const db = require('sqlite');
+
+const app = express();
 const DB_NAME = './database.sqlite';
+
+const moment = require('moment');
+
+const auth = require('./authRoutes');
+const apiRoutes = require('./apiRoutes');
 
 const parser = require('body-parser');
 app.use(parser.json())
 
 const expressSession = require('express-session');
 app.use(expressSession({
-	secret: 'FOBAR'
+	secret: 'C4T5'
 }));
 
 app.use('/', express.static('public'));
 
-app.use(Auth);
+app.use(auth);
 
 const passport = require('./passport')(app, db);
 
-
-// eveything here is stuff that needs to be authenticated to be used
+// eveything below is stuff that needs to be authenticated to be used
 app.use('/api', apiRoutes(db))
 
 
