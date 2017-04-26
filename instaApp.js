@@ -25,6 +25,7 @@ instaApp.getUsers = () => {
                                    users.first_name AS firstName,
                                    users.last_name AS lastName,
                                    users.profile_pic AS profilePic,
+                                   posts.post_id, 
                                    posts.image_url AS image,
                                    posts.descr AS description,
                                    posts.timestamp
@@ -38,6 +39,7 @@ instaApp.getUser = (user_id) => {
     return instaApp.db.all(`SELECT users.first_name AS firstName,
                                    users.last_name AS lastName,
                                    users.profile_pic AS profile_pic,
+                                   posts.post_id, 
                                    posts.image_url AS image,
                                    posts.descr AS description,
                                    posts.timestamp
@@ -51,6 +53,7 @@ instaApp.getUser = (user_id) => {
 instaApp.getPost = (post_id) => {
     return instaApp.db.all(`SELECT users.first_name AS firstName,
                                    users.last_name AS lastName,
+                                   posts.post_id, 
                                    posts.image_url AS image,
                                    posts.descr AS description,
                                    posts.timestamp
@@ -66,6 +69,7 @@ instaApp.getFollowed = (user_id) => {
     return instaApp.db.all(`SELECT users.first_name AS user_fname,
                                    users.last_name AS user_lname,
                                    users.profile_pic AS profile_pic,
+                                   posts.post_id, 
                                    posts.image_url AS image,
                                    posts.descr AS description,
                                    posts.timestamp
@@ -80,8 +84,9 @@ instaApp.getFollowed = (user_id) => {
 // instaApp.createPost = (user_id, req) => {
     // return instaApp.db.run(`INSERT INTO activity (user_id, image_url, descr) values (${user_id}, $image_url, $descr)`, req)
 // };
-instaApp.createPost = (user_id, image_url, descr) => {
-    return instaApp.db.run(`INSERT INTO posts (user_id, activity_id, image_url, descr) values (${user_id}, 1, ${image_url}, ${descr})`)
+instaApp.createPost = (user_id, req) => {
+    // return instaApp.db.run(`INSERT INTO posts (user_id, activity_id, image_url, descr) values (${user_id}, 1, ${image_url}, ${descr})`)
+    return instaApp.db.run(`INSERT INTO posts (user_id, activity_id, image_url, descr) values (?,?,?,?)`, [user_id, 1, req.image_url, req.descr])
 };
 
 // Follow a user

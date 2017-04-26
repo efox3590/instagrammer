@@ -311,24 +311,22 @@
         }); // upload files
 
 // add new post
-        const caption = document.querySelector('.js-adm-caption').value;
-        const addbtn = document.querySelector('.js-adm-btn');
+        const text = document.querySelector('.js-pro-caption');
+        const addbtn = document.querySelector('.js-pro-btn');
 
         addbtn.addEventListener('click', (e) => {
             e.preventDefault();
             let fbImg = localStorage.getItem('img_url');
-            console.log('before createPost call');
-            console.log('user id? ', userId);
-            console.log('fbImg :', fbImg);
+            // console.log('fbImg :', fbImg);
 
-            POST('/api/:user_id/post', {
-            	user_id: userId,
-            	// activity_id: 1,
+            POST('/api/' + userId + '/post', {
             	image_url: fbImg,
-            	descr: caption
+            	descr: text.value
             })
             .then((data) => {
-            	console.log('new post data :', data)
+            	// console.log('new post data :', data);
+                console.log('\nabout to refresh\n')
+                window.location.reload();
             })
         });
 
@@ -341,10 +339,12 @@
         }); 
 
         function render(data) {
+                console.log('this is data in profile/', data)
             const user = data["user"];
+                console.log('this is "user" in profile/:', user)
             const container = document.querySelector('.js-feed');
             container.innerHTML = '';
-            console.log('postItems :', user);
+                console.log('postItems :', user);
             // more likely for (const user of users) {
             // replace( (postItem: user), (postItems: users) )
             for (const postItem of user) {
