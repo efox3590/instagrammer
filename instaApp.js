@@ -98,14 +98,11 @@ instaApp.followUser = (user_id, followed_id) => {
 // instaApp.updatePost = (post_id, updatedText) => {
 //     return instaApp.db.run(`UPDATE activity SET descr = ${updatedText} WHERE ID = ${post_id}`)
 // };
-instaApp.updatePost = (user_id, post_id, updatedText) => {
-    return instaApp.db.run(`UPDATE posts SET descr = ${updatedText} WHERE post_id = ${post_id} and user_id = ${user_id}`)
+instaApp.updatePost = (user_id, post_id, newCaption) => {
+    return instaApp.db.run(`UPDATE posts SET descr = "${newCaption}" WHERE post_id = ${post_id} and user_id = ${user_id}`)
 };
 
 // Delete a post
-// instaApp.deletePost = (post_id) => {
-//     return instaApp.db.run(`DELETE FROM activity WHERE ID = ${post_id}`)
-// };
 instaApp.deletePost = (user_id, post_id) => {
     return instaApp.db.run(`DELETE FROM posts WHERE post_id = ${post_id} and user_id = ${user_id}`)
 };

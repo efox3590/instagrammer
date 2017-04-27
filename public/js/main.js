@@ -345,8 +345,6 @@
             const container = document.querySelector('.js-feed');
             container.innerHTML = '';
                 console.log('postItems :', user);
-            // more likely for (const user of users) {
-            // replace( (postItem: user), (postItems: users) )
             for (const postItem of user) {
                 console.log('single :', postItem);
                 const div = document.createElement('div');
@@ -369,9 +367,8 @@
     <img src=${img_url}>
   </div>
   <div class="content">
-  	<div class="caption">
-      ${caption}
-    </div>
+  	<input type="text" class="caption js-edit-caption" value="${caption}">
+    </input>
     <span class="right floated">
       <i class="heart outline red icon js-heart"></i>
       <!-- 17 likes -->
@@ -397,26 +394,48 @@
 
                 container.appendChild(div);
 
+                const newCaption = div.querySelector('.js-edit-caption');
+                newCaption.addEventListener('keydown', (e) => {
+                    // const {value} = newCaption;
+                    const {post_id} = postItem;
+
+                    if (e.keyCode === 13) {
+                    console.log('value', newCaption.value)
+
+                        PUT('/api/' + userId + '/update/' + post_id, { descr: newCaption.value })
+                            .then((data) => {
+                                console.log('in put call. and this is the data :', data)
+                                window.location.reload();
+                                // render(data);
+                            })
+                            // .catch((e) => {
+                            //  alert(e)
+                            // });
+                    }
+                }); // newCaption event listener
+
                 const edit = div.querySelector(`.js-edit`);
                 edit.addEventListener('click', (e) => {
                 	console.log('clicked edit');
-                });
+                    newCaption.focus();
+                }); // edit icon event listenter
 
                 const remove = div.querySelector(`.js-delete`);
                 remove.addEventListener('click', (e) => {
                 	console.log('clicked delete');
-                })
+                    const {post_id} = postItem;
 
-                //need to isolate proper element
-                //    if (postItem.data.isLiked) {
-                // 	li.innerHTML += `<span class="glyphicon glyphicon-heart js-like"></span>`
-                // }
-                // else {
-                // 	li.innerHTML += `<span class="glyphicon glyphicon-heart-empty js-like"></span>`
-                // }
+                    DELETE('/api/' + userId + '/delete/' + post_id)
+                        .then((data) => {
+                            window.location.reload();
+                            // render(data);
+                        })
+                        // .catch((e) => {
+                            //  alert(e)
+                            // });
+                })  // delete icon event listener
 
             } // for /of loop
-
         } // render()
 
 
@@ -443,6 +462,41 @@
 
             function render(posts) {
                 const accounts = posts.users
+
+                console.log('posts', posts) // obj of array of objs
+                console.log('accounts ', accounts) // arr of objs
+                console.log('accounts[0]', accounts[0]) // obj of one photo & user info
+                console.log('accounts[11].id ', accounts[11].id) // user id
+
+                for (const post in accounts) {
+                    console.log('elem in account: ',post) // index in array
+                    console.log('acct[post] :', accounts[post]) // obj of one photo
+                    const uid = accounts[post].id
+                    console.log('uid', uid)
+
+
+                    for (let i = 0; i < accounts.length; i++ ) {
+                        const group = Object.assign(uid, accounts.post)
+                        console.log(group)
+
+                    }
+
+
+                } // for /in 
+
+
+// const arrayToObject = (array, keyField) =>
+//    array.reduce((obj, item) => {
+//      obj[item[keyField]] = item
+//      return obj
+//    }, {})
+
+// const peopleObject = arrayToObject(peopleArray, "id")
+// console.log(peopleObject[idToSelect])
+
+
+
+
                 const preview = accounts.reduce((hash, users) => Object.assign(
                     hash, {
                         [users.id]: (hash[users.id] || []).concat([users])

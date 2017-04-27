@@ -52,6 +52,13 @@ h3.tron {
 
 }
 
+.caption {
+	background-color: transparent;
+	border: 0px solid white;
+	width: 100%;
+
+}
+
 .trash:hover {
 	color: red;
 }
