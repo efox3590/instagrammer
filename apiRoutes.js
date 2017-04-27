@@ -156,9 +156,9 @@ router.post('/:user_id/follow/:followed_id', (req, res, next) => {
 router.put('/:user_id/update/:post_id', (req, res, next) => {
     const user_id = parseInt(req.params.user_id, 10);
     const post_id = parseInt(req.params.post_id, 10);
-    const updatedText = req.body.descr;
+    const newCaption = req.body.descr
 
-	instaApp.updatePost(user_id, post_id, updatedText)
+	instaApp.updatePost(user_id, post_id, newCaption)
         .then((data) => {
             res.header('Content-Type', 'application/json');
             res.send({
