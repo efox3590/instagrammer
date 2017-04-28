@@ -158,29 +158,25 @@
 		
         const userId = localStorage.getItem('user_id');
         const first_name = localStorage.getItem('fname');
-        console.log('LS userID & fname :',userId, first_name)
         
         GET('/api/' + userId + '/followedusers')
             .then((posts) => {
-                console.log('these are the posts from get followedusers', posts)
                 render(posts);
             });
 
         function render(posts) {
-            console.log('in render on feed.html')
-
             const container = document.querySelector('.js-feed');
             container.innerHTML = "";
 
             for (const feed of posts.followed_users) {
-                    console.log('all follow feed :', posts.followed_users);
-                    console.log('single feed item :', feed);
+                    // console.log('all follow feed :', posts.followed_users);
+                    // console.log('single feed item :', feed);
                 const card = document.createElement('div');
                 card.classList.add('ui', 'centered', 'card');
                 const time = moment(feed.timestamp).fromNow();
                 const fname = document.querySelector('.fname');
-                    console.log('current user is :', userId);
-                    console.log('fname current user is :', first_name)
+                    // console.log('current user is :', userId);
+                    // console.log('fname current user is :', first_name)
                 fname.innerHTML = `${first_name}`;
                 
                 card.innerHTML = `
@@ -323,10 +319,10 @@
             	descr: text.value
             })
              .then(() => {
+                text.value = "";
                 GET('/api/user/' + userId)
                     .then((data) => {
-                    console.log('get user/uid data that comes back', data)
-                    render(data);
+                        render(data);
                 })
             })
             .catch((e) => {
@@ -338,21 +334,20 @@
         const first_name = localStorage.getItem('fname');
         GET('/api/user/' + userId)
         .then((data) => {
-            console.log('get user/uid data that comes back', data)
             render(data);
         }); 
 
         function render(data) {
-                console.log('this is data in profile/', data)
+                // console.log('this is data in profile/', data)
             const user = data["user"];
-                console.log('this is "user" in profile/:', user)
+                // console.log('this is "user" in profile/:', user)
             const container = document.querySelector('.js-feed');
             container.innerHTML = '';
-                console.log('postItems :', user);
+                // console.log('postItems :', user);
             for (const postItem of user) {
-                console.log('single :', postItem);
+                    // console.log('single :', postItem);
                 const div = document.createElement('div');
-                div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.id}`);
+                div.classList.add('ui', 'centered', 'card', `js-post-item-${postItem.post_id}`);
                 const img_url = postItem.image;
                 const caption = postItem.description;
                 const name = postItem.firstName;
@@ -400,18 +395,14 @@
 
                 const newCaption = div.querySelector('.js-edit-caption');
                 newCaption.addEventListener('keydown', (e) => {
-                    // const {value} = newCaption;
                     const {post_id} = postItem;
-
                     if (e.keyCode === 13) {
-                    console.log('value', newCaption.value)
 
                         PUT('/api/' + userId + '/update/' + post_id, { descr: newCaption.value })
                             .then(() => {
                                 GET('/api/user/' + userId)
                                     .then((data) => {
-                                    console.log('get user/uid data that comes back', data)
-                                    render(data);
+                                        render(data);
                                 })
                             })
                             .catch((err) => {
@@ -422,21 +413,18 @@
 
                 const edit = div.querySelector(`.js-edit`);
                 edit.addEventListener('click', (e) => {
-                	console.log('clicked edit');
                     newCaption.focus();
                 }); // edit icon event listenter
 
                 const remove = div.querySelector(`.js-delete`);
                 remove.addEventListener('click', (e) => {
-                	console.log('clicked delete');
                     const {post_id} = postItem;
 
                     DELETE('/api/' + userId + '/delete/' + post_id)
                         .then(() => {
                             GET('/api/user/' + userId)
                                 .then((data) => {
-                                console.log('get user/uid data that comes back', data)
-                                render(data);
+                                    render(data);
                             })
                         })
                         .catch((err) => {
@@ -462,7 +450,7 @@
 
  // view other users (to hopefully follow)
  		if (location.pathname === '/explore.html') {
-            const userId = localStorage.getItem('user_id')
+                   const userId = localStorage.getItem('user_id')
             const first_name = localStorage.getItem('fname');
             GET('/api/users')
                 .then((posts) => {
@@ -472,21 +460,21 @@
             function render(posts) {
                 const accounts = posts.users
 
-                console.log('posts', posts) // obj of array of objs
-                console.log('accounts ', accounts) // arr of objs
-                console.log('accounts[0]', accounts[0]) // obj of one photo & user info
-                console.log('accounts[11].id ', accounts[11].id) // user id
+                // console.log('posts', posts) // obj of array of objs
+                // console.log('accounts ', accounts) // arr of objs
+                // console.log('accounts[0]', accounts[0]) // obj of one photo & user info
+                // console.log('accounts[11].id ', accounts[11].id) // user id
 
                 for (const post in accounts) {
-                    console.log('elem in account: ',post) // index in array
-                    console.log('acct[post] :', accounts[post]) // obj of one photo
+                    // console.log('elem in account: ',post) // index in array
+                    // console.log('acct[post] :', accounts[post]) // obj of one photo
                     const uid = accounts[post].id
-                    console.log('uid', uid)
+                    // console.log('uid', uid)
 
 
                     for (let i = 0; i < accounts.length; i++ ) {
                         const group = Object.assign(uid, accounts.post)
-                        console.log(group)
+                        // console.log(group)
 
                     }
 
@@ -512,9 +500,9 @@
                     }
                 ), {})
 
-                console.log('preview :',preview)
-                console.log('my account? ',preview[userId])
-                console.log('accounts :',accounts)
+                // console.log('preview :',preview)
+                // console.log('my account? ',preview[userId])
+                // console.log('accounts :',accounts)
 
                 const container = document.querySelector('.js-feed');
                 container.innerHTML = "";
@@ -523,8 +511,8 @@
                     if (preview.hasOwnProperty(feed) && preview[feed] !== preview[userId]) {
                         const userRows = preview[feed];
                         console.log('user rows :',userRows);
-                        console.log('UR[0] fn :',userRows[0].firstName);
-                        console.log('UR[0] image_url :',userRows[0].image);
+                        // console.log('UR[0] fn :',userRows[0].firstName);
+                        // console.log('UR[0] image_url :',userRows[0].image);
 
                         const fname = document.querySelector('.fname');
                         fname.innerHTML = `${first_name}`;
@@ -538,7 +526,7 @@
             <img class="ui avatar image" src="${userRows[0].profilePic}"> <strong>${userRows[0].firstName} </strong>
          </div>
          <span class="right floated">
-             <button class="ui button primary">Unfollow</button>
+             <button class="ui button primary js-follow-btn">Follow</button>
          </span>
     </div>
     <br><br>
@@ -571,17 +559,81 @@
 </div>
                 `;
                         container.appendChild(card);
+
+
+                        const followBtn = card.querySelector('.js-follow-btn');
+                        followBtn.addEventListener('click', (e) => {
+                            const followed_id = feed;
+                            console.log('follow button clicked')
+                            console.log('feed id', feed)
+
+                            if (followBtn.innerHTML === "Follow") {
+                                POST('/api/' + userId + '/follow/' + followed_id, {
+                                    user_id: userId,
+                                    followed_id: followed_id
+                                    // ^^ works yay!!!
+                                })
+                                .then((data) => {
+                                    console.log('1');
+                                    followBtn.innerHTML = "Unfollow";
+                                })
+                            }
+                            else if (followBtn.innerHTML === "Unfollow") {
+                                DELETE('/api/' + userId + '/unfollow/' + followed_id, {
+                                    user_id: userId,
+                                    followed_id: followed_id
+                                })
+                                .then((data) => {
+                                    console.log('2');
+                                    followBtn.innerHTML = "Follow";
+                                })
+                            }
+
+                        }) // followBtn event listener
+
+                        GET('/api/' + userId + '/followedusers')
+                            .then((posts) => {
+                                const ar = posts.followed_users; 
+                                    console.log('followed users: ', posts) // obj
+                                    console.log('array? :', ar) // array
+                                const magicFollowObj = ar.reduce((hash, followed_users) => Object.assign(
+                                    hash, {
+                                        [followed_users.follow_id]: (hash[followed_users.follow_id] || []).concat([followed_users])
+                                    }
+                                ), {})
+
+                                        console.log('magic :',magicFollowObj);
+                                        // return magicFollowObj;
+                                        console.log('feed in scope ?', feed);
+                                        console.log('magicFollowObj in scope? ', magicFollowObj);
+                                        // console.log('userRows[0].id -- user of given user', userRows[0].id )
+
+                                for (user in magicFollowObj) {
+
+                                    if (feed === user) {
+                                        followBtn.innerHTML = "Unfollow";
+                                    }
+                                    console.log('one user in magicFollowObj // curr following', user)
+                                }  // for user in magic loop
+                                    
+                        })  //GET
+
                     }   // if
+
                 }  // for / in
             } //render
 
-			const signout = document.querySelector('.js-logout');
-	        signout.addEventListener('click', (e) => {
-	            e.preventDefault();
-	            logout();
 
-	        });
- 		}
+
+            const signout = document.querySelector('.js-logout');
+            signout.addEventListener('click', (e) => {
+                e.preventDefault();
+                logout();
+
+            });
+
+ 		} // explore.html
+
 
     
 
