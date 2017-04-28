@@ -85,7 +85,6 @@ instaApp.getFollowed = (user_id) => {
     // return instaApp.db.run(`INSERT INTO activity (user_id, image_url, descr) values (${user_id}, $image_url, $descr)`, req)
 // };
 instaApp.createPost = (user_id, req) => {
-    // return instaApp.db.run(`INSERT INTO posts (user_id, activity_id, image_url, descr) values (${user_id}, 1, ${image_url}, ${descr})`)
     return instaApp.db.run(`INSERT INTO posts (user_id, activity_id, image_url, descr) values (?,?,?,?)`, [user_id, 1, req.image_url, req.descr])
 };
 
@@ -95,9 +94,6 @@ instaApp.followUser = (user_id, followed_id) => {
 };
 
 // Edit a post
-// instaApp.updatePost = (post_id, updatedText) => {
-//     return instaApp.db.run(`UPDATE activity SET descr = ${updatedText} WHERE ID = ${post_id}`)
-// };
 instaApp.updatePost = (user_id, post_id, newCaption) => {
     return instaApp.db.run(`UPDATE posts SET descr = "${newCaption}" WHERE post_id = ${post_id} and user_id = ${user_id}`)
 };

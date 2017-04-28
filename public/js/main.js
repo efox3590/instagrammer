@@ -317,17 +317,21 @@
         addbtn.addEventListener('click', (e) => {
             e.preventDefault();
             let fbImg = localStorage.getItem('img_url');
-            // console.log('fbImg :', fbImg);
 
             POST('/api/' + userId + '/post', {
             	image_url: fbImg,
             	descr: text.value
             })
-            .then((data) => {
-            	// console.log('new post data :', data);
-                console.log('\nabout to refresh\n')
-                window.location.reload();
+             .then(() => {
+                GET('/api/user/' + userId)
+                    .then((data) => {
+                    console.log('get user/uid data that comes back', data)
+                    render(data);
+                })
             })
+            .catch((e) => {
+                 alert(e)
+            });
         });
 
         const userId = localStorage.getItem('user_id')
@@ -403,14 +407,16 @@
                     console.log('value', newCaption.value)
 
                         PUT('/api/' + userId + '/update/' + post_id, { descr: newCaption.value })
-                            .then((data) => {
-                                console.log('in put call. and this is the data :', data)
-                                window.location.reload();
-                                // render(data);
+                            .then(() => {
+                                GET('/api/user/' + userId)
+                                    .then((data) => {
+                                    console.log('get user/uid data that comes back', data)
+                                    render(data);
+                                })
                             })
-                            // .catch((e) => {
-                            //  alert(e)
-                            // });
+                            .catch((err) => {
+                                console.log(err);
+                            })
                     }
                 }); // newCaption event listener
 
@@ -426,13 +432,16 @@
                     const {post_id} = postItem;
 
                     DELETE('/api/' + userId + '/delete/' + post_id)
-                        .then((data) => {
-                            window.location.reload();
-                            // render(data);
+                        .then(() => {
+                            GET('/api/user/' + userId)
+                                .then((data) => {
+                                console.log('get user/uid data that comes back', data)
+                                render(data);
+                            })
                         })
-                        // .catch((e) => {
-                            //  alert(e)
-                            // });
+                        .catch((err) => {
+                            console.log(err);
+                        })
                 })  // delete icon event listener
 
             } // for /of loop
