@@ -69,6 +69,7 @@ instaApp.getFollowed = (user_id) => {
     return instaApp.db.all(`SELECT users.first_name AS user_fname,
                                    users.last_name AS user_lname,
                                    users.profile_pic AS profile_pic,
+                                   followers.follow_id,
                                    posts.post_id, 
                                    posts.image_url AS image,
                                    posts.descr AS description,
@@ -90,7 +91,7 @@ instaApp.createPost = (user_id, req) => {
 
 // Follow a user
 instaApp.followUser = (user_id, followed_id) => {
-    return instaApp.db.run(`INSERT INTO followers (id, followed_id) VALUES (${user_id}, ${followed_id})`)
+    return instaApp.db.run(`INSERT INTO followers (id, follow_id) VALUES (${user_id}, ${followed_id})`)
 };
 
 // Edit a post
@@ -104,8 +105,8 @@ instaApp.deletePost = (user_id, post_id) => {
 };
 
 // Unfollow a user
-instaApp.unfollow = (user_id, followed_id) => {
-    return instaApp.db.run(`DELETE FROM followers WHERE id = ${user_id} AND followed_id = ${followed_id}`)
+instaApp.unfollowUser = (user_id, followed_id) => {
+    return instaApp.db.run(`DELETE FROM followers WHERE id = ${user_id} AND follow_id = ${followed_id}`)
 };
 
 module.exports = instaApp;
