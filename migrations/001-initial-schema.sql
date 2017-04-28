@@ -29,9 +29,9 @@ CREATE TABLE posts(
 -- 3 = comment
 
 INSERT into users (first_name, last_name, email, password, profile_pic) VALUES ('Emily', 'fox', 'emily@nycda.com', 'testing1234', 'https://s-media-cache-ak0.pinimg.com/736x/c9/02/f7/c902f783dcf11e4f376e884694710d2c.jpg');
-INSERT into users (first_name, last_name, email, password, profile_pic) VALUES ('Linda', 'yu', 'linda@nycda.com', 'chicken', '../assets/domo.png');
+INSERT into users (first_name, last_name, email, password, profile_pic) VALUES ('Linda', 'Domo', 'linda@nycda.com', 'chicken', '../assets/domo.png');
 INSERT into users (first_name, last_name, email, password, profile_pic) VALUES ('Taq', 'karim', 'taq@nycda.com', 'taqrules', 'https://static.pexels.com/photos/60224/pexels-photo-60224.jpeg');
-INSERT into users (first_name, last_name, email, password, profile_pic) VALUES ('Baba', 'k', 'baba@nycda.com', 'ilovedrake', 'http://www.celebrity-cell.com/wp-content/uploads/2017/01/drake1.jpg');
+INSERT into users (first_name, last_name, email, password, profile_pic) VALUES ('Babs', 'kale', 'baba@nycda.com', 'ilovedrake', 'http://www.celebrity-cell.com/wp-content/uploads/2017/01/drake1.jpg');
 
 INSERT into followers (id, followed_id) VALUES (1, 2);
 INSERT into followers (id, followed_id) VALUES (1, 3);

@@ -120,12 +120,13 @@ router.post('/:user_id/post', (req, res, next) => {
  //    }
  //    req.body = args;
     const user_id = parseInt(req.params.user_id, 10);
-
 	instaApp.createPost(user_id, req.body)
         .then((data) => {
             console.log('this is the data in creatPost func:',data)
             res.header('Content-Type', 'application/json');
-            res.send({ post: data });
+            res.send({ 
+                post: data 
+            });
         })
         .catch((e) => {
         	console.log(e)
