@@ -100,7 +100,7 @@
 
 				document.querySelector('.js-reg-pw1').focus();
 			}  // end if
-			else {	//can be deleted. just for testing
+			else {	
 				console.log('passwords match');
 				console.log('pw1 is :', pw1.value);
 				console.log('pw2 is :', pw2.value);
@@ -159,6 +159,9 @@
         const userId = localStorage.getItem('user_id');
         const first_name = localStorage.getItem('fname');
         
+        const fname = document.querySelector('.fname');
+        fname.innerHTML = `${first_name}`;
+
         GET('/api/' + userId + '/followedusers')
             .then((posts) => {
                 render(posts);
@@ -169,15 +172,9 @@
             container.innerHTML = "";
 
             for (const feed of posts.followed_users) {
-                    // console.log('all follow feed :', posts.followed_users);
-                    // console.log('single feed item :', feed);
                 const card = document.createElement('div');
                 card.classList.add('ui', 'centered', 'card');
                 const time = moment(feed.timestamp).fromNow();
-                const fname = document.querySelector('.fname');
-                    // console.log('current user is :', userId);
-                    // console.log('fname current user is :', first_name)
-                fname.innerHTML = `${first_name}`;
                 
                 card.innerHTML = `
   <div class="content">
@@ -193,26 +190,17 @@
     </div>
     </br>
     <span class="right floated">
-      <i class="heart red outline icon js-heart"></i>
+      <i class="heart red outline icon js-heart-${feed.post_id}"></i>
     </span>
-    <i class="comment icon"></i>
   </div>
-  <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="comment icon"></i>
-      <input type="text" placeholder="Add Comment...">
-    </div>
-  </div>`;
+  `;
                 container.appendChild(card);
 
-        const heart = document.querySelector('.js-heart');
+        const heart = document.querySelector(`.js-heart-${feed.post_id}`);
         heart.addEventListener('click', (e) => {
             e.preventDefault();
-            // heart.classList.add('red', 'js-red-heart');
-            // heart.classList.remove('outline', 'js-empty-heart');
             heart.classList.toggle('outline');
         });
-                
             }  // for / of
         } // render
 
@@ -280,7 +268,7 @@
 
         uploadFiles('.js-fileSelect', '.js-fileElem', (files) => {
             filesToUpload = filesToUpload.concat(Array.from(files));
-            console.log('files to upload :',filesToUpload)
+            // console.log('files to upload :',filesToUpload)
             if (!storageRef) {
                 throw new Error('Storage Ref not set!');
             }
@@ -294,7 +282,7 @@
             });
 
             Promise.all(fileUploads).then((items) => {
-                console.log('snapshot.downloadURL :',items);
+                // console.log('snapshot.downloadURL :',items);
                 localStorage.setItem('img_url', items[0])
                 filesToUpload = [];
 
@@ -332,6 +320,9 @@
 
         const userId = localStorage.getItem('user_id')
         const first_name = localStorage.getItem('fname');
+        const fname = document.querySelector('.fname');
+        fname.innerHTML = `${first_name}`;
+
         GET('/api/user/' + userId)
         .then((data) => {
             render(data);
@@ -354,8 +345,8 @@
                 const profile_pic = postItem.profile_pic;
                 // const time = moment(postItem.TimeStamp).format('dddd, MMMM DD, YYYY h:mm a');
                 const time = moment(postItem.TimeStamp).fromNow();
-                const fname = document.querySelector('.fname');
-				fname.innerHTML = `${first_name}`;
+    //             const fname = document.querySelector('.fname');
+				// fname.innerHTML = `${first_name}`;
                 div.innerHTML = `
 
 <div class="content">
@@ -370,22 +361,13 @@
     </input>
     <span class="right floated">
       <i class="heart outline red icon js-heart"></i>
-      <!-- 17 likes -->
     </span>
-  <!--   <i class="comment icon"></i>
-    3 comments -->
   </div>
    <div class="extra content">
-    <div class="ui large transparent left icon input">
-      <i class="comment icon"></i>
-      <input placeholder="Add Comment..." type="text" class="js-adm-comment">
-    </div>
-      <div class="extra content">
       <span class="right floated mods">
       	<i class="edit icon js-edit"></i>
-	    <i class="trash outline icon js-delete"></i>
-	  </span>  
-	</div>
+        <i class="trash outline icon js-delete"></i>
+      </span>  
   </div>
 </div> 
 	
@@ -450,8 +432,11 @@
 
  // view other users (to hopefully follow)
  		if (location.pathname === '/explore.html') {
-                   const userId = localStorage.getItem('user_id')
+            const userId = localStorage.getItem('user_id')
             const first_name = localStorage.getItem('fname');
+            const fname = document.querySelector('.fname');
+            fname.innerHTML = `${first_name}`;
+            
             GET('/api/users')
                 .then((posts) => {
                     render(posts);
@@ -459,50 +444,11 @@
 
             function render(posts) {
                 const accounts = posts.users
-
-                // console.log('posts', posts) // obj of array of objs
-                // console.log('accounts ', accounts) // arr of objs
-                // console.log('accounts[0]', accounts[0]) // obj of one photo & user info
-                // console.log('accounts[11].id ', accounts[11].id) // user id
-
-                for (const post in accounts) {
-                    // console.log('elem in account: ',post) // index in array
-                    // console.log('acct[post] :', accounts[post]) // obj of one photo
-                    const uid = accounts[post].id
-                    // console.log('uid', uid)
-
-
-                    for (let i = 0; i < accounts.length; i++ ) {
-                        const group = Object.assign(uid, accounts.post)
-                        // console.log(group)
-
-                    }
-
-
-                } // for /in 
-
-
-// const arrayToObject = (array, keyField) =>
-//    array.reduce((obj, item) => {
-//      obj[item[keyField]] = item
-//      return obj
-//    }, {})
-
-// const peopleObject = arrayToObject(peopleArray, "id")
-// console.log(peopleObject[idToSelect])
-
-
-
-
                 const preview = accounts.reduce((hash, users) => Object.assign(
                     hash, {
                         [users.id]: (hash[users.id] || []).concat([users])
                     }
                 ), {})
-
-                // console.log('preview :',preview)
-                // console.log('my account? ',preview[userId])
-                // console.log('accounts :',accounts)
 
                 const container = document.querySelector('.js-feed');
                 container.innerHTML = "";
@@ -510,13 +456,6 @@
                 for (const feed in preview) {
                     if (preview.hasOwnProperty(feed) && preview[feed] !== preview[userId]) {
                         const userRows = preview[feed];
-                        console.log('user rows :',userRows);
-                        // console.log('UR[0] fn :',userRows[0].firstName);
-                        // console.log('UR[0] image_url :',userRows[0].image);
-
-                        const fname = document.querySelector('.fname');
-                        fname.innerHTML = `${first_name}`;
-
                         const card = document.createElement('div');
                         card.classList.add('ui', 'card');
                         card.innerHTML = `
@@ -564,27 +503,22 @@
                         const followBtn = card.querySelector('.js-follow-btn');
                         followBtn.addEventListener('click', (e) => {
                             const followed_id = feed;
-                            console.log('follow button clicked')
-                            console.log('feed id', feed)
 
                             if (followBtn.innerHTML === "Follow") {
                                 POST('/api/' + userId + '/follow/' + followed_id, {
                                     user_id: userId,
                                     followed_id: followed_id
-                                    // ^^ works yay!!!
                                 })
                                 .then((data) => {
-                                    console.log('1');
                                     followBtn.innerHTML = "Unfollow";
                                 })
                             }
-                            else if (followBtn.innerHTML === "Unfollow") {
+                            if (followBtn.innerHTML === "Unfollow") {
                                 DELETE('/api/' + userId + '/unfollow/' + followed_id, {
                                     user_id: userId,
                                     followed_id: followed_id
                                 })
                                 .then((data) => {
-                                    console.log('2');
                                     followBtn.innerHTML = "Follow";
                                 })
                             }
@@ -593,27 +527,22 @@
 
                         GET('/api/' + userId + '/followedusers')
                             .then((posts) => {
-                                const ar = posts.followed_users; 
-                                    console.log('followed users: ', posts) // obj
-                                    console.log('array? :', ar) // array
-                                const magicFollowObj = ar.reduce((hash, followed_users) => Object.assign(
+                                const arr = posts.followed_users; 
+                                const magicFollowObj = arr.reduce((hash, followed_users) => Object.assign(
                                     hash, {
                                         [followed_users.follow_id]: (hash[followed_users.follow_id] || []).concat([followed_users])
                                     }
                                 ), {})
 
-                                        console.log('magic :',magicFollowObj);
-                                        // return magicFollowObj;
-                                        console.log('feed in scope ?', feed);
-                                        console.log('magicFollowObj in scope? ', magicFollowObj);
-                                        // console.log('userRows[0].id -- user of given user', userRows[0].id )
-
                                 for (user in magicFollowObj) {
+                                    if (user === 10) {
+                                        user.profile_pic = 'http://www.jigzone.com/p/jz/jzG/George_Washington.jpg';
+                                    }
 
                                     if (feed === user) {
                                         followBtn.innerHTML = "Unfollow";
                                     }
-                                    console.log('one user in magicFollowObj // curr following', user)
+                                    // console.log('one user in magicFollowObj // curr following', user)
                                 }  // for user in magic loop
                                     
                         })  //GET
@@ -622,8 +551,6 @@
 
                 }  // for / in
             } //render
-
-
 
             const signout = document.querySelector('.js-logout');
             signout.addEventListener('click', (e) => {
@@ -634,14 +561,10 @@
 
  		} // explore.html
 
-
-    
-
-
 	function logout() {
 		GET('/auth/logout')
 			.then((data) => {
-				console.log('logout data :',data);
+				// console.log('logout data :',data);
 				localStorage.setItem('user_id', null);
 				window.location.href = '/'
 			})
